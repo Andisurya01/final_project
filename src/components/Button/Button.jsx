@@ -6,7 +6,11 @@ const Button = ({ title }) => {
     // </div>
 
     //update button responsive
-    <button className="w-50 pt-3 pr-40 pb-3 pl-40 bg-DARKBLUE05 text-white rounded-xl">
+    <button
+      class="w-THREESEVEN pt-2.5 pb-2.5 pl-3 rounded-xl border-2 bg-DARKBLUE05 text-white text-sm"
+      title={title}
+      onClick={onClick}
+    >
       {title}
     </button>
   );
