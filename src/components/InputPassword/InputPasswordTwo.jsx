@@ -136,7 +136,7 @@ const InputTwo = () => {
           />
         </div>
 
-        <div className={`${successGreen} ml-LEFT mt-8 `}>
+        <div className={`${successGreen} ml-left mt-8 `}>
           <AllertReset type="success" message={"Reset password berhasil"} />
         </div>
       </div>

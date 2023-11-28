@@ -26,7 +26,7 @@ export default {
       margin: {
         TOP: "8px",
         RIGHT: "332px",
-        rightt: "500px",
+        left: "150px",
         right: "450px",
         LEFT: "100px",
         LEFTWR: "113px",
