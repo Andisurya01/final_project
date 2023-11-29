@@ -12,7 +12,7 @@ function App() {
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/Register" element={<Register />}></Route>
           <Route path="/ResetTautan" element={<ResetTautan />}></Route>
-          <Route path="/Reset" element={<Reset />}></Route>
+          <Route path="/Reset/:resetToken" element={<Reset />}></Route>
         </Routes>
       </BrowserRouter>
     </>
