@@ -4,11 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
+        DARKBLUE06: "rgba(32, 34, 68, 0.50)",
         DARKBLUE05: "#6148FF",
         DARKBLUE04: "#6148FF.35",
         DARKBLUE03: "#489CFF",
         DARKBLUE02: "#D0B7E6",
         DARKBLUE01: "#E2D4F0",
+
+        LIGHTBLUE: "#EBF3FC",
+        
+        DARKGREY: "#B4BDC4",
+        LIGHTGREY: "#D9D9D9",
 
         LIMEGREEN05: "#AA9B87",
         LIMEGREEN04: "#D4C2A8",
