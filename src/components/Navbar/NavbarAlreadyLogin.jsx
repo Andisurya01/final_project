@@ -1,7 +1,5 @@
 import logoDummy from "../../assets/img/logo_dummy.png"
 import { Icon } from '@iconify/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faListUl } from '@fortawesome/free-solid-svg-icons'
 
 const NavbarAlreadyLogin = () => {
     return (
@@ -20,7 +18,7 @@ const NavbarAlreadyLogin = () => {
             <div className='flex gap-4 ml-auto'>
                 <button className='items-center justify-center'>
                     <div className="bg-DARKBLUE03 flex items-center justify-center gap-2 py-1 px-5 rounded-lg">
-                        <FontAwesomeIcon icon={faListUl} color="white" />
+                        <Icon icon="tabler:list" color="white"/>
                         <p className="text-white font-medium">Kelas</p>
                     </div>
                 </button>

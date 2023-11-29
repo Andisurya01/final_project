@@ -1,7 +1,5 @@
 import logoDummy from "../../assets/img/logo_dummy.png"
 import { Icon } from '@iconify/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRightToBracket } from '@fortawesome/free-solid-svg-icons'
 
 const NavbarNotLogin = () => {
     return (
@@ -18,7 +16,7 @@ const NavbarNotLogin = () => {
                 </div>
             </div>
             <button className='flex gap-2 items-center justify-center my-auto ml-auto'>
-                <FontAwesomeIcon icon={faArrowRightToBracket} color="white"/>
+                <Icon icon="ic:round-login" color="white"/>
                 <p className='text-white font-medium'>Masuk</p>
             </button>
         </div>
