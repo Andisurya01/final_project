@@ -9,6 +9,12 @@ import CourseTracking from "./pages/CourseTracking";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import Verifikasi from "./pages/Verifikasi";
+import CourseDetailUnlock from "./pages/CourseDetailUnlock";
+import Payment from "./pages/Payment";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import Notification from "./pages/Notification";
+import Account from "./pages/Account";
+
 function App() {
   return (
     <>
@@ -26,6 +32,11 @@ function App() {
           <Route path="/courses/detail" element={<CourseDetail />}>
             {" "}
           </Route>
+          <Route path='/courses/detail/unlock' element={<CourseDetailUnlock />}> </Route>
+          <Route path='/payment' element={<Payment />}> </Route>
+          <Route path='/payment/success' element={<PaymentSuccess />}> </Route>
+          <Route path='/notification' element={<Notification />}> </Route>
+          <Route path='/users' element={<Account />}> </Route>
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/Register" element={<Register />}></Route>
           <Route path="/ResetTautan" element={<ResetTautan />}></Route>
