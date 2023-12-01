@@ -1,10 +1,9 @@
-import logoDummy from "../../assets/img/logo_dummy.png"
 import { Icon } from '@iconify/react';
 
 const NavbarNotLogin = () => {
     return (
         <div className="bg-DARKBLUE05 flex px-20 h-[100px]">
-            <img src={logoDummy} className="my-auto w-[125px] h-[30px]" alt="logo belajar" />
+            <h1 className="my-auto w-[125px] h-[30px] text-3xl text-white font-bold">CraftIQ</h1>
             <div className="my-auto">
                 <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl">
                     <div className="py-3 px-6 flex gap-8">
