@@ -1,11 +1,30 @@
+import React from "react";
+import {
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    Typography,
+  } from "@material-tailwind/react";
+
 import NavbarAlreadyLogin from "../components/Navbar/NavbarAlreadyLogin"
 import { Icon } from '@iconify/react';
 import Footer from "../components/Footer/Footer";
 import CourseTitle from "../components/CourseDetail/CourseTitle";
 import ProgressBar from "../components/CourseDetail/CourseTracklist/ProgressBar";
 import Subject from "../components/CourseDetail/CourseTracklist/Subject";
+import Card from "../components/CourseCard/Card";
+
+import uiux from "../assets/img/uiux.jpg"
+
+import { useNavigate } from "react-router-dom"
 
 const CourseDetail = () => {
+    const [open, setOpen] = React.useState(false);
+ 
+    const handleOpen = () => setOpen(!open);
+
+    const navigate = useNavigate()
+
     return (
         <section>
             <NavbarAlreadyLogin />
@@ -65,7 +84,9 @@ const CourseDetail = () => {
                                 subject={"Color Palette"}
                                 />
                             </div>
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY"/>
+                            <button onClick={handleOpen}>
+                                <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY"/>
+                            </button>
                         </div>
                         <hr />
                         <div className="flex justify-between items-center justify-center my-2">
@@ -137,8 +158,20 @@ const CourseDetail = () => {
             </div>
             <div className="px-20 py-10">
                 <div className="px-10">
-                    <div className="relative w-[700px] h-[327px] rounded-3xl flex justify-center items-center">
-                        <iframe className="absolute w-full h-full rounded-3xl" width="560" height="315" src="https://www.youtube.com/embed/ixOd42SEUF0?si=9VLW7X-VSPWqTnAk&amp;controls=0" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <div className="relative w-[700px] h-[327px] bg-DARKGREY02 rounded-3xl flex flex-col justify-center">
+                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <div className="bg-DARKBLUE05 rounded-full w-16 h-16 flex items-center justify-center">
+                                <Icon icon="fluent:filmstrip-play-24-regular" className="text-white text-4xl"/>
+                            </div>
+                        </div>
+                        <div className="absolute bottom-4 right-4 flex gap-2">
+                            <div className="bg-white rounded-full px-4 py-1">
+                                <p className="text-DARKBLUE03 font-medium">Kelas Lainnya</p>
+                            </div>
+                            <div className="bg-DARKBLUE05 rounded-full px-4 py-1">
+                                <p className="text-white font-medium">Next</p>
+                            </div>
+                        </div>
                     </div>
                     <div className="py-10">
                         <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
@@ -167,6 +200,39 @@ const CourseDetail = () => {
                     </div>
                 </div>
             </div>
+            <Dialog open={open} handler={handleOpen}>
+                <div className="flex justify-end">
+                    <button className="px-2 py-2" onClick={handleOpen}>
+                        <Icon icon="material-symbols:close" className="text-2xl"/>
+                    </button>
+                </div>
+                <DialogHeader className="grid place-content-center py-5">
+                    <Typography variant="h3" className="text-center">
+                        Selangkah lagi menuju
+                    </Typography>
+                    <Typography variant="h3" className="text-center text-DARKBLUE05">
+                        Kelas Premium
+                    </Typography>
+                </DialogHeader>
+                <DialogBody className="grid place-items-center gap-4">
+                    <Card picture={uiux}
+                    course={"UI/UX Design"} 
+                    rating={"4.7"}
+                    topic={"Belajar Web Designer dengan Figma"}
+                    author={"Angela Doe"}
+                    level={"Intermediate Level"}
+                    module={"10 Modul"}
+                    time={"120 Menit"}
+                    price={"Rp250.000"}/>
+
+                    <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>
+                        <div className="bg-DARKBLUE05 rounded-full py-3 flex justify-center items-center gap-2">
+                            <p className="text-white font-bold">Beli Sekarang</p>
+                            <Icon icon="carbon:next-filled" className="text-white text-2xl"/>
+                        </div>
+                    </button>
+                </DialogBody>
+            </Dialog>
             <Footer />
         </section>
     )
