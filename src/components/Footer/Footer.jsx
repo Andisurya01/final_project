@@ -30,7 +30,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div>
-                    <h1 className="mb-4 text-5xl font-bold">Belajar</h1>
+                    <h1 className="mb-4 text-5xl font-bold">CraftIQ</h1>
                     <p>&copy; Binar Academy, 2023</p>
                     <p><small>Develop by Kelompok 2 FSW1 X AND2</small></p>
                     <p><small>Kampus Merdeka Batch 5</small></p>
