@@ -14,7 +14,11 @@ import FilterCourseHome from "../components/Filter/FilterCourseHome"
 import Card from "../components/CourseCard/Card"
 import Footer from "../components/Footer/Footer"
 
+import { useNavigate } from "react-router-dom"
+
 const Home = () => {
+    const navigate = useNavigate()
+
     return (
         <section className="">
             <NavbarNotLogin />
@@ -36,7 +40,7 @@ const Home = () => {
             <div className="px-32 py-5 h-full">
                 <div className="pb-4 flex justify-between">
                     <p className="text-xl font-bold">Kursus Populer</p>
-                    <a href="#" className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</a>
+                    <button onClick={() => navigate("/courses")} className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
                 </div>
 
                 <div className= "pb-4 flex justify-between">
