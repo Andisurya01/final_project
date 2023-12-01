@@ -7,7 +7,11 @@ import Card from "../components/CourseCard/Card"
 import FreeCard from "../components/CourseCard/FreeCard"
 import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 
+import { useNavigate } from "react-router-dom"
+
 const Courses = () => {
+    const navigate = useNavigate()
+
     return (
         <section className="">
             <NavbarAlreadyLogin />
@@ -58,23 +62,28 @@ const Courses = () => {
                         <FilterPlanProgress title={"Kelas Gratis"}/>
                     </div>
                     <div className="flex flex-wrap gap-10">
+                    <button onClick={() => navigate("/courseTrackings")}>
                     <Card picture={uiux}
-                    course={"UI/UX Design"} 
-                    rating={"4.7"}
-                    topic={"Belajar Web Designer dengan Figma"}
-                    author={"Angela Doe"}
-                    level={"Intermediate Level"}
-                    module={"10 Modul"}
-                    time={"120 Menit"}
-                    price={"Rp250.000"}/>
-                    <FreeCard picture={uiux}
-                    course={"UI/UX Design"} 
-                    rating={"4.7"}
-                    topic={"Membuat Grid System dengan Figma"}
-                    author={"Simon Doe"}
-                    level={"Advanced Level"}
-                    module={"10 Modul"}
-                    time={"100 Menit"}/>
+                        course={"UI/UX Design"} 
+                        rating={"4.7"}
+                        topic={"Belajar Web Designer dengan Figma"}
+                        author={"Angela Doe"}
+                        level={"Intermediate Level"}
+                        module={"10 Modul"}
+                        time={"120 Menit"}
+                        price={"Rp250.000"}/>
+                    </button>
+                    <button onClick={() => navigate("/courseTrackings")}>
+                        <FreeCard picture={uiux}
+                        course={"UI/UX Design"} 
+                        rating={"4.7"}
+                        topic={"Membuat Grid System dengan Figma"}
+                        author={"Simon Doe"}
+                        level={"Advanced Level"}
+                        module={"10 Modul"}
+                        time={"100 Menit"}
+                    />
+                    </button>
                     </div>
                 </div>
                 </div>
