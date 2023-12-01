@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+
+import withMT from "@material-tailwind/react/utils/withMT";
+
+export default withMT({
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
@@ -13,6 +16,7 @@ export default {
 
         LIGHTBLUE: "#EBF3FC",
         
+        DARKGREY02: "#3C3C3C",
         DARKGREY: "#B4BDC4",
         LIGHTGREY: "#D9D9D9",
 
@@ -40,9 +44,9 @@ export default {
         MiNLEFT: "-500px",
       },
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
+        sans: ["Poppins", "sans-serif"],
       },
     },
   },
   plugins: [],
-};
+});
