@@ -1,14 +1,28 @@
 import Button from "../Button/Button";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SERVER_URL } from "../../lib/constants.js";
 
 const RegisterForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const register = () => {
-    navigate("/Verifikasi", { name, email, phone, password });
+  const register = async () => {
+    console.log({name, email, phone, password})
+
+    await axios.post(
+        `${SERVER_URL}/auth/register`,
+        JSON.stringify({ name, email, phone, password }),
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+    )
+
+    navigate("/Verifikasi", { state: { formData: { name, email, phone, password }}});
   };
 
   const navigate = useNavigate();

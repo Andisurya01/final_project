@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import AllertReset from "../Allert/AllertReset";
+import axios from "axios";
+import { SERVER_URL } from "../../lib/constants.js";
 
 const VerifikasiOtp = () => {
   const otpOne = useRef(null);
@@ -100,7 +102,7 @@ const VerifikasiOtp = () => {
     const user = { name, email, phone, password, verified: true };
   }
 
-  const cl = () => {
+  const cl = async () => {
     if (
       otpOne.current.value.length != 0 &&
       otpTwo.current.value.length != 0 &&
@@ -109,6 +111,21 @@ const VerifikasiOtp = () => {
       otpFive.current.value.length != 0 &&
       otpNine.current.value.length != 0
     ) {
+      const otp = otpOne.current?.value + otpTwo.current?.value + otpThree.current?.value + otpFor.current?.value + otpFive.current?.value + otpNine.current?.value
+
+      await axios.post(
+          `${SERVER_URL}/auth/register/otp`,
+          JSON.stringify({
+            ...location.state.formData,
+            otp
+          }),
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+      )
+
       setSuccessGreen("block");
       setWarningRed("hidden");
     } else {
