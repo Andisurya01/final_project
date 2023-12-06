@@ -1,5 +1,5 @@
 import ButtonReset from "../Button/ButtonReset";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import React, { useRef, useEffect, useState } from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import AllertReset from "../Allert/AllertReset";
@@ -16,6 +16,8 @@ const VerifikasiOtp = () => {
   const [sendSeconds, setSendSeconds] = useState("hidden");
   const [warningRed, setWarningRed] = useState("hidden");
   const [successGreen, setSuccessGreen] = useState("hidden");
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleInput = (ref, nextRef) => {
@@ -91,6 +93,13 @@ const VerifikasiOtp = () => {
     setSendRepeat("hidden");
     setSendSeconds("block");
   };
+
+  const { name, email, phone, password } = location.state || {};
+
+  if (name && email && phone && password) {
+    const user = { name, email, phone, password, verified: true };
+  }
+
   const cl = () => {
     if (
       otpOne.current.value.length != 0 &&
@@ -103,7 +112,9 @@ const VerifikasiOtp = () => {
       setSuccessGreen("block");
       setWarningRed("hidden");
     } else {
+      navigate("/Register");
       setWarningRed("block");
+      setSuccessGreen("hidden");
     }
   };
 
@@ -115,7 +126,7 @@ const VerifikasiOtp = () => {
           ketik 6 digit kode yang dikirimkan ke <b>co****@gmail.com</b>
         </p>
       </div>
-      <div className="ml-20 mt-6">
+      <div className="ml-10 mt-6">
         <input
           type="number"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pr-2 pl-2 pb-1 pt-1 text-xs"
@@ -153,7 +164,7 @@ const VerifikasiOtp = () => {
           maxlength="1"
         />
       </div>
-      <div className="text-xs mt-7 ml-28">
+      <div className="text-xs mt-7">
         <strong className={`${sendRepeat} text-WARNING ml-24 `} onClick={send}>
           kirim ulang
         </strong>
@@ -164,10 +175,10 @@ const VerifikasiOtp = () => {
       <div className="mt-7">
         <ButtonReset title={"Simpan"} onClick={cl}></ButtonReset>
       </div>
-      <div className={`${warningRed} ml-40 mt-20 `}>
+      <div className={`${warningRed} ml-12 mt-20 `}>
         <AllertReset type="warning" message={"maaf kode OTP salah"} />
       </div>
-      <div className={`${successGreen} ml-40 mt-20 `}>
+      <div className={`${successGreen} ml-10 mt-20 `}>
         <AllertReset type="success" message={"Reset password berhasil"} />
       </div>
     </section>
