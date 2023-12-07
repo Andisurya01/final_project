@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar/Navbar"
 import Footer from "../components/Footer/Footer"
 import illustration from "../assets/img/illustration.png"
 
@@ -9,7 +8,6 @@ const PaymentSuccess = () => {
 
     return (
         <section>
-            <Navbar />
             <div className="bg-white px-20 py-10 h-48" style={{boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15"}}>
                 <div className="flex items-center justify-center">
                     <div className="rounded-xl bg-SUCCESS mt-7 py-3 w-[800px]">

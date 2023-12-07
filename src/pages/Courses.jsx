@@ -1,5 +1,4 @@
 import uiux from "../assets/img/uiux.jpg"
-import NavbarAlreadyLogin from "../components/Navbar/NavbarAlreadyLogin"
 import { Icon } from '@iconify/react';
 import Checkbox from "../components/Checkbox/Checkbox";
 import Footer from "../components/Footer/Footer"
@@ -14,7 +13,6 @@ const Courses = () => {
 
     return (
         <section className="">
-            <NavbarAlreadyLogin />
             <div className="bg-LIGHTBLUE px-32 py-10">
                 <div className="flex justify-between items-center justify-center mb-16">
                     <h1 className="text-2xl font-bold">Topik Kelas</h1>

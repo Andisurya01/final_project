@@ -6,7 +6,6 @@ import {
     Typography,
   } from "@material-tailwind/react";
 
-import NavbarAlreadyLogin from "../components/Navbar/NavbarAlreadyLogin"
 import { Icon } from '@iconify/react';
 import Footer from "../components/Footer/Footer";
 import CourseTitle from "../components/CourseDetail/CourseTitle";
@@ -48,7 +47,6 @@ const CourseDetailUnlock = () => {
                     </button>
                 </DialogBody>
             </Dialog>
-            <NavbarAlreadyLogin />
             <div className="bg-LIGHTBLUE px-20 py-10">
                 <button className="flex justify-center items-center gap-4">
                     <Icon icon="ph:arrow-left-bold" className="text-2xl" />

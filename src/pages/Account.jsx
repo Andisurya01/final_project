@@ -36,10 +36,13 @@ const Account = () => {
     const setPasswordButtonSize = isSetPasswordVisible ? 'text-lg font-black text-DARKBLUE05' : 'text-md'
     const historyButtonSize = isHistoryVisible ? 'text-lg font-black text-DARKBLUE05' : 'text-md'
 
+    const handleExit = () => {
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        navigate("/home")
+    }
 
     return (
         <section>
-            <NavbarAlreadyLogin />
             <div className="bg-LIGHTBLUE px-20 pt-10">
                 <button className="flex justify-center items-center gap-4 mb-10">
                     <Icon icon="ph:arrow-left-bold" className="text-2xl text-DARKBLUE05" />
@@ -191,7 +194,7 @@ const Account = () => {
                                 </div>
                             </button>
                             <hr className="w-80 h-0.5 bg-LIGHTGREY"/>
-                            <button onClick={() => navigate("/")}>
+                            <button onClick={handleExit}>
                                 <div className='flex items-center gap-4 py-4'>
                                     <Icon icon="ic:round-logout" className='text-DARKBLUE05 text-3xl' />
                                     <p className='font-medium'>Keluar</p>

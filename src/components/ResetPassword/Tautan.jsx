@@ -19,9 +19,9 @@ const Tautan = () => {
   };
   return (
     <section>
-      <div className="mt-30 ml-20">
+      <div className="mt-30 ">  
         <TitleReset titleMessage={"Reset Password"} />
-        <div className="pt-8 pr-0 pb-0 pl-0">
+        <div className="pt-8 pr-0 pb-0 ">
           <label className="text-sm/[6px] font-normal pb-1.5">
             Masukan Email Untuk Menerima Tautan
           </label>

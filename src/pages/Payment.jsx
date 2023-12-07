@@ -5,7 +5,6 @@ import {
   AccordionBody,
 } from "@material-tailwind/react";
 
-import Navbar from "../components/Navbar/Navbar"
 import { Icon } from '@iconify/react';
 import amex from "../assets/img/amex.png"
 import mc from "../assets/img/mc.png"
@@ -43,7 +42,6 @@ const Payment = () => {
  
     return (
         <section>
-            <Navbar />
             <div className="bg-white px-20 py-10 h-48" style={{boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15"}}>
                 <button className="flex justify-center items-center gap-4">
                     <Icon icon="ph:arrow-left-bold" className="text-2xl" />

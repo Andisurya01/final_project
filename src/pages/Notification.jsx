@@ -1,11 +1,9 @@
 import { Icon } from '@iconify/react';
-import NavbarAlreadyLogin from '../components/Navbar/NavbarAlreadyLogin';
 import Footer from "../components/Footer/Footer"
 
 const Notification = () => {
     return (
         <section>
-            <NavbarAlreadyLogin />
             <div className="bg-LIGHTBLUE px-20 pt-10">
                 <button className="flex justify-center items-center gap-4 mb-10">
                     <Icon icon="ph:arrow-left-bold" className="text-2xl text-DARKBLUE05" />

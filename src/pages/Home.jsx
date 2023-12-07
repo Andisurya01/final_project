@@ -7,7 +7,6 @@ import ios from "../assets/img/ios.jpg"
 import science from "../assets/img/datasc.jpg"
 
 // component
-import NavbarNotLogin from "../components/Navbar/NavbarNotLogin"
 import Header from "../components/Header/Header"
 import Frame from "../components/PhotoFrame/Frame"
 import FilterCourseHome from "../components/Filter/FilterCourseHome"
@@ -21,7 +20,6 @@ const Home = () => {
 
     return (
         <section className="">
-            <NavbarNotLogin />
             <Header />
             <div className="bg-LIGHTBLUE px-32 py-5 h-56">
                 <div className="pb-4 flex justify-between">
