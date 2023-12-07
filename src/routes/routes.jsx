@@ -1,6 +1,6 @@
 import { Route, createRoutesFromElements, createBrowserRouter } from "react-router-dom";
-import PrivateRoutes from "../../../final_project_Admin/src/routes/PrivateRoutes";
-import ProtectedRoutes from "../../../final_project_Admin/src/routes/ProtectedRoutes";
+import PrivateRoutes from "./PrivateRoutes";
+import ProtectedRoutes from "./ProtectedRoutes";
 import NotFound from "../pages/NotFound";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
