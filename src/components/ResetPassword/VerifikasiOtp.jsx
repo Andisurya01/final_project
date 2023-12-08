@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import AllertReset from "../Allert/AllertReset";
 import axios from "axios";
-import { SERVER_URL } from "../../lib/constants.js";
+import { SERVER_URL } from "../../lib/constants";
 
 const VerifikasiOtp = () => {
   const otpOne = useRef(null);
@@ -111,20 +111,26 @@ const VerifikasiOtp = () => {
       otpFive.current.value.length != 0 &&
       otpNine.current.value.length != 0
     ) {
-      const otp = otpOne.current?.value + otpTwo.current?.value + otpThree.current?.value + otpFor.current?.value + otpFive.current?.value + otpNine.current?.value
+      const otp =
+        otpOne.current?.value +
+        otpTwo.current?.value +
+        otpThree.current?.value +
+        otpFor.current?.value +
+        otpFive.current?.value +
+        otpNine.current?.value;
 
       await axios.post(
-          `${SERVER_URL}/auth/register/otp`,
-          JSON.stringify({
-            ...location.state.formData,
-            otp
-          }),
-          {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }
-      )
+        `${SERVER_URL}/auth/register/otp`,
+        JSON.stringify({
+          ...location.state.formData,
+          otp,
+        }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       setSuccessGreen("block");
       setWarningRed("hidden");
