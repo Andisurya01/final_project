@@ -2,20 +2,24 @@ import { Icon } from '@iconify/react';
 import Checkbox from "../components/Checkbox/Checkbox";
 import Footer from "../components/Footer/Footer"
 import Card from "../components/CourseCard/Card"
+import { updateId } from '../store/moduleCourses';
 // import FreeCard from "../components/CourseCard/FreeCard"
 import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { getCourses } from "../api/servicesApi";
+import { useDispatch, useSelector } from 'react-redux';
 
 const Courses = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const [course, setCourse] = useState([])
+    const id = useSelector((state) => state.module.id)
 
+    console.log(id);
     useEffect(() => {
         getCourses().then((res) => {
-            console.log(res.data.data)
             setCourse(res.data.data)
         })
     }, [])
@@ -33,60 +37,63 @@ const Courses = () => {
                 </div>
 
                 <div className="flex gap-20">
-                <div className="bg-white w-1/4 rounded-xl px-6 py-8">
-                    <div className="mb-10">
-                        <h1 className="text-2xl font-bold mb-5">Filter</h1>
-                        <Checkbox title={'Paling Baru'} />
-                        <Checkbox title={'Paling Populer'} />
-                        <Checkbox title={'Promo'} />
+                    <div className="bg-white w-1/4 rounded-xl px-6 py-8">
+                        <div className="mb-10">
+                            <h1 className="text-2xl font-bold mb-5">Filter</h1>
+                            <Checkbox title={'Paling Baru'} />
+                            <Checkbox title={'Paling Populer'} />
+                            <Checkbox title={'Promo'} />
+                        </div>
+                        <div className="mb-10">
+                            <h1 className="text-2xl font-bold mb-5">Kategori</h1>
+                            <Checkbox title={'UI/UX Design'} />
+                            <Checkbox title={'Web Development'} />
+                            <Checkbox title={'Android Development'} />
+                            <Checkbox title={'Data Science'} />
+                            <Checkbox title={'Business Intelligence'} />
+                        </div>
+                        <div className="mb-10">
+                            <h1 className="text-2xl font-bold mb-5">Level Kesulitan</h1>
+                            <Checkbox title={'Semua Level'} />
+                            <Checkbox title={'Beginner Level'} />
+                            <Checkbox title={'Intermediate Level'} />
+                            <Checkbox title={'Advanced Level'} />
+                        </div>
+                        <hr className="mb-3" />
+                        <div className="flex justify-center">
+                            <button className="text-WARNING text-sm font-medium">Hapus Filter</button>
+                        </div>
                     </div>
-                    <div className="mb-10">
-                        <h1 className="text-2xl font-bold mb-5">Kategori</h1>
-                        <Checkbox title={'UI/UX Design'} />
-                        <Checkbox title={'Web Development'} />
-                        <Checkbox title={'Android Development'} />
-                        <Checkbox title={'Data Science'} />
-                        <Checkbox title={'Business Intelligence'} />
-                    </div>
-                    <div className="mb-10">
-                        <h1 className="text-2xl font-bold mb-5">Level Kesulitan</h1>
-                        <Checkbox title={'Semua Level'} />
-                        <Checkbox title={'Beginner Level'} />
-                        <Checkbox title={'Intermediate Level'} />
-                        <Checkbox title={'Advanced Level'} />
-                    </div>
-                    <hr className="mb-3"/>
-                    <div className="flex justify-center">
-                        <button className="text-WARNING text-sm font-medium">Hapus Filter</button>
-                    </div>
-                </div>
 
-                <div className="w-3/4">
-                    <div className="mb-10 flex justify-between">
-                        <FilterPlanProgress title={"All"}/>
-                        <FilterPlanProgress title={"Premium"}/>
-                        <FilterPlanProgress title={"Kelas Gratis"}/>
-                    </div>
-                    <div className="flex flex-wrap gap-10">
-                    {course.map((item) => {
-                        return (
-                            <button 
-                                    key={item.id}
-                                    onClick={() => navigate("/courseTrackings")}>
-                                <Card 
-                                    picture={item.image}
-                                    course={item.category.title} 
-                                    rating={item.rating}
-                                    topic={item.title}
-                                    author={item.author}
-                                    level={item.level}
-                                    module={"item.module"} // perlu diberi logic tambahan / belum beres
-                                    time={"item.time"} // perlu diberi logic tambahan / belum beres
-                                    price={item.price}/>
-                            </button>
-                        )
-                    })}
-                    {/* <button onClick={() => navigate("/courseTrackings")}>
+                    <div className="w-3/4">
+                        <div className="mb-10 flex justify-between">
+                            <FilterPlanProgress title={"All"} />
+                            <FilterPlanProgress title={"Premium"} />
+                            <FilterPlanProgress title={"Kelas Gratis"} />
+                        </div>
+                        <div className="flex flex-wrap gap-10">
+                            {course.map((item) => {
+                                return (
+                                    <div
+                                        key={item.id}
+                                        onClick={() => {
+                                            navigate("/courses/detail")
+                                            dispatch(updateId(item.id))
+                                        }}>
+                                        <Card
+                                            picture={item.image}
+                                            course={item.category.title}
+                                            rating={item.rating}
+                                            topic={item.title}
+                                            author={item.author}
+                                            level={item.level}
+                                            module={"item.module"} // perlu diberi logic tambahan / belum beres
+                                            time={"item.time"} // perlu diberi logic tambahan / belum beres
+                                            price={item.price} />
+                                    </div>
+                                )
+                            })}
+                            {/* <button onClick={() => navigate("/courseTrackings")}>
                         <FreeCard picture={uiux}
                         course={"UI/UX Design"} 
                         rating={"4.7"}
@@ -97,8 +104,8 @@ const Courses = () => {
                         time={"100 Menit"}
                     />
                     </button> */}
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
             <Footer />
