@@ -5,10 +5,10 @@ const CourseTitle = ({course, rating, topic, author, level, module, time}) => {
     return (
         <div className="px-10 py-3 w-2/3">
             <div className="flex justify-between">
-                <p className="text-lg font-semibold text-DARKBLUE05">{course}</p>
+                <h1 className="text-lg font-semibold text-DARKBLUE05">{course}</h1>
                 <div className="flex gap-1">
                     <Icon icon="bi:star-fill" className="text-ATTENTION text-sm"/>
-                    <p className="font-semibold">{rating}</p>
+                    <h1 className="font-semibold">{rating}</h1>
                 </div>
             </div>
             <p className="text-lg font-semibold text-left">{topic}</p>

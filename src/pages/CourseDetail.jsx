@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Dialog,
     DialogHeader,
@@ -22,17 +22,15 @@ import { getCourses } from "../api/servicesApi";
 const CourseDetail = () => {
     const [course, setCourse] = useState([])
     const id = useSelector((state) => state.module.id)
-    console.log(id);
-
-    const [open, setOpen] = React.useState(false);
-
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(!open);
     const navigate = useNavigate()
 
     useEffect(() => {
-        getCourses().then((res) => {
-            setCourse(res.data.data.filter((item) => item.id === id))
-            console.log(course);
+        getCourses()
+        .then((res) => {
+            const response = res.data.data.filter((item) => item.id === id)[0]
+            setCourse(response)
         }).catch((err) => {
             console.log(err);
         })
@@ -159,12 +157,12 @@ const CourseDetail = () => {
                     </div>
                 </div>
                 <CourseTitle
-                    course={"UI/UX Design"}
-                    rating={"5.0"}
-                    topic={"Lorem ipsum"}
-                    author={"Simon Doe"}
-                    level={"Beginner Level"}
-                    module={"5 Module"}
+                    course={course.category?.title}
+                    rating={course.rating}
+                    topic={course.title}
+                    author={course.authorBy}
+                    level={course.level}
+                    // module={course.module}
                     time={"120 Minute"}
                 />
             </div>
@@ -227,15 +225,16 @@ const CourseDetail = () => {
                     </Typography>
                 </DialogHeader>
                 <DialogBody className="grid place-items-center gap-4">
-                    <Card picture={uiux}
-                        course={"UI/UX Design"}
-                        rating={"4.7"}
-                        topic={"Belajar Web Designer dengan Figma"}
-                        author={"Angela Doe"}
-                        level={"Intermediate Level"}
+                    <Card 
+                        picture={course.category?.image}
+                        course={course.category?.title}
+                        rating={course.rating}
+                        topic={course.title}
+                        author={course.authorBy}
+                        level={course.level}
                         module={"10 Modul"}
                         time={"120 Menit"}
-                        price={"Rp250.000"} />
+                        price={course.price} />
 
                     <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>
                         <div className="bg-DARKBLUE05 rounded-full py-3 flex justify-center items-center gap-2">

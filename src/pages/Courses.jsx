@@ -85,7 +85,7 @@ const Courses = () => {
                                             course={item.category.title}
                                             rating={item.rating}
                                             topic={item.title}
-                                            author={item.author}
+                                            author={item.authorBy}
                                             level={item.level}
                                             module={"item.module"} // perlu diberi logic tambahan / belum beres
                                             time={"item.time"} // perlu diberi logic tambahan / belum beres
