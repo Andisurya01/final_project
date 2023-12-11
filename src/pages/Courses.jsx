@@ -1,16 +1,24 @@
-import uiux from "../assets/img/uiux.jpg"
 import { Icon } from '@iconify/react';
 import Checkbox from "../components/Checkbox/Checkbox";
 import Footer from "../components/Footer/Footer"
 import Card from "../components/CourseCard/Card"
-import FreeCard from "../components/CourseCard/FreeCard"
+// import FreeCard from "../components/CourseCard/FreeCard"
 import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 
 import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { getCourses } from "../api/servicesApi";
 
 const Courses = () => {
     const navigate = useNavigate()
+    const [course, setCourse] = useState([])
 
+    useEffect(() => {
+        getCourses().then((res) => {
+            console.log(res.data.data)
+            setCourse(res.data.data)
+        })
+    }, [])
     return (
         <section className="">
             <div className="bg-LIGHTBLUE px-32 py-10">
@@ -60,18 +68,25 @@ const Courses = () => {
                         <FilterPlanProgress title={"Kelas Gratis"}/>
                     </div>
                     <div className="flex flex-wrap gap-10">
-                    <button onClick={() => navigate("/courseTrackings")}>
-                    <Card picture={uiux}
-                        course={"UI/UX Design"} 
-                        rating={"4.7"}
-                        topic={"Belajar Web Designer dengan Figma"}
-                        author={"Angela Doe"}
-                        level={"Intermediate Level"}
-                        module={"10 Modul"}
-                        time={"120 Menit"}
-                        price={"Rp250.000"}/>
-                    </button>
-                    <button onClick={() => navigate("/courseTrackings")}>
+                    {course.map((item) => {
+                        return (
+                            <button 
+                                    key={item.id}
+                                    onClick={() => navigate("/courseTrackings")}>
+                                <Card 
+                                    picture={item.image}
+                                    course={item.category.title} 
+                                    rating={item.rating}
+                                    topic={item.title}
+                                    author={item.author}
+                                    level={item.level}
+                                    module={"item.module"} // perlu diberi logic tambahan / belum beres
+                                    time={"item.time"} // perlu diberi logic tambahan / belum beres
+                                    price={item.price}/>
+                            </button>
+                        )
+                    })}
+                    {/* <button onClick={() => navigate("/courseTrackings")}>
                         <FreeCard picture={uiux}
                         course={"UI/UX Design"} 
                         rating={"4.7"}
@@ -81,7 +96,7 @@ const Courses = () => {
                         module={"10 Modul"}
                         time={"100 Menit"}
                     />
-                    </button>
+                    </button> */}
                     </div>
                 </div>
                 </div>
