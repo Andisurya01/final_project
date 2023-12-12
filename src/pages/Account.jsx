@@ -45,7 +45,7 @@ const Account = () => {
         <section>
             <div className="bg-LIGHTBLUE px-20 pt-10">
                 <button className="flex justify-center items-center gap-4 mb-10">
-                    <Icon icon="ph:arrow-left-bold" className="text-2xl text-DARKBLUE05" />
+                    <Icon icon="ph:arrow-left-bold" className="text-2xl text-DARKBLUE05" onClick={() => history.back()}/>
                     <p className="font-bold text-lg text-DARKBLUE05">Kembali ke Beranda</p>
                 </button>
                 <div className='flex justify-center'>

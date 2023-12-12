@@ -13,28 +13,57 @@ import CourseTitle from "../components/CourseDetail/CourseTitle";
 import ProgressBar from "../components/CourseDetail/CourseTracklist/ProgressBar";
 import Subject from "../components/CourseDetail/CourseTracklist/Subject";
 import Card from "../components/CourseCard/Card";
-
-import uiux from "../assets/img/uiux.jpg"
-
 import { useNavigate } from "react-router-dom"
 import { getCourses } from "../api/servicesApi";
+import getCookieValue from "../api/getCookie";
 
 const CourseDetail = () => {
     const [course, setCourse] = useState([])
     const id = useSelector((state) => state.module.id)
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(!open);
+    const [totalModule, setTotalModule] = useState(0)
+    const [totalTime, setTotalTime] = useState(0)
+    const [totalTimeCh1, setTotalTimeCh1] = useState(0)
+    const [totalTimeCh2, setTotalTimeCh2] = useState(0)
+    const [chapter1, setChapter1] = useState([])
+    const [chapter2, setChapter2] = useState([])
     const navigate = useNavigate()
+    const token = getCookieValue("token")
+
+    const handleLogin = () => {
+        if (token === null) {
+            navigate("/login")
+        } else {
+            setOpen(!open)
+        }
+    }
+
+
 
     useEffect(() => {
         getCourses()
-        .then((res) => {
-            const response = res.data.data.filter((item) => item.id === id)[0]
-            setCourse(response)
-        }).catch((err) => {
-            console.log(err);
-        })
-    }, [])
+            .then((res) => {
+                const response = res.data.data.filter((item) => item.id === id)[0]
+                const totalModule = response.module?.length
+                let count = 0
+                for (let i = 0; i < chapter1.length; i++) {
+                    count = count + chapter1[i]?.time
+                }
+                let count2 = 0
+                for (let j = 0; j < chapter2.length; j++) {
+                    count2 = count2 + chapter2[j]?.time
+                }
+                setCourse(response)
+                setTotalTimeCh1(count)
+                setTotalTimeCh2(count2)
+                setTotalTime(count + count2)
+                setTotalModule(totalModule)
+                setChapter1(response.module?.filter((item) => item.chapter === 1))
+                setChapter2(response.module?.filter((item) => item.chapter === 2))
+            }).catch((err) => {
+                console.log(err);
+            })
+    })
 
     return (
         <section>
@@ -54,106 +83,40 @@ const CourseDetail = () => {
                     <div className="pt-2 pb-4">
                         <div className="flex justify-between mb-2">
                             <p className="text-DARKBLUE05 font-bold text-sm">Chapter 1 - Pendahuluan</p>
-                            <p className="text-DARKBLUE03 font-bold text-sm">60 Menit</p>
+                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1} Menit</p>
                         </div>
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"1."}
-                                subject={"Tujuan Mengikuti Kelas Design System"}
-                            />
-                            <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"2."}
-                                subject={"Pengenalan Design System"}
-                            />
-                            <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <div className="flex items-center justify-center gap-2">
-                                <Subject
-                                    number={"3."}
-                                    subject={"Contoh Membangun Design System"}
-                                />
-                            </div>
-                            <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
-                        </div>
+                        {chapter1.map((item, index) => {
+                            return (
+                                <div key={item.id} className="flex justify-between items-center my-2">
+                                    <Subject
+                                        number={index + 1 + "."}
+                                        subject={item.title}
+                                    />
+                                    <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
+                                </div>
+                            )
+                        })}
                     </div>
                     <div className="pt-2">
                         <div className="flex justify-between mb-2">
                             <p className="text-DARKBLUE05 font-bold text-sm">Chapter 2 - Memulai Desain</p>
-                            <p className="text-DARKBLUE03 font-bold text-sm">120 Menit</p>
+                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2} Menit</p>
                         </div>
-                        <div className="flex justify-between items-center my-2">
-                            <div className="flex items-center justify-center gap-2">
-                                <Subject
-                                    number={"4."}
-                                    subject={"Color Palette"}
-                                />
-                            </div>
-                            <button onClick={handleOpen}>
-                                <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                            </button>
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"5."}
-                                subject={"Typography, Layout dan Grid"}
-                            />
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"6."}
-                                subject={"Membuat Components"}
-                            />
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"7."}
-                                subject={"Membuat Components"}
-                            />
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"8."}
-                                subject={"Membuat Components"}
-                            />
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"9."}
-                                subject={"Membuat Components"}
-                            />
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"10."}
-                                subject={"Membuat Components"}
-                            />
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                        </div>
-                        <hr />
-                        <div className="flex justify-between items-center my-2">
-                            <Subject
-                                number={"11."}
-                                subject={"Membuat Asset"}
-                            />
-                            <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
-                        </div>
+
+                        {chapter2.map((item, index) => {
+                            return (
+                                <div key={item.id} className="flex justify-between items-center my-2 cursor-pointer"
+                                    onClick={handleLogin}>
+                                    <Subject
+                                        number={index + 1 + "."}
+                                        subject={item.title}
+                                    />
+                                    <button>
+                                        <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
+                                    </button>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
                 <CourseTitle
@@ -162,8 +125,8 @@ const CourseDetail = () => {
                     topic={course.title}
                     author={course.authorBy}
                     level={course.level}
-                    // module={course.module}
-                    time={"120 Minute"}
+                    module={totalModule + " Module"}
+                    time={totalTime + " Minute"}
                 />
             </div>
             <div className="px-20 py-10">
@@ -210,9 +173,9 @@ const CourseDetail = () => {
                     </div>
                 </div>
             </div>
-            <Dialog open={open} handler={handleOpen}>
+            <Dialog open={open} handler={()=>setOpen(!open)}>
                 <div className="flex justify-end">
-                    <button className="px-2 py-2" onClick={handleOpen}>
+                    <button className="px-2 py-2" onClick={()=>setOpen(!open)}>
                         <Icon icon="material-symbols:close" className="text-2xl" />
                     </button>
                 </div>
@@ -225,15 +188,15 @@ const CourseDetail = () => {
                     </Typography>
                 </DialogHeader>
                 <DialogBody className="grid place-items-center gap-4">
-                    <Card 
+                    <Card
                         picture={course.category?.image}
                         course={course.category?.title}
                         rating={course.rating}
                         topic={course.title}
                         author={course.authorBy}
                         level={course.level}
-                        module={"10 Modul"}
-                        time={"120 Menit"}
+                        module={totalModule + " Module"}
+                        time={totalTime + " Minute"}
                         price={course.price} />
 
                     <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>

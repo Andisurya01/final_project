@@ -26,7 +26,7 @@ const PaymentSuccess = () => {
                     <button onClick={() => navigate("/courses/detail/unlock")} className="bg-DARKBLUE05 rounded-full py-4 w-80 mb-4">
                         <p className="text-white font-medium text-center">Mulai Belajar</p>
                     </button>
-                    <button onClick={() => navigate("/")}>
+                    <button onClick={() => navigate("/home")}>
                         <p className="text-DARKBLUE03 font-medium">Kembali ke Beranda</p>
                     </button>
                 </div>

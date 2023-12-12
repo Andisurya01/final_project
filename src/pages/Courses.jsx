@@ -9,24 +9,23 @@ import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { getCourses } from "../api/servicesApi";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Courses = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [course, setCourse] = useState([])
-    const id = useSelector((state) => state.module.id)
-
-    console.log(id);
     useEffect(() => {
         getCourses().then((res) => {
-            setCourse(res.data.data)
+            const response = res.data.data
+            setCourse(response)
         })
     }, [])
+
     return (
         <section className="">
             <div className="bg-LIGHTBLUE px-32 py-10">
-                <div className="flex justify-between items-center justify-center mb-16">
+                <div className="flex justify-between items-center mb-16">
                     <h1 className="text-2xl font-bold">Topik Kelas</h1>
                     <div className="flex gap-16 bg-white border-2 border-DARKBLUE05 rounded-full px-6 py-3">
                         <input type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" />
@@ -73,6 +72,10 @@ const Courses = () => {
                         </div>
                         <div className="flex flex-wrap gap-10">
                             {course.map((item) => {
+                                let count = 0
+                                for (let i = 0; i < item.module.length; i++) {
+                                    count = count + item.module[i].time
+                                }
                                 return (
                                     <div
                                         key={item.id}
@@ -87,8 +90,8 @@ const Courses = () => {
                                             topic={item.title}
                                             author={item.authorBy}
                                             level={item.level}
-                                            module={"item.module"} // perlu diberi logic tambahan / belum beres
-                                            time={"item.time"} // perlu diberi logic tambahan / belum beres
+                                            module={item.module.length + " Module"} // perlu diberi logic tambahan / belum beres
+                                            time={count + " Menit"} // perlu diberi logic tambahan / belum beres
                                             price={item.price} />
                                     </div>
                                 )
