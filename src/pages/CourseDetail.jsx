@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom"
 import { getCourses } from "../api/servicesApi";
 import getCookieValue from "../api/getCookie";
 import AnimatedButton from "../components/Button/AnimatedButton";
+import ReactPlayer from 'react-player'
 
 const CourseDetail = () => {
     const [course, setCourse] = useState([])
@@ -140,24 +141,20 @@ const CourseDetail = () => {
                 />
             </div>
             <div className="w-[600px] pt-10">
-                    <div className="relative w-[600px] h-[327px] bg-DARKGREY02 rounded-3xl flex flex-col justify-center">
-                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                            <div className="bg-DARKBLUE05 rounded-full w-16 h-16 flex items-center justify-center">
-                                <Icon icon="fluent:filmstrip-play-24-regular" className="text-white text-4xl" />
-                            </div>
-                        </div>
-                        <div className="absolute bottom-4 right-4 flex gap-2">
-                        <AnimatedButton>
-                            <div className="bg-white rounded-full px-4 py-1">
-                                <p className="text-DARKBLUE03 font-medium">Kelas Lainnya</p>
-                            </div>
-                            </AnimatedButton>
-                            <AnimatedButton>
-                            <div className="bg-DARKBLUE05 rounded-full px-4 py-1">
-                                <p className="text-white font-medium">Next</p>
-                            </div>
-                            </AnimatedButton>
-                        </div>
+                <div className="relative w-[600px] h-[327px] bg-DARKGREY02 rounded-3xl flex flex-col justify-center">
+                    {chapter1.map((item) => {
+                        return (
+                            <ReactPlayer
+                            key={item.id}
+                            url={item.video}
+                            light={true}
+                            controls={true}
+                            playing={true}
+                            width={"600px"}
+                            style={{ borderRadius: "24px", overflow: "hidden" }}
+                            />
+                        )
+                    })}
                     </div>
                     <div className="py-10">
                             <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
