@@ -22,16 +22,24 @@ const Courses = () => {
     const [course, setCourse] = useState([])
 
     useEffect(() => {
-
-        getCourses().then((res) => {
-            const response = res.data.data
-            setCourse(response);
-            setCurrentCourse(response)
-        })
-
+        getCoursesApi();
         sideFilterFunction()
 
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    })
+
+
+    const getCoursesApi = () => {
+        if(currentCourse.length <= 0  ){
+            getCourses().then((res) => {
+                const response = res.data.data
+                setCourse(response);
+                setCurrentCourse(response)
+            })
+        }else{
+            return currentCourse;
+        }
+    }
 
 
     const sideFilterFunction = () => {
@@ -72,18 +80,18 @@ const Courses = () => {
                     document.getElementById(data).click();
                 }
                 filterList.length = 0
+                setCourse(currentCourse)
             })
         }
 
-        searchClassButton.onclick = () => {
+        searchClassButton.onclick =  () => {
             
             if(fieldClass.value != ''){
                 filterList.push(fieldClass.value)
             }
 
-
             const filteredDone = currentCourse.filter((data)=>{
-                const initiateData = `${data.category.title + ' ' + data.level  + ' ' + data.title  + ' ' + data.description}`
+                const initiateData = `${data.category.title + ' ' + data.level.toLowerCase()  + ' ' + data.title  + ' ' + data.description}`
                 const filterChecked =  filterList.map((value)=>{
                     return initiateData.includes(value); 
                 })
@@ -91,12 +99,13 @@ const Courses = () => {
                 if(filterChecked.includes(true)){
                     return data;
                 }
- 
+
+                
                 if(initiateData == ''){
                     return data;
                 }
             }) 
-
+            
             setCourse(filteredDone)
         }
 
