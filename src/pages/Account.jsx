@@ -258,11 +258,11 @@ const Account = () => {
                                                     topic={data.course.title}
                                                     author={data.course.authorBy}
                                                     level={data.course.level}
-                                                    module={data.course.module.length}
+                                                    module={`${data.course.module.length}} Module`}
                                                     time={
                                                         `${data.course.module.reduce((accumulator, currentValue) => {
                                                             return accumulator + currentValue.time;
-                                                        }, 0) / 60} menit`
+                                                        }, 0) / 60} Menit`
                                                     }
                                                     price={data.course.price}
                                                     isPaid={data.status == 'WAITING' ? false : true} 

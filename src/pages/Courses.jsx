@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { getCourses } from "../api/servicesApi";
 import { useDispatch } from 'react-redux';
 import { formatRupiah } from '../lib/rupiahFormat';
+import FreeCard from '../components/CourseCard/FreeCard';
 
 const Courses = () => {
     const dispatch = useDispatch()
@@ -78,25 +79,49 @@ const Courses = () => {
                                 for (let i = 0; i < item.module.length; i++) {
                                     count = count + item.module[i].time
                                 }
-                                return (
-                                    <div
-                                        key={item.id}
-                                        onClick={() => {
-                                            navigate("/courses/detail")
-                                            dispatch(updateId(item.id))
-                                        }}>
-                                        <Card
-                                            picture={item.image}
-                                            course={item.category.title}
-                                            rating={item.rating}
-                                            topic={item.title}
-                                            author={item.authorBy}
-                                            level={item.level}
-                                            module={item.module.length + " Module"} // perlu diberi logic tambahan / belum beres
-                                            time={count / 60  + " Menit"} // perlu diberi logic tambahan / belum beres
-                                            price={formatRupiah(item.price)} />
-                                    </div>
-                                )
+
+                                if(item.type == 'FREE'){
+                                    return (
+                                        <div
+                                            key={item.id}
+                                            onClick={() => {
+                                                navigate("/courses/detail")
+                                                dispatch(updateId(item.id))
+                                            }}>
+                                            <FreeCard
+                                                picture={item.image}
+                                                course={item.category.title}
+                                                rating={item.rating}
+                                                topic={item.title}
+                                                author={item.authorBy}
+                                                level={item.level}
+                                                module={item.module.length + " Module"} 
+                                                time={count / 60  + " Menit"} 
+                                            />
+                                        </div>)
+                                }else{
+                                    return (
+                                        <div
+                                            key={item.id}
+                                            onClick={() => {
+                                                navigate("/courses/detail")
+                                                dispatch(updateId(item.id))
+                                            }}>
+                                            <Card
+                                                picture={item.image}
+                                                course={item.category.title}
+                                                rating={item.rating}
+                                                topic={item.title}
+                                                author={item.authorBy}
+                                                level={item.level}
+                                                module={item.module.length + " Module"} // perlu diberi logic tambahan / belum beres
+                                                time={count / 60  + " Menit"} // perlu diberi logic tambahan / belum beres
+                                                price={formatRupiah(item.price)} />
+                                        </div>
+                                    )
+                                }
+
+                                
                             })}
                             {/* <button onClick={() => navigate("/courseTrackings")}>
                         <FreeCard picture={uiux}
