@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import logo from '../../assets/img/craftiq.png'
 import { useNavigate, useLocation, Outlet } from "react-router-dom"
 import { useEffect, useState } from 'react';
 import getCookieValue from '../../api/getCookie';
@@ -64,41 +65,45 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="bg-DARKBLUE05 flex px-20 py-6">
-                <button onClick={() => navigate("/home")}>
-                    <h1 className="my-auto w-[125px] h-[30px] text-3xl text-white font-bold">CraftIQ</h1>
-                </button>
-                <div className="my-auto">
-                    <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl">
-                        <div className="py-3 px-6 flex gap-8">
-                            <input type="text" className="w-[424px] outline-none border-none" placeholder="Cari Kursus Terbaik.." />
-                            <button className="bg-DARKBLUE05 flex items-center justify-center w-[38px] h-[38px] rounded-lg">
-                                <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
+            <nav className="bg-DARKBLUE05 h-[100px]">
+                <div className='grid place-content-center'>
+                    <div className='flex w-[1024px] py-5'>
+                        <button onClick={() => navigate("/home")}>
+                            <img src={logo} alt="" className='my-auto w-[183px] h-[53px]'/>
+                        </button>
+                        <div className="my-auto">
+                            <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl">
+                                <div className="py-3 px-6 flex gap-8">
+                                    <input type="text" className="w-[424px] outline-none border-none" placeholder="Cari Kursus Terbaik.." />
+                                    <button className="bg-DARKBLUE05 flex items-center justify-center w-[38px] h-[38px] rounded-lg">
+                                        <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {isLogin ?
+                            <div className="flex gap-4 ml-auto items-center relative">
+                                <NavbarButton isActive={isKelasActive} onClick={handleKelasClick} icon="tabler:list" text="Kelas" />
+                                <div className='static flex items-center'>
+                                    <NavbarButton isActive={isBellActive} onClick={handleBellClick} icon="lucide:bell" text="Notifikasi" />
+                                    {notification === 0 ? null :
+                                        <div className="absolute translate-x-3 -translate-y-4">
+                                            <div className='relative'>
+                                                <div className='bg-red-500 rounded-full h-5 w-5 border-2 border-white'></div>
+                                                <p className='text-center absolute inset-0 text-white text-sm font-medium'>{notification}</p>
+                                            </div>
+                                        </div>}
+                                </div>
+                                <NavbarButton isActive={isUserActive} onClick={handleUserClick} icon="lucide:user" text="Akun" />
+                            </div> :
+                            <button className='flex gap-2 items-center justify-center my-auto ml-auto' onClick={() => navigate("/login")}>
+                                <Icon icon="ic:round-login" color="white" />
+                                <p className='text-white font-medium'>Masuk</p>
                             </button>
+                        }
                         </div>
                     </div>
-                </div>
-                {isLogin ?
-                    <div className="flex gap-4 ml-auto items-center relative">
-                        <NavbarButton isActive={isKelasActive} onClick={handleKelasClick} icon="tabler:list" text="Kelas" />
-                        <div className='static flex items-center'>
-                            <NavbarButton isActive={isBellActive} onClick={handleBellClick} icon="lucide:bell" text="Notifikasi" />
-                            {notification === 0 ? null :
-                                <div className="absolute translate-x-3 -translate-y-4">
-                                    <div className='relative'>
-                                        <div className='bg-red-500 rounded-full h-5 w-5 border-2 border-white'></div>
-                                        <p className='text-center absolute inset-0 text-white text-sm font-medium'>{notification}</p>
-                                    </div>
-                                </div>}
-                        </div>
-                        <NavbarButton isActive={isUserActive} onClick={handleUserClick} icon="lucide:user" text="Akun" />
-                    </div> :
-                    <button className='flex gap-2 items-center justify-center my-auto ml-auto' onClick={() => navigate("/login")}>
-                        <Icon icon="ic:round-login" color="white" />
-                        <p className='text-white font-medium'>Masuk</p>
-                    </button>
-                }
-            </nav>
+                </nav>
             <main>
                 <Outlet />
             </main>
