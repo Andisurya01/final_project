@@ -85,8 +85,8 @@ const Navbar = () => {
                             <NavbarButton isActive={isBellActive} onClick={handleBellClick} icon="lucide:bell" text="Notifikasi" />
                             <div className="absolute translate-x-3 -translate-y-4">
                                 <div className='relative'>
-                                    <div className='bg-red-500 rounded-full h-6 w-6 border-2 border-white'></div>
-                                    <p className='text-center absolute inset-0 text-white font-medium'>{notification}</p>
+                                    <div className='bg-red-500 rounded-full h-5 w-5 border-2 border-white'></div>
+                                    <p className='text-center absolute inset-0 text-white text-sm font-medium'>{notification}</p>
                                 </div>
                             </div>
                         </div>
