@@ -1,14 +1,15 @@
 import { Icon } from '@iconify/react';
+import AnimatedButton from '../Button/AnimatedButton';
 
 // eslint-disable-next-line react/prop-types
 const CourseTitle = ({course, rating, topic, author, level, module, time}) => {
     return (
-        <div className="px-10 py-3 w-2/3">
+        <div className=" py-3 w-[600px]">
             <div className="flex justify-between">
-                <h1 className="text-lg font-semibold text-DARKBLUE05">{course}</h1>
+                <p className="text-lg font-semibold text-DARKBLUE05">{course}</p>
                 <div className="flex gap-1">
                     <Icon icon="bi:star-fill" className="text-ATTENTION text-sm"/>
-                    <h1 className="font-semibold">{rating}</h1>
+                    <p className="font-semibold">{rating}</p>
                 </div>
             </div>
             <p className="text-lg font-semibold text-left">{topic}</p>
@@ -27,12 +28,14 @@ const CourseTitle = ({course, rating, topic, author, level, module, time}) => {
                     <p className="text-sm font-medium mt-1">{time}</p>
                 </div>
             </div>
-            <div className="bg-SUCCESS text-white flex justify-center items-center px-4 py-1 mt-3 rounded-full w-52">
-                <div className="flex gap-2">
-                    <p className="text-sm font-medium">Join Grup Telegram</p>
-                    <Icon icon="gridicons:chat" className="text-xl" />
+            <AnimatedButton>
+                <div className="bg-SUCCESS text-white flex justify-center items-center px-4 py-1 mt-3 rounded-full w-52">
+                    <div className="flex gap-2">
+                        <p className="text-sm font-medium">Join Grup Telegram</p>
+                        <Icon icon="gridicons:chat" className="text-xl" />
+                    </div>
                 </div>
-            </div>
+            </AnimatedButton>
         </div>
     )
 }
