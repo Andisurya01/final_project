@@ -8,9 +8,7 @@ const AllertReset = ({ message, type }) => {
     bgColor = "bg-SUCCESS";
   }
   return (
-    <div
-      className={`${bgColor} text-white max-w-fit px-4 py-2 rounded-lg text-xs`}
-    >
+    <div className={`${bgColor} text-white max-w-fit px-4 py-2 rounded-lg text-xs`}>
       {message}
     </div>
   );
