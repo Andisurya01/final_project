@@ -1,10 +1,3 @@
-// image
-import uiux from "../assets/img/uiux.jpg"
-import pm from "../assets/img/pm.jpg"
-import web from "../assets/img/webdev.jpg"
-import and from "../assets/img/android.jpg"
-import ios from "../assets/img/ios.jpg"
-import science from "../assets/img/datasc.jpg"
 
 // component
 import Header from "../components/Header/Header"
@@ -14,9 +7,43 @@ import Card from "../components/CourseCard/Card"
 import Footer from "../components/Footer/Footer"
 
 import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { consumeCategoriesApi } from "../api/category"
+import { getCourses } from "../api/servicesApi";
+import { formatRupiah } from '../lib/rupiahFormat';
+
 
 const Home = () => {
+
     const navigate = useNavigate()
+    const [ categories, setCategories] = useState([]);
+    const [course, setCourse] = useState([])
+
+
+    useEffect(() => {
+        consumeCategoriesApi.getCategories().then((res)=>{
+            const currentCategory = res.data.filter((data)=>{
+                return res.data.indexOf(data) < 6
+            })
+
+            setCategories(currentCategory);
+        })
+
+
+        getCourses().then((res) => {
+            const response = res.data.data
+
+            const popularCourse = response.filter((data)=>{
+                return data.rating >= 4.5 
+            })
+
+            const popularCourses = popularCourse.filter(data => popularCourse.indexOf(data) < 3)
+
+            setCourse(popularCourses);
+        })
+
+    });
+
 
     return (
         <section className="">
@@ -27,12 +54,12 @@ const Home = () => {
                     <a href="#" className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</a>
                 </div>
                 <div className="flex justify-between">
-                    <Frame picture={uiux} title={"UI/UX Design"}/>
-                    <Frame picture={pm} title={"Product Management"}/>
-                    <Frame picture={web} title={"Web Development"}/>
-                    <Frame picture={and} title={"Android Development"}/>
-                    <Frame picture={ios} title={"iOS Development"}/>
-                    <Frame picture={science} title={"Data Science"}/>
+                    {
+                        categories.map((data)=>{
+                            return (  <Frame key={data.id} picture={data.image} title={data.title}/>  )   
+                            
+                        })
+                    }
                 </div>
             </div>
             <div className="px-32 py-5 h-full">
@@ -43,42 +70,38 @@ const Home = () => {
 
                 <div className= "pb-4 flex justify-between">
                     <FilterCourseHome title={"All"}/>
-                    <FilterCourseHome title={"Data Science"}/>
-                    <FilterCourseHome title={"UI/UX Design"}/>
-                    <FilterCourseHome title={"Android Development"}/>
-                    <FilterCourseHome title={"Web Development"}/>
-                    <FilterCourseHome title={"iOS Development"}/>
-                    <FilterCourseHome title={"Business Intelligence"}/>
+                    {
+                        categories.map((data)=>{
+                        return (  <FilterCourseHome key={data.id} title={data.title}/>  )   
+                        
+                        })
+                    }
+
                 </div>
 
                 <div className="pb-4 flex justify-between">
-                    <Card picture={uiux}
-                        course={"UI/UX Design"} 
-                        rating={"4.7"}
-                        topic={"Belajar Web Designer dengan Figma"}
-                        author={"Angela Doe"}
-                        level={"Intermediate Level"}
-                        module={"10 Modul"}
-                        time={"120 Menit"}
-                        price={"Rp 249.000"}/>
-                    <Card picture={uiux}
-                        course={"UI/UX Design"} 
-                        rating={"4.7"}
-                        topic={"Belajar Web Designer dengan Figma"}
-                        author={"Angela Doe"}
-                        level={"Intermediate Level"}
-                        module={"10 Modul"}
-                        time={"120 Menit"}
-                        price={"Rp 249.000"}/>
-                    <Card picture={uiux}
-                        course={"UI/UX Design"} 
-                        rating={"4.7"}
-                        topic={"Belajar Web Designer dengan Figma"}
-                        author={"Angela Doe"}
-                        level={"Intermediate Level"}
-                        module={"10 Modul"}
-                        time={"120 Menit"}
-                        price={"Rp 249.000"}/>
+                    {
+                        course.map( data => {
+                            return (
+                                <Card
+                                    key={data.id} 
+                                    picture={data.image}
+                                    course={data.category.title} 
+                                    rating={data.rating}
+                                    topic={data.title}
+                                    author={data.authorBy}
+                                    level={data.level}
+                                    module={`${data.module.length} Module`}
+                                    time={
+                                        `${data.module.reduce((accumulator, currentValue) => {
+                                            return accumulator + currentValue.time;
+                                        }, 0) / 60} Menit`
+                                    }
+                                    price={formatRupiah(data.price)}
+                                />
+                            )
+                        })
+                    }
                 </div>
             </div>
             <Footer />

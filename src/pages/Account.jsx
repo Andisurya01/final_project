@@ -258,7 +258,7 @@ const Account = () => {
                                                     topic={data.course.title}
                                                     author={data.course.authorBy}
                                                     level={data.course.level}
-                                                    module={`${data.course.module.length}} Module`}
+                                                    module={`${data.course.module.length} Module`}
                                                     time={
                                                         `${data.course.module.reduce((accumulator, currentValue) => {
                                                             return accumulator + currentValue.time;

@@ -3,7 +3,7 @@ import Checkbox from "../components/Checkbox/Checkbox";
 import Footer from "../components/Footer/Footer"
 import Card from "../components/CourseCard/Card"
 import { updateId } from '../store/moduleCourses';
-// import FreeCard from "../components/CourseCard/FreeCard"
+
 import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 
 import { useNavigate } from "react-router-dom"
@@ -158,17 +158,6 @@ const Courses = () => {
 
                                 
                             })}
-                            {/* <button onClick={() => navigate("/courseTrackings")}>
-                        <FreeCard picture={uiux}
-                        course={"UI/UX Design"} 
-                        rating={"4.7"}
-                        topic={"Membuat Grid System dengan Figma"}
-                        author={"Simon Doe"}
-                        level={"Advanced Level"}
-                        module={"10 Modul"}
-                        time={"100 Menit"}
-                    />
-                    </button> */}
                         </div>
                     </div>
                 </div>
