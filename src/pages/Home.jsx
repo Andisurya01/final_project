@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { consumeCategoriesApi } from "../api/category"
 import { getCourses } from "../api/servicesApi";
 import { formatRupiah } from '../lib/rupiahFormat';
+import AnimatedButton from "../components/Button/AnimatedButton"
 
 
 const Home = () => {
@@ -48,21 +49,28 @@ const Home = () => {
     return (
         <section className="">
             <Header />
-            <div className="bg-LIGHTBLUE px-32 py-5 h-56">
+            <div className="w-full bg-LIGHTBLUE">
+                <div className="grid place-content-center">
+                    <div className="w-[1024px] py-5">
                 <div className="pb-4 flex justify-between">
                     <p className="text-xl font-bold">Kategori Belajar</p>
-                    <a href="#" className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</a>
+                    <button onClick={() => navigate("/courses")} className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
                 </div>
                 <div className="flex justify-between">
                     {
                         categories.map((data)=>{
-                            return (  <Frame key={data.id} picture={data.image} title={data.title}/>  )   
+                            // eslint-disable-next-line react/jsx-key
+                            return (  <AnimatedButton><Frame key={data.id} picture={data.image} title={data.title}/></AnimatedButton>  )   
                             
                         })
                     }
                 </div>
             </div>
-            <div className="px-32 py-5 h-full">
+            </div>
+            </div>
+            <div className="w-full">
+                <div className="grid place-content-center">
+                    <div className="w-[1024px] py-5">
                 <div className="pb-4 flex justify-between">
                     <p className="text-xl font-bold">Kursus Populer</p>
                     <button onClick={() => navigate("/courses")} className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
@@ -83,6 +91,8 @@ const Home = () => {
                     {
                         course.map( data => {
                             return (
+                                // eslint-disable-next-line react/jsx-key
+                                <AnimatedButton>
                                 <Card
                                     key={data.id} 
                                     picture={data.image}
@@ -99,9 +109,12 @@ const Home = () => {
                                     }
                                     price={formatRupiah(data.price)}
                                 />
+                                </AnimatedButton>
                             )
                         })
                     }
+                    </div>
+                    </div>
                 </div>
             </div>
             <Footer />

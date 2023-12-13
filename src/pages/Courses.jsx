@@ -12,6 +12,7 @@ import { getCourses } from "../api/servicesApi";
 import { useDispatch } from 'react-redux';
 import { formatRupiah } from '../lib/rupiahFormat';
 import FreeCard from '../components/CourseCard/FreeCard';
+import AnimatedButton from '../components/Button/AnimatedButton';
 
 const Courses = () => {
     const dispatch = useDispatch()
@@ -47,8 +48,10 @@ const Courses = () => {
     }
 
     return (
-        <section className="">
-            <div className="bg-LIGHTBLUE px-32 py-10">
+        <section>
+        <div className="w-full bg-LIGHTBLUE">
+                <div className="grid place-content-center">
+                    <div className="w-[1024px] pt-10">
                 <div className="flex justify-between items-center mb-16">
                     <h1 className="text-2xl font-bold">Topik Kelas</h1>
                     <div className="flex gap-16 bg-white border-2 border-DARKBLUE05 rounded-full px-6 py-3">
@@ -58,8 +61,13 @@ const Courses = () => {
                         </button>
                     </div>
                 </div>
+                </div>
+                </div>
 
-                <div className="flex gap-20">
+
+                <div className="grid place-content-center">
+                    <div className="w-[1024px] pb-20">
+                    <div className="flex gap-20">
                     <div className="bg-white w-1/4 rounded-xl px-6 py-8">
                         <div className="mb-10">
                             <h1 className="text-2xl font-bold mb-5">Filter</h1>
@@ -123,6 +131,7 @@ const Courses = () => {
                                                 navigate("/courses/detail")
                                                 dispatch(updateId(item.id))
                                             }}>
+                                                <AnimatedButton>
                                             <FreeCard
                                                 picture={item.image}
                                                 course={item.category.title}
@@ -133,6 +142,7 @@ const Courses = () => {
                                                 module={item.module.length + " Module"} 
                                                 time={count / 60  + " Menit"} 
                                             />
+                                            </AnimatedButton>
                                         </div>)
                                 }else{
                                     return (
@@ -142,6 +152,7 @@ const Courses = () => {
                                                 navigate("/courses/detail")
                                                 dispatch(updateId(item.id))
                                             }}>
+                                                <AnimatedButton>
                                             <Card
                                                 picture={item.image}
                                                 course={item.category.title}
@@ -152,12 +163,15 @@ const Courses = () => {
                                                 module={item.module.length + " Module"} // perlu diberi logic tambahan / belum beres
                                                 time={count / 60  + " Menit"} // perlu diberi logic tambahan / belum beres
                                                 price={formatRupiah(item.price)} />
+                                            </AnimatedButton>
                                         </div>
                                     )
                                 }
 
                                 
                             })}
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
