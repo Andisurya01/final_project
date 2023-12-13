@@ -153,7 +153,7 @@ const Account = () => {
                     <div className="w-[1024px] pt-10">
                         <div>
                             <div className='mb-12'>
-                                <button onClick={() => navigate("/home")} className="flex justify-center items-center gap-4">
+                                <button onClick={() => navigate("/courses")} className="flex justify-center items-center gap-4">
                                     <Icon icon="ph:arrow-left-bold" className="text-xl text-DARKBLUE05" />
                                     <p className="font-bold text-DARKBLUE05">Kembali ke Beranda</p>
                                 </button>
