@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Outlet } from "react-router-dom"
 import { useEffect, useState } from 'react';
 import getCookieValue from '../../api/getCookie';
 import NavbarButton from '../Button/NavbarButton';
+import { getNotifications } from '../../api/servicesApi';
 
 const Navbar = () => {
     const navigate = useNavigate()
@@ -10,6 +11,7 @@ const Navbar = () => {
 
     const [isLogin, setIsLogin] = useState(false)
     const token = getCookieValue("token");
+    const [notification, setNotification] = useState(0)
 
     const [isKelasActive, setKelasActive] = useState(true);
     const [isBellActive, setBellActive] = useState(false);
@@ -49,11 +51,20 @@ const Navbar = () => {
         } else {
             setIsLogin(true)
         }
-    }, [])
+    }, [token])
+
+    useEffect(() => {
+        getNotifications()
+            .then((res) => {
+                const response = res.data.data.length
+                setNotification(response)
+                console.log(notification);
+            })
+    }, [notification])
 
     return (
         <>
-            <nav className="bg-DARKBLUE05 flex px-20 h-[100px]">
+            <nav className="bg-DARKBLUE05 flex px-20 py-6">
                 <button onClick={() => navigate("/home")}>
                     <h1 className="my-auto w-[125px] h-[30px] text-3xl text-white font-bold">CraftIQ</h1>
                 </button>
@@ -68,20 +79,27 @@ const Navbar = () => {
                     </div>
                 </div>
                 {isLogin ?
-
-                    <div className="flex gap-4 ml-auto">
+                    <div className="flex gap-4 ml-auto items-center relative">
                         <NavbarButton isActive={isKelasActive} onClick={handleKelasClick} icon="tabler:list" text="Kelas" />
-                        <NavbarButton isActive={isBellActive} onClick={handleBellClick} icon="lucide:bell" text="Notifikasi" />
+                        <div className='static flex items-center'>
+                            <NavbarButton isActive={isBellActive} onClick={handleBellClick} icon="lucide:bell" text="Notifikasi" />
+                            <div className="absolute translate-x-3 -translate-y-4">
+                                <div className='relative'>
+                                    <div className='bg-red-500 rounded-full h-6 w-6 border-2 border-white'></div>
+                                    <p className='text-center absolute inset-0 text-white font-medium'>{notification}</p>
+                                </div>
+                            </div>
+                        </div>
                         <NavbarButton isActive={isUserActive} onClick={handleUserClick} icon="lucide:user" text="Akun" />
                     </div> :
-                    <button className='flex gap-2 items-center justify-center my-auto ml-auto' onClick={()=>navigate("/login")}>
+                    <button className='flex gap-2 items-center justify-center my-auto ml-auto' onClick={() => navigate("/login")}>
                         <Icon icon="ic:round-login" color="white" />
                         <p className='text-white font-medium'>Masuk</p>
                     </button>
                 }
             </nav>
             <main>
-                <Outlet/>
+                <Outlet />
             </main>
         </>
     )
