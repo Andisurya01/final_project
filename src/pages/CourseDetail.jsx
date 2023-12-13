@@ -28,6 +28,9 @@ const CourseDetail = () => {
     const [totalTimeCh2, setTotalTimeCh2] = useState(0)
     const [chapter1, setChapter1] = useState([])
     const [chapter2, setChapter2] = useState([])
+    const [listText1, setListText1] = useState('')
+    const [listText2, setListText2] = useState('')
+    const [listText3, setListText3] = useState('')
     const navigate = useNavigate()
     const token = getCookieValue("token")
 
@@ -61,6 +64,9 @@ const CourseDetail = () => {
                 setTotalModule(totalModule)
                 setChapter1(response.module?.filter((item) => item.chapter === 1))
                 setChapter2(response.module?.filter((item) => item.chapter === 2))
+                setListText1(chapter2[0].title)
+                setListText2(chapter2[1].title)
+                setListText3(chapter2[2].title)
             }).catch((err) => {
                 console.log(err);
             })
@@ -87,7 +93,7 @@ const CourseDetail = () => {
                     <div className="pt-2 pb-4">
                         <div className="flex justify-between mb-2">
                             <p className="text-DARKBLUE05 font-bold text-sm">Chapter 1 - Pendahuluan</p>
-                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1} Menit</p>
+                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1 / 60 } Menit</p>
                         </div>
                         {chapter1.map((item, index) => {
                             return (
@@ -104,7 +110,7 @@ const CourseDetail = () => {
                     <div className="pt-2">
                         <div className="flex justify-between mb-2">
                             <p className="text-DARKBLUE05 font-bold text-sm">Chapter 2 - Memulai Desain</p>
-                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2} Menit</p>
+                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2 / 60} Menit</p>
                         </div>
 
                         {chapter2.map((item, index) => {
@@ -131,7 +137,7 @@ const CourseDetail = () => {
                     author={course.authorBy}
                     level={course.level}
                     module={totalModule + " Module"}
-                    time={totalTime + " Minute"}
+                    time={totalTime / 60 + " Minute"}
                     tele={course.telegram}
                 />
             </div>
@@ -158,26 +164,15 @@ const CourseDetail = () => {
                     <div className="py-10">
                             <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
                             <div className="w-[600px]">
-                                <p className="text-justify indent-10 mb-4">Design system adalah kumpulan komponen design, code, ataupun dokumentasi yang dapat digunakan sebagai
-                                panduan utama yang memunginkan designer serta developer memiliki lebih banyak kontrol atas berbagai platform. Dengan hadirnya
-                                design system, dapat menjaga konsistensi tampilan user interface dan meningkatkan user experience menjadi lebih baik. Di sisi bisnis,
-                                design system sangat berguna dalam menghemat waktu dan biaya ketika mengembangkan suatu produk.
-                                </p>
                                 <p className="text-justify indent-10 mb-4">
-                                Bersama mentor XXX, kita akan mempelajari design system dari mulai manfaat, alur kerja pembuatannya, tools yang digunakan, hingga
-                                pada akhirnya, kita akan membuat MVP dari design system. Selain itu, mentor juga akan menjelaskan berbagai resource yang dibutuhkan
-                                untuk mencari inspirasi mengenai design system.
-                                </p>
-                                <p className="text-justify indent-10 mb-4">
-                                Kelas ini sesuai untuk Anda yang ingin memahami apa itu design system. Tidak hanya ditujukan untuk UI/UX Designer ataupun Developer,
-                                kelas ini sangat sesuai untuk stakeholder lain agar dapat memudahkan tim dalam bekerja sama. Yuk segera daftar dan kami tunggu di kelas ya!
+                                    {course.description}
                                 </p>
                             </div>
                             <h1 className="font-bold text-2xl mb-2">Kelas Ini Ditujukan Untuk?</h1>
                             <ol className="list-decimal list-inside">
-                                <li className="py-2">Anda yang ingin memahami poin penting design system</li>
-                                <li className="py-2">Anda yang ingin membantu perusahaan lebih optimal dalam membuat design produk</li>
-                                <li className="py-2">Anda yang ingin latihan membangun design system</li>
+                                <li className="py-2">Anda yang ingin memahami poin penting {listText1} </li>
+                                <li className="py-2">Anda yang ingin membantu perusahaan lebih optimal dalam {listText2} </li>
+                                <li className="py-2">Anda yang ingin latihan {listText3} </li>
                             </ol>
                         </div>
                 </div>
@@ -207,7 +202,7 @@ const CourseDetail = () => {
                         author={course.authorBy}
                         level={course.level}
                         module={totalModule + " Module"}
-                        time={totalTime + " Minute"}
+                        time={totalTime / 60 + " Minute"}
                         price={course.price} />
                     <AnimatedButton>
                     <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>
