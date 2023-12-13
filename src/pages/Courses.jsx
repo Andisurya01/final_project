@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react";
 import { getCourses } from "../api/servicesApi";
 import { useDispatch } from 'react-redux';
+import { formatRupiah } from '../lib/rupiahFormat';
 
 const Courses = () => {
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ const Courses = () => {
             const response = res.data.data
             setCourse(response)
         })
+
     }, [])
 
     return (
@@ -91,8 +93,8 @@ const Courses = () => {
                                             author={item.authorBy}
                                             level={item.level}
                                             module={item.module.length + " Module"} // perlu diberi logic tambahan / belum beres
-                                            time={count + " Menit"} // perlu diberi logic tambahan / belum beres
-                                            price={item.price} />
+                                            time={count / 60  + " Menit"} // perlu diberi logic tambahan / belum beres
+                                            price={formatRupiah(item.price)} />
                                     </div>
                                 )
                             })}

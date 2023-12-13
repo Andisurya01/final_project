@@ -50,6 +50,15 @@ const Account = () => {
 
         updateProfileButton.onclick = () => {
             if( name != '' && email != '' && phone != '' && country != '' && city != ''  ){
+
+                console.log({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    country: country,
+                    city: city
+            })
+
                 consumeUserApi.updateUser({
                     name: name,
                     email: email,
@@ -244,13 +253,17 @@ const Account = () => {
                                         return (
                                             <div key={data.id} className='mb-4'>
                                                 <CardPaid picture={data.course.image}
-                                                    course={data.course.title} 
+                                                    course={data.course.category.title} 
                                                     rating={data.course.rating}
                                                     topic={data.course.title}
                                                     author={data.course.authorBy}
                                                     level={data.course.level}
-                                                    module={"10 Modul"}
-                                                    time={"120 Menit"}
+                                                    module={data.course.module.length}
+                                                    time={
+                                                        `${data.course.module.reduce((accumulator, currentValue) => {
+                                                            return accumulator + currentValue.time;
+                                                        }, 0) / 60} menit`
+                                                    }
                                                     price={data.course.price}
                                                     isPaid={data.status == 'WAITING' ? false : true} 
                                                 />
