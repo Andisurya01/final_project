@@ -16,14 +16,35 @@ import FreeCard from '../components/CourseCard/FreeCard';
 const Courses = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [currentCourse, setCurrentCourse] = useState([])
     const [course, setCourse] = useState([])
+
     useEffect(() => {
+
         getCourses().then((res) => {
             const response = res.data.data
-            setCourse(response)
+            setCourse(response);
+            setCurrentCourse(response)
         })
 
     }, [])
+
+
+    const filterTypeFunction = (TYPE) => {
+        if(TYPE == 'PREMIUM' ){
+            const premiumData = currentCourse.filter((data)=>{
+                return data.type == 'PREMIUM';
+            }) 
+            setCourse(premiumData)
+        }else if(TYPE == 'FREE'){
+            const freeData = currentCourse.filter((data)=>{
+                return data.type == 'FREE';
+            }) 
+            setCourse(freeData)
+        }else{
+            setCourse(currentCourse);
+        } 
+    }
 
     return (
         <section className="">
@@ -69,11 +90,25 @@ const Courses = () => {
 
                     <div className="w-3/4">
                         <div className="mb-10 flex justify-between">
-                            <FilterPlanProgress title={"All"} />
-                            <FilterPlanProgress title={"Premium"} />
-                            <FilterPlanProgress title={"Kelas Gratis"} />
+                            <div onClick={()=>{
+                                filterTypeFunction('')
+                            }}><FilterPlanProgress title={"All"} /></div>
+
+                            <div onClick={()=>{
+                                
+                                filterTypeFunction('PREMIUM')
+                            }}>
+                                <FilterPlanProgress title={"Premium"} />
+                            </div>
+
+                            <div onClick={()=>{
+                                filterTypeFunction('FREE')
+                                
+                            }}> 
+                                <FilterPlanProgress title={"Kelas Gratis"} />
+                            </div>
                         </div>
-                        <div className="flex flex-wrap gap-10">
+                        <div id='courseList' className="flex flex-wrap gap-10">
                             {course.map((item) => {
                                 let count = 0
                                 for (let i = 0; i < item.module.length; i++) {
@@ -82,7 +117,7 @@ const Courses = () => {
 
                                 if(item.type == 'FREE'){
                                     return (
-                                        <div
+                                        <div 
                                             key={item.id}
                                             onClick={() => {
                                                 navigate("/courses/detail")
