@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { formatRupiah } from '../lib/rupiahFormat';
 import FreeCard from '../components/CourseCard/FreeCard';
 import AnimatedButton from '../components/Button/AnimatedButton';
+import SidebarFilter from '../components/Filter/SidebarFilter';
 
 const Courses = () => {
     const dispatch = useDispatch()
@@ -68,33 +69,7 @@ const Courses = () => {
                 <div className="grid place-content-center">
                     <div className="w-[1024px] pb-20">
                     <div className="flex gap-20">
-                    <div className="bg-white w-1/4 rounded-xl px-6 py-8">
-                        <div className="mb-10">
-                            <h1 className="text-2xl font-bold mb-5">Filter</h1>
-                            <Checkbox title={'Paling Baru'} />
-                            <Checkbox title={'Paling Populer'} />
-                            <Checkbox title={'Promo'} />
-                        </div>
-                        <div className="mb-10">
-                            <h1 className="text-2xl font-bold mb-5">Kategori</h1>
-                            <Checkbox title={'UI/UX Design'} />
-                            <Checkbox title={'Web Development'} />
-                            <Checkbox title={'Android Development'} />
-                            <Checkbox title={'Data Science'} />
-                            <Checkbox title={'Business Intelligence'} />
-                        </div>
-                        <div className="mb-10">
-                            <h1 className="text-2xl font-bold mb-5">Level Kesulitan</h1>
-                            <Checkbox title={'Semua Level'} />
-                            <Checkbox title={'Beginner Level'} />
-                            <Checkbox title={'Intermediate Level'} />
-                            <Checkbox title={'Advanced Level'} />
-                        </div>
-                        <hr className="mb-3" />
-                        <div className="flex justify-center">
-                            <button className="text-WARNING text-sm font-medium">Hapus Filter</button>
-                        </div>
-                    </div>
+                    <SidebarFilter />
 
                     <div className="w-3/4">
                         <div className="mb-10 flex justify-between">
