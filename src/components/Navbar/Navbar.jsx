@@ -83,12 +83,13 @@ const Navbar = () => {
                         <NavbarButton isActive={isKelasActive} onClick={handleKelasClick} icon="tabler:list" text="Kelas" />
                         <div className='static flex items-center'>
                             <NavbarButton isActive={isBellActive} onClick={handleBellClick} icon="lucide:bell" text="Notifikasi" />
-                            <div className="absolute translate-x-3 -translate-y-4">
-                                <div className='relative'>
-                                    <div className='bg-red-500 rounded-full h-5 w-5 border-2 border-white'></div>
-                                    <p className='text-center absolute inset-0 text-white text-sm font-medium'>{notification}</p>
-                                </div>
-                            </div>
+                            {notification === 0 ? null :
+                                <div className="absolute translate-x-3 -translate-y-4">
+                                    <div className='relative'>
+                                        <div className='bg-red-500 rounded-full h-5 w-5 border-2 border-white'></div>
+                                        <p className='text-center absolute inset-0 text-white text-sm font-medium'>{notification}</p>
+                                    </div>
+                                </div>}
                         </div>
                         <NavbarButton isActive={isUserActive} onClick={handleUserClick} icon="lucide:user" text="Akun" />
                     </div> :
