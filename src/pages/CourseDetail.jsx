@@ -16,6 +16,7 @@ import Card from "../components/CourseCard/Card";
 import { useNavigate } from "react-router-dom"
 import { getCourses } from "../api/servicesApi";
 import getCookieValue from "../api/getCookie";
+import AnimatedButton from "../components/Button/AnimatedButton";
 
 const CourseDetail = () => {
     const [course, setCourse] = useState([])
@@ -27,9 +28,6 @@ const CourseDetail = () => {
     const [totalTimeCh2, setTotalTimeCh2] = useState(0)
     const [chapter1, setChapter1] = useState([])
     const [chapter2, setChapter2] = useState([])
-    const [listText1, setListText1] = useState('')
-    const [listText2, setListText2] = useState('')
-    const [listText3, setListText3] = useState('')
     const navigate = useNavigate()
     const token = getCookieValue("token")
 
@@ -39,11 +37,11 @@ const CourseDetail = () => {
         } else {
             setOpen(!open)
         }
-        
     }
 
+
+
     useEffect(() => {
-        
         getCourses()
             .then((res) => {
                 const response = res.data.data.filter((item) => item.id === id)[0]
@@ -63,26 +61,23 @@ const CourseDetail = () => {
                 setTotalModule(totalModule)
                 setChapter1(response.module?.filter((item) => item.chapter === 1))
                 setChapter2(response.module?.filter((item) => item.chapter === 2))
-                setListText1(course.module[0].title)
-                setListText2(course.module[1].title)
-                setListText3(course.module[2].title)
             }).catch((err) => {
                 console.log(err);
             })
-
-
-
     })
 
     return (
         <section>
-            <div className="bg-LIGHTBLUE px-20 py-10">
+            <div className="bg-LIGHTBLUE h-[250px]">
+                <div className="grid place-content-center">
+                    <div className="h-[250px]">
+                        <div className="w-[1024px] pt-10">
                 <button className="flex justify-center items-center gap-4">
                     <Icon icon="ph:arrow-left-bold" className="text-2xl" onClick={() => history.back()} />
                     <p className="font-bold text-lg">Kelas Lainnya</p>
                 </button>
-                <div className="float-right w-1/3 rounded-2xl bg-white px-8 py-5" style={{ boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)' }}>
-                    <div className="flex items-center justify-between mb-3">
+                <div className="float-right w-[400px] rounded-2xl bg-white px-5 py-5" style={{boxShadow: '0px 4px 4px 0px rgba(0, 0, 0, 0.25)'}}>
+                        <div className="flex items-center justify-between mb-3">
                         <h1 className="text-lg font-bold">Materi Belajar</h1>
                         <ProgressBar
                             width="50%"
@@ -92,7 +87,7 @@ const CourseDetail = () => {
                     <div className="pt-2 pb-4">
                         <div className="flex justify-between mb-2">
                             <p className="text-DARKBLUE05 font-bold text-sm">Chapter 1 - Pendahuluan</p>
-                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1 / 60 } Menit</p>
+                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1} Menit</p>
                         </div>
                         {chapter1.map((item, index) => {
                             return (
@@ -101,7 +96,7 @@ const CourseDetail = () => {
                                         number={index + 1 + "."}
                                         subject={item.title}
                                     />
-                                    <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
+                                    <AnimatedButton><Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" /></AnimatedButton>
                                 </div>
                             )
                         })}
@@ -109,7 +104,7 @@ const CourseDetail = () => {
                     <div className="pt-2">
                         <div className="flex justify-between mb-2">
                             <p className="text-DARKBLUE05 font-bold text-sm">Chapter 2 - Memulai Desain</p>
-                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2 / 60} Menit</p>
+                            <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2} Menit</p>
                         </div>
 
                         {chapter2.map((item, index) => {
@@ -121,11 +116,12 @@ const CourseDetail = () => {
                                         subject={item.title}
                                     />
                                     <button>
-                                        <Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" />
+                                        <AnimatedButton><Icon icon="bxs:lock" className="text-2xl text-LIGHTGREY" /></AnimatedButton>
                                     </button>
                                 </div>
                             )
                         })}
+                        </div>
                     </div>
                 </div>
                 <CourseTitle
@@ -135,59 +131,74 @@ const CourseDetail = () => {
                     author={course.authorBy}
                     level={course.level}
                     module={totalModule + " Module"}
-                    time={totalTime / 60  + " Minute"}
+                    time={totalTime + " Minute"}
                     tele={course.telegram}
                 />
             </div>
-            <div className="px-20 py-10">
-                <div className="px-10">
-                    <div className="relative w-[700px] h-[327px] bg-DARKGREY02 rounded-3xl flex flex-col justify-center">
-                        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="w-[600px] pt-10">
+                    <div className="relative w-[600px] h-[327px] bg-DARKGREY02 rounded-3xl flex flex-col justify-center">
+                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             <div className="bg-DARKBLUE05 rounded-full w-16 h-16 flex items-center justify-center">
                                 <Icon icon="fluent:filmstrip-play-24-regular" className="text-white text-4xl" />
                             </div>
                         </div>
                         <div className="absolute bottom-4 right-4 flex gap-2">
+                        <AnimatedButton>
                             <div className="bg-white rounded-full px-4 py-1">
                                 <p className="text-DARKBLUE03 font-medium">Kelas Lainnya</p>
                             </div>
+                            </AnimatedButton>
+                            <AnimatedButton>
                             <div className="bg-DARKBLUE05 rounded-full px-4 py-1">
                                 <p className="text-white font-medium">Next</p>
                             </div>
+                            </AnimatedButton>
                         </div>
                     </div>
                     <div className="py-10">
-                        <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
-                        <div className="w-[690px]">
-                            <p className="text-justify indent-10 mb-4">
-                                {course.description}
-                            </p>
+                            <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
+                            <div className="w-[600px]">
+                                <p className="text-justify indent-10 mb-4">Design system adalah kumpulan komponen design, code, ataupun dokumentasi yang dapat digunakan sebagai
+                                panduan utama yang memunginkan designer serta developer memiliki lebih banyak kontrol atas berbagai platform. Dengan hadirnya
+                                design system, dapat menjaga konsistensi tampilan user interface dan meningkatkan user experience menjadi lebih baik. Di sisi bisnis,
+                                design system sangat berguna dalam menghemat waktu dan biaya ketika mengembangkan suatu produk.
+                                </p>
+                                <p className="text-justify indent-10 mb-4">
+                                Bersama mentor XXX, kita akan mempelajari design system dari mulai manfaat, alur kerja pembuatannya, tools yang digunakan, hingga
+                                pada akhirnya, kita akan membuat MVP dari design system. Selain itu, mentor juga akan menjelaskan berbagai resource yang dibutuhkan
+                                untuk mencari inspirasi mengenai design system.
+                                </p>
+                                <p className="text-justify indent-10 mb-4">
+                                Kelas ini sesuai untuk Anda yang ingin memahami apa itu design system. Tidak hanya ditujukan untuk UI/UX Designer ataupun Developer,
+                                kelas ini sangat sesuai untuk stakeholder lain agar dapat memudahkan tim dalam bekerja sama. Yuk segera daftar dan kami tunggu di kelas ya!
+                                </p>
+                            </div>
+                            <h1 className="font-bold text-2xl mb-2">Kelas Ini Ditujukan Untuk?</h1>
+                            <ol className="list-decimal list-inside">
+                                <li className="py-2">Anda yang ingin memahami poin penting design system</li>
+                                <li className="py-2">Anda yang ingin membantu perusahaan lebih optimal dalam membuat design produk</li>
+                                <li className="py-2">Anda yang ingin latihan membangun design system</li>
+                            </ol>
                         </div>
-                        <h1 className="font-bold text-2xl mb-2">Kelas Ini Ditujukan Untuk?</h1>
-                        <ol className="list-decimal list-inside">
-                        
-                            <li className="py-2">Anda yang ingin memahami poin penting {listText1}</li>
-                            <li className="py-2">Anda yang ingin belajar {listText2}</li>
-                            <li className="py-2">Anda yang ingin latihan {listText3}</li>
-                        </ol>
-                    </div>
                 </div>
+            </div>
+            <Footer />
             </div>
             <Dialog open={open} handler={()=>setOpen(!open)}>
                 <div className="flex justify-end">
                     <button className="px-2 py-2" onClick={()=>setOpen(!open)}>
-                        <Icon icon="material-symbols:close" className="text-2xl" />
+                        <Icon icon="material-symbols:close" className="text-3xl" />
                     </button>
                 </div>
-                <DialogHeader className="grid place-content-center py-5">
-                    <Typography variant="h3" className="text-center">
+                <DialogHeader className="grid place-content-center">
+                    <Typography variant="h3" className="text-center text-black">
                         Selangkah lagi menuju
                     </Typography>
                     <Typography variant="h3" className="text-center text-DARKBLUE05">
                         Kelas Premium
                     </Typography>
                 </DialogHeader>
-                <DialogBody className="grid place-items-center gap-4">
+                <DialogBody className="grid place-items-center gap-4 text-black">
                     <Card
                         picture={course.category?.image}
                         course={course.category?.title}
@@ -198,16 +209,16 @@ const CourseDetail = () => {
                         module={totalModule + " Module"}
                         time={totalTime + " Minute"}
                         price={course.price} />
-
+                    <AnimatedButton>
                     <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>
                         <div className="bg-DARKBLUE05 rounded-full py-3 flex justify-center items-center gap-2">
                             <p className="text-white font-bold">Beli Sekarang</p>
                             <Icon icon="carbon:next-filled" className="text-white text-2xl" />
                         </div>
                     </button>
+                    </AnimatedButton>
                 </DialogBody>
             </Dialog>
-            <Footer />
         </section>
     )
 }

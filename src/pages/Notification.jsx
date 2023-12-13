@@ -15,18 +15,27 @@ const Notification = () => {
 
     return (
         <section>
-            <div className="bg-LIGHTBLUE px-20 pt-10">
+        <div className="bg-LIGHTBLUE h-[170px]">
+                <div className='grid place-content-center'>
+                    <div className="w-[1024px] pt-10">
+                        <div>
+                            <div className='mb-12'>
                 <button className="flex justify-center items-center gap-4 mb-10" onClick={() => history.back()} >
-                    <Icon icon="ph:arrow-left-bold" className="text-2xl text-DARKBLUE05" />
-                    <p className="font-bold text-lg text-DARKBLUE05">Kembali ke Beranda</p>
+                    <Icon icon="ph:arrow-left-bold" className="text-xl text-DARKBLUE05" />
+                    <p className="font-bold text-DARKBLUE05">Kembali ke Beranda</p>
                 </button>
+                </div>
                 <div className='flex justify-center'>
                     <div className='w-[900px] bg-DARKBLUE05 flex justify-center py-4 rounded-t-2xl'>
                         <p className='text-white font-medium'>Notifikasi</p>
+                        </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className='px-20 mb-20'>
+                <div className='grid place-content-center mb-20'>
+                    <div className="w-[1024px]">
+                        <div>
                 <div className='flex justify-center'>
                     <div className='w-[900px] border border-DARKBLUE05 rounded-b-2xl flex justify-center'>
                         <div className='w-[700px]'>
@@ -55,7 +64,10 @@ const Notification = () => {
                     </div>
                 </div>
             </div>
+            </div>
+            </div>
             <Footer />
+            </div>
         </section>
     )
 }

@@ -12,7 +12,7 @@ const CourseTracking = () => {
     return (
         <section className="">
             <div className="bg-LIGHTBLUE px-32 py-10">
-                <div className="flex justify-between items-center justify-center mb-16">
+                <div className="flex justify-between items-center mb-16">
                     <h1 className="text-2xl font-bold">Kelas Berjalan</h1>
                     <div className="flex gap-16 bg-white border-2 border-DARKBLUE05 rounded-full px-6 py-3">
                         <input type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" />

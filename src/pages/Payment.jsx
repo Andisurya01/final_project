@@ -59,19 +59,25 @@ const Payment = () => {
     },[])
     return (
         <section>
-            <div className="bg-white px-20 py-10 h-48" style={{ boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15" }}>
-                <button className="flex justify-center items-center gap-4">
-                    <Icon icon="ph:arrow-left-bold" className="text-2xl" onClick={() => history.back()}/>
-                    <p className="font-bold text-lg">Kembali</p>
+            <div className="bg-white px-20 py-10 h-48" style={{boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15"}}>
+                <div className="grid place-content-center">
+                    <div className="w-[1024px]">
+                    <button onClick={() => navigate("/courses/detail")} className="flex justify-center items-center gap-4">
+                    <Icon icon="ph:arrow-left-bold" className="text-xl" onClick={() => history.back()}/>
+                    <p className="font-bold">Kembali</p>
                 </button>
                 <div className="flex items-center justify-center">
                     <div className="rounded-xl bg-WARNING mt-10 py-3 w-[800px]">
                         <p className="text-white font-medium text-center">Selesaikan Pembayaran sampai 10 Maret 2023 12:00</p>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="px-20 py-10 flex justify-between">
-                <div className="w-[600px]">
+            <div className="grid place-content-center">
+                <div className="w-[1024px]">
+                    <div className="py-10 flex justify-between">
+                        <div className="w-[550px]">
                     <Accordion open={open === 1} icon={<Symbol id={1} open={open} />} className="mb-4 rounded-md bg-DARKGREY02" style={{ boxShadow: "0px 3px 2px 0px rgba(0, 0, 0, 0.05)" }}>
                         <AccordionHeader
                             onClick={() => handleOpen(1)}
@@ -166,8 +172,9 @@ const Payment = () => {
                         </div>
                     </div>
                 </div>
+                </div>
+                </div>
             </div>
-
             <Footer />
         </section>
     )
