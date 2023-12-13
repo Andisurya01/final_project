@@ -148,65 +148,74 @@ const Account = () => {
 
     return (
         <section>
-            <div className="bg-LIGHTBLUE px-20 pt-10">
-                <button className="flex justify-center items-center gap-4 mb-10">
-                    <Icon icon="ph:arrow-left-bold" className="text-2xl text-DARKBLUE05" onClick={() => history.back()}/>
-                    <p className="font-bold text-lg text-DARKBLUE05">Kembali ke Beranda</p>
-                </button>
-                <div className='flex justify-center'>
-                    <div className='w-[900px] bg-DARKBLUE05 flex justify-center py-4 rounded-t-2xl'>
-                        <p className='text-white font-medium'>Akun</p>
+            <div className="bg-LIGHTBLUE h-[170px]">
+                <div className='grid place-content-center'>
+                    <div className="w-[1024px] pt-10">
+                        <div>
+                            <div className='mb-12'>
+                                <button onClick={() => navigate("/home")} className="flex justify-center items-center gap-4">
+                                    <Icon icon="ph:arrow-left-bold" className="text-xl text-DARKBLUE05" />
+                                    <p className="font-bold text-DARKBLUE05">Kembali ke Beranda</p>
+                                </button>
+                            </div>
+                            <div className='flex justify-center'>
+                                <div className='w-[900px] bg-DARKBLUE05 flex justify-center py-4 rounded-t-2xl'>
+                                    <p className='text-white font-medium'>Akun</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className='px-20 mb-20'>
-                <div className='flex justify-center'>
-                    <div className='w-[900px] border border-DARKBLUE05 rounded-b-2xl'> 
-                    
-                        <div className={`float-right w-[480px] grid place-content-center py-8 ${isProfileVisible ? '' : 'hidden'}`}>
+                <div className='grid place-content-center mb-20'>
+                    <div className="w-[1024px]">
+                        <div>
                             <div className='flex justify-center'>
-                                <div className='bg-DARKBLUE05 w-24 h-24 rounded-full flex justify-center items-center mb-6'>
-                                    <img  className='w-24 h-24 rounded-full ' src={user.image} alt='profile-photos' ></img>
-                                </div>
-                            </div>
-                            <div className='mb-6'>
-                                <div className='mb-4'>
-                                    <p className='mb-2'>Nama</p>
-                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                        <input  id='field-name' type="text" placeholder={user.name} className="focus:outline-none focus:ring-0 text-sm" />
+                                <div className='w-[900px] border border-DARKBLUE05 rounded-b-2xl'> 
+
+                                    <div className={`float-right w-[480px] grid place-content-center py-8 ${isProfileVisible ? '' : 'hidden'}`}>
+                                        <div className='flex justify-center'>
+                                            <div className='bg-DARKBLUE05 w-24 h-24 rounded-full flex justify-center items-center mb-6'>
+                                                <img  className='w-24 h-24 rounded-full ' src={user.image} alt='profile-photos' ></img>
+                                            </div>
+                                        </div>
+                                        <div className='mb-6'>
+                                            <div className='mb-4'>
+                                                <p className='mb-2'>Nama</p>
+                                                <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
+                                                    <input  id='field-name' type="text" placeholder={user.name} className="focus:outline-none focus:ring-0 text-sm" />
+                                                </div>
+                                            </div>
+                                            <div className='mb-4'>
+                                                <p className='mb-2'>Email</p>
+                                                <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
+                                                    <input id='field-email' type="email" placeholder={user.email} className="focus:outline-none focus:ring-0 text-sm" />
+                                                </div>
+                                            </div>
+                                            <div className='mb-4'>
+                                                <p className='mb-2'>Nomor Telepon</p>
+                                                <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
+                                                <input type="tel" id="nomorTelepon" name="nomorTelepon" pattern="[+]\d{2}\d{9,12}" placeholder={user.phone} className="focus:outline-none focus:ring-0 text-sm" />
+                                            </div>
+                                        </div>
+                                        <div className='mb-4'>
+                                            <p className='mb-2'>Negara</p>
+                                            <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
+                                                <input id='field-country' type="text" placeholder={user.country} className="focus:outline-none focus:ring-0 text-sm" />
+                                            </div>
+                                        </div>
+                                        <div className='mb-4'>
+                                            <p className='mb-2'>Kota</p>
+                                            <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
+                                                <input id='field-city' type="text" placeholder={user.city} className="focus:outline-none focus:ring-0 text-sm" />
+                                            </div>
+                                        </div>
                                     </div>
+                                    <button id='up-profile-button'>
+                                        <div className='bg-DARKBLUE05 p-3 rounded-full'>
+                                            <p className='text-lg text-white font-bold'>Simpan Profil Saya</p>
+                                        </div>
+                                    </button>
                                 </div>
-                                <div className='mb-4'>
-                                    <p className='mb-2'>Email</p>
-                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                        <input id='field-email' type="email" placeholder={user.email} className="focus:outline-none focus:ring-0 text-sm" />
-                                    </div>
-                                </div>
-                                <div className='mb-4'>
-                                    <p className='mb-2'>Nomor Telepon</p>
-                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                    <input type="tel" id="nomorTelepon" name="nomorTelepon" pattern="[+]\d{2}\d{9,12}" placeholder={user.phone} className="focus:outline-none focus:ring-0 text-sm" />
-                                    </div>
-                                </div>
-                                <div className='mb-4'>
-                                    <p className='mb-2'>Negara</p>
-                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                    <input id='field-country' type="text" placeholder={user.country} className="focus:outline-none focus:ring-0 text-sm" />
-                                    </div>
-                                </div>
-                                <div className='mb-4'>
-                                    <p className='mb-2'>Kota</p>
-                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                    <input id='field-city' type="text" placeholder={user.city} className="focus:outline-none focus:ring-0 text-sm" />
-                                    </div>
-                                </div>
-                            </div>
-                            <button id='up-profile-button'>
-                                <div className='bg-DARKBLUE05 p-3 rounded-full'>
-                                    <p className='text-lg text-white font-bold'>Simpan Profil Saya</p>
-                                </div>
-                            </button>
-                        </div>
 
                         <div className={`float-right w-[480px] grid place-content-center py-8 ${isSetPasswordVisible ? '' : 'hidden'}`}>
                             <div className='flex justify-center mb-6'>
@@ -320,7 +329,10 @@ const Account = () => {
                 />
                 </div>: '' 
             }
+            </div>
+            </div>
             <Footer />
+            </div>
         </section>
     )
 }
