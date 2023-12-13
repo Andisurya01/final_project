@@ -127,6 +127,7 @@ const CourseDetail = () => {
                     level={course.level}
                     module={totalModule + " Module"}
                     time={totalTime + " Minute"}
+                    tele={course.telegram}
                 />
             </div>
             <div className="px-20 py-10">

@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import AnimatedButton from '../Button/AnimatedButton';
 
 // eslint-disable-next-line react/prop-types
-const CourseTitle = ({course, rating, topic, author, level, module, time}) => {
+const CourseTitle = ({course, rating, topic, author, level, module, time , tele }) => {
     return (
         <div className=" py-3 w-[600px]">
             <div className="flex justify-between">
@@ -29,12 +29,14 @@ const CourseTitle = ({course, rating, topic, author, level, module, time}) => {
                 </div>
             </div>
             <AnimatedButton>
-                <div className="bg-SUCCESS text-white flex justify-center items-center px-4 py-1 mt-3 rounded-full w-52">
-                    <div className="flex gap-2">
-                        <p className="text-sm font-medium">Join Grup Telegram</p>
-                        <Icon icon="gridicons:chat" className="text-xl" />
-                    </div>
-                </div>
+                <a href={tele}>
+                    <div className="bg-SUCCESS text-white flex justify-center items-center px-4 py-1 mt-3 rounded-full w-52">
+                        <div className="flex gap-2">
+                            <p className="text-sm font-medium">Join Grup Telegram</p>
+                            <Icon icon="gridicons:chat" className="text-xl" />
+                        </div>
+                    </div>  
+                </a>
             </AnimatedButton>
         </div>
     )
