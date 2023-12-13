@@ -42,8 +42,6 @@ const CourseDetail = () => {
         }
     }
 
-
-
     useEffect(() => {
         getCourses()
             .then((res) => {
@@ -109,7 +107,7 @@ const CourseDetail = () => {
                     </div>
                     <div className="pt-2">
                         <div className="flex justify-between mb-2">
-                            <p className="text-DARKBLUE05 font-bold text-sm">Chapter 2 - Memulai Desain</p>
+                            <p className="text-DARKBLUE05 font-bold text-sm">Chapter 2 - Memulai Module</p>
                             <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2 / 60} Menit</p>
                         </div>
 

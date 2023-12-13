@@ -1,6 +1,6 @@
 import uiux from "../assets/img/uiux.jpg"
 import { Icon } from '@iconify/react';
-import Checkbox from "../components/Checkbox/Checkbox";
+// import Checkbox from "../components/Checkbox/Checkbox";
 import ProgressCard from "../components/CourseCard/ProgressCard";
 import Footer from "../components/Footer/Footer"
 import FilterPlanProgress from "../components/Filter/FilterPlanProgress";

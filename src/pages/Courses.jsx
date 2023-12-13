@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import Checkbox from "../components/Checkbox/Checkbox";
+// import Checkbox from "../components/Checkbox/Checkbox";
 import Footer from "../components/Footer/Footer"
 import Card from "../components/CourseCard/Card"
 import { updateId } from '../store/moduleCourses';
@@ -29,7 +29,78 @@ const Courses = () => {
             setCurrentCourse(response)
         })
 
+        sideFilterFunction()
+
     }, [])
+
+
+    const sideFilterFunction = () => {
+
+        const filterList = [];
+        const delFilter = document.getElementById('deleteFilter');
+        const checkList = [ 'uiux' , 'webdev' , 'android' , 'datasc' , 'semua' , 'beginner' , 'intermediate' , 'advanced' ];
+        const fieldClass = document.getElementById('fieldClass');
+        const searchClassButton = document.getElementById('searchClassButton');
+        
+        checkList.map((data)=>{
+            const checkBoxValue = document.getElementById(data).value ;
+
+            if(document.getElementById(data).checked){
+                if(filterList.indexOf(checkBoxValue ) <= -1){
+                    filterList.push(checkBoxValue )
+                }
+            }
+
+            document.getElementById(data).onclick = () => {
+                if(document.getElementById(data).checked){
+                    if(filterList.indexOf(checkBoxValue ) <= -1){
+                        filterList.push(checkBoxValue )
+                    }
+                }else{
+                    if(filterList.indexOf(checkBoxValue ) >= -1){
+                        filterList.splice(filterList.indexOf(data) , 1)
+                    }
+                }
+            }
+        })
+        
+        delFilter.onclick = () => {
+            checkList.map((data)=>{
+                if(document.getElementById(data).checked){
+                    document.getElementById(data).addEventListener('click', function() {
+                    })
+                    document.getElementById(data).click();
+                }
+                filterList.length = 0
+            })
+        }
+
+        searchClassButton.onclick = () => {
+            
+            if(fieldClass.value != ''){
+                filterList.push(fieldClass.value)
+            }
+
+
+            const filteredDone = currentCourse.filter((data)=>{
+                const initiateData = `${data.category.title + ' ' + data.level  + ' ' + data.title  + ' ' + data.description}`
+                const filterChecked =  filterList.map((value)=>{
+                    return initiateData.includes(value); 
+                })
+
+                if(filterChecked.includes(true)){
+                    return data;
+                }
+ 
+                if(initiateData == ''){
+                    return data;
+                }
+            }) 
+
+            setCourse(filteredDone)
+        }
+
+    }
 
 
     const filterTypeFunction = (TYPE) => {
@@ -56,8 +127,8 @@ const Courses = () => {
                 <div className="flex justify-between items-center mb-16">
                     <h1 className="text-2xl font-bold">Topik Kelas</h1>
                     <div className="flex gap-16 bg-white border-2 border-DARKBLUE05 rounded-full px-6 py-3">
-                        <input type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" />
-                        <button className="bg-DARKBLUE05 flex items-center justify-center w-9 h-9 rounded-xl">
+                        <input id='fieldClass' type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" />
+                        <button id='searchClassButton' className="bg-DARKBLUE05 flex items-center justify-center w-9 h-9 rounded-xl">
                             <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
                         </button>
                     </div>
@@ -70,7 +141,6 @@ const Courses = () => {
                     <div className="w-[1024px] pb-20">
                     <div className="flex gap-20">
                     <SidebarFilter />
-
                     <div className="w-3/4">
                         <div className="mb-10 flex justify-between">
                             <div onClick={()=>{
@@ -135,14 +205,13 @@ const Courses = () => {
                                                 topic={item.title}
                                                 author={item.authorBy}
                                                 level={item.level}
-                                                module={item.module.length + " Module"} // perlu diberi logic tambahan / belum beres
-                                                time={count / 60  + " Menit"} // perlu diberi logic tambahan / belum beres
+                                                module={item.module.length + " Module"} 
+                                                time={count / 60  + " Menit"} 
                                                 price={formatRupiah(item.price)} />
                                             </AnimatedButton>
                                         </div>
                                     )
                                 }
-
                                 
                             })}
                             </div>
