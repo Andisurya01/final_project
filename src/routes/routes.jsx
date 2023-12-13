@@ -33,7 +33,8 @@ const router = createBrowserRouter(
                 <Route path="/resettautan" element={<ResetTautan />} />
             </Route>
 
-            <Route path="/" element={<Navbar />}>
+            <Route  element={<Navbar />}>
+                <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/courses/detail" element={<CourseDetail />} />
