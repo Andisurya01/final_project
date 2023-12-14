@@ -4,9 +4,11 @@ import { Icon } from '@iconify/react';
 // eslint-disable-next-line react/prop-types
 const Card = ({picture, course, rating, topic, author, level, module, time, price}) => {
     return (
-        <button className="bg-white w-[323px] h-full rounded-2xl" style={{boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)'}}>
-            <img src={picture} className="w-full h-full object-cover" style={{width: '323px', height: '80px', borderRadius: '20px 20px 0px 0px'}} alt="" />
-            <div className="px-3 py-3">
+        <button className="bg-white w-[323px] h-[250px] rounded-2xl flex flex-col" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
+            <div className='h-[80px] rounded-t-[20px] overflow-hidden'>
+                <img src={picture} className="w-[323px] h-full object-cover" alt="" />
+            </div>
+            <div className="w-[320px] px-3 py-3">
                 <div className="flex justify-between">
                     <p className="text-xs font-semibold text-DARKBLUE05">{course}</p>
                     <div className="flex gap-1">
