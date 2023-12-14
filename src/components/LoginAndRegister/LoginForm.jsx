@@ -17,7 +17,7 @@ const LoginForm = () => {
                 password
             }
             const data = await postLogin(payload)
-            document.cookie = `token=${data.data.data.accessToken}`
+            document.cookie = `token=${data.data?.data.accessToken}`
             console.log(payload);
             setEmailOrPhone("")
             setPassword("")
