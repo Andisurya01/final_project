@@ -12,17 +12,23 @@ const CourseTracking = () => {
     const navigate = useNavigate()
     return (
         <section className="">
-            <div className="bg-LIGHTBLUE px-32 py-10">
+           <div className="w-full bg-LIGHTBLUE">
+                <div className="grid place-content-center">
+                    <div className="w-[1024px] pt-10">
                 <div className="flex justify-between items-center mb-16">
                     <h1 className="text-2xl font-bold">Kelas Berjalan</h1>
                     <div className="flex gap-16 bg-white border-2 border-DARKBLUE05 rounded-full px-6 py-3">
-                        <input type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" />
-                        <button className="bg-DARKBLUE05 flex items-center justify-center w-9 h-9 rounded-xl">
+                        <input id='fieldClass' type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" />
+                        <button id='searchClassButton' className="bg-DARKBLUE05 flex items-center justify-center w-9 h-9 rounded-xl">
                             <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
                         </button>
                     </div>
                 </div>
+                </div>
+                </div>
 
+                <div className="grid place-content-center">
+                    <div className="w-[1024px] pb-20">
                 <div className="flex gap-20">
                     <SidebarFilter/>
 
@@ -32,7 +38,7 @@ const CourseTracking = () => {
                             <FilterPlanProgress title={"In Progress"}/>
                             <FilterPlanProgress title={"Complete"}/>
                         </div>
-                        <div className="flex flex-wrap gap-10">
+                        <div className="flex flex-wrap gap-x-14 gap-y-10">
                             <button onClick={() => navigate("/courses/detail")}>
                             <ProgressCard picture={uiux}
                                 course={"UI/UX Design"} 
@@ -72,6 +78,8 @@ const CourseTracking = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
             <Footer />
         </section>
