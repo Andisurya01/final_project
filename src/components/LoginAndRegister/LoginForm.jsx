@@ -22,11 +22,11 @@ const LoginForm = () => {
             setEmailOrPhone("")
             setPassword("")
             navigate("/home")
+            window.location.reload();
         } catch (err) {
             console.log(err);
         } finally {
             setIsLoginDone(true)
-            console.log(isLoginDone);
         }
     }
     return (
@@ -45,7 +45,9 @@ const LoginForm = () => {
                     </div>
                     <input type="password" name="password" placeholder="Masukkan Password" className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full" value={password} onChange={(e)=> setPassword(e.target.value)}/>
                 </div>
-                <button type="button" className="w-full" onClick={onSubmit}>
+                <button type="button" className="w-full" onClick={
+                    onSubmit
+                }>
                     <Button warna={"bg-DARKBLUE05"} title={"Masuk"}></Button>
                 </button>
                 <p className="text-sm pt-12 text-center">Belum punya akun? <button className="text-DARKBLUE05 font-bold" onClick={() => navigate("/Register")}> Daftar di sini</button></p>
