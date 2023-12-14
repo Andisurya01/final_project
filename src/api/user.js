@@ -13,7 +13,7 @@ export const consumeUserApi = {
                 }
             });
     
-            return res.data.data;
+            return res.data;
         } catch (error) {
             return error
         }

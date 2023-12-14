@@ -11,7 +11,7 @@ import AllertReset from '../components/Allert/AllertReset';
 const Account = () => {
     const navigate = useNavigate()
 
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState([]);
     const [orderHistory , setOrderHistory] = useState([]);
     const [alertStatus , setAlertStatus] = useState(false);
     const [alertAction , setAlertAction] = useState(false);
@@ -19,26 +19,42 @@ const Account = () => {
     const [isProfileVisible, setProfileVisibility] = useState(false);
     const [isSetPasswordVisible, SetPasswordVisibility] = useState(false);
     const [isHistoryVisible, SetHistoryVisibility] = useState(false);
-    
-    useEffect(()=>{
-        consumeUserApi.getCurrentUser().then((data)=>{
-            setUser(data)
-        })
-
-        consumeOrderApi.getOrderUser().then((res) => {
-            if(res.status == 'OK'){
-                setOrderHistory(res.data)
-            }
-        })
-    })
-
 
     useEffect(()=>{
+
+        currentUserAPI();
+        orderUserAPI();
+
         updateUserProfile();
         updateUserPass();
         setAlertTime();
     })
     
+
+    const currentUserAPI  = ()=> {
+        if(user.length <= 0 ){
+            consumeUserApi.getCurrentUser().then((res)=>{
+                setUser(res.data)
+            })
+        }else{
+            return user;
+        }
+
+    }
+
+
+    const orderUserAPI = () => {
+        if(orderHistory.length <= 0 ){          
+            consumeOrderApi.getOrderUser().then((res) => {
+                if(res.status == 'OK'){
+                    setOrderHistory(res.data)
+                }
+            })
+        }else{
+            return orderHistory;
+        }
+    }
+
 
     const updateUserProfile = () => {
         const name = document.getElementById('field-name').value;
