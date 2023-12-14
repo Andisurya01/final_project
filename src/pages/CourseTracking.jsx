@@ -7,12 +7,34 @@ import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 
 import { useNavigate } from "react-router-dom"
 import SidebarFilter from "../components/Filter/SidebarFilter";
+import { useState } from "react";
+import { consumeOrderApi } from '../api/order';
+import { useEffect } from "react";
 
 const CourseTracking = () => {
     const navigate = useNavigate()
+    const [ course, setCourse  ] = useState('');
+
+    useEffect(()=>{
+        getCourseByOrder();
+    })
+
+    const getCourseByOrder = () => {
+        if(course.length <= 0 ){          
+            consumeOrderApi.getOrderUser().then((res) => {
+                if(res.status == 'OK'){
+                    setCourse(res.data)
+                }
+            })
+        }else{
+            return course;
+        }
+    }
+
+
     return (
         <section className="">
-           <div className="w-full bg-LIGHTBLUE">
+            <div className="w-full bg-LIGHTBLUE">
                 <div className="grid place-content-center">
                     <div className="w-[1024px] pt-10">
                 <div className="flex justify-between items-center mb-16">
@@ -39,42 +61,24 @@ const CourseTracking = () => {
                             <FilterPlanProgress title={"Complete"}/>
                         </div>
                         <div className="flex flex-wrap gap-x-14 gap-y-10">
-                            <button onClick={() => navigate("/courses/detail")}>
-                            <ProgressCard picture={uiux}
-                                course={"UI/UX Design"} 
-                                rating={"4.7"}
-                                topic={"Belajar Web Designer dengan Figma"}
-                                author={"Angela Doe"}
-                                level={"Intermediate Level"}
-                                module={"10 Modul"}
-                                time={"120 Menit"}
-                                width="50%"
-                                complete={"50% Complete"}/>
-                            </button>
-                            <button onClick={() => navigate("/courses/detail")}>
-                            <ProgressCard picture={uiux}
-                                course={"UI/UX Design"} 
-                                rating={"4.7"}
-                                topic={"Belajar Web Designer dengan Figma"}
-                                author={"Angela Doe"}
-                                level={"Intermediate Level"}
-                                module={"10 Modul"}
-                                time={"120 Menit"}
-                                width="50%"
-                                complete={"50% Complete"}/>
-                            </button>
-                            <button onClick={() => navigate("/courses/detail")}>
-                                <ProgressCard picture={uiux}
-                                course={"UI/UX Design"} 
-                                rating={"4.7"}
-                                topic={"Belajar Web Designer dengan Figma"}
-                                author={"Angela Doe"}
-                                level={"Intermediate Level"}
-                                module={"10 Modul"}
-                                time={"120 Menit"}
-                                width="50%"
-                                complete={"50% Complete"}/>
-                            </button>
+                            {
+                                course.map(data => {
+                                    return (
+                                    <button key={data.id} onClick={() => navigate("/courses/detail")}>
+                                        <ProgressCard picture={uiux}
+                                            course={"UI/UX Design"} 
+                                            rating={"4.7"}
+                                            topic={"Belajar Web Designer dengan Figma"}
+                                            author={"Angela Doe"}
+                                            level={"Intermediate Level"}
+                                            module={"10 Modul"}
+                                            time={"120 Menit"}
+                                            width="50%"
+                                            complete={"50% Complete"}/>
+                                    </button>
+                                    )
+                                })
+                            }
                         </div>
                     </div>
                 </div>

@@ -3,10 +3,10 @@ import axios from 'axios'
 import getCookieValue from './getCookie';
 const tokenCookie = getCookieValue("token")
 
-export const consumeOrderApi = {
-    getOrderUser : async () => {
+export const consumeModuleTrackingsApi = {
+    getModuleTrackingsByUser : async () => {
         try {
-            const res = await axios.get(`${BASH_URL}/orders/user`, {
+            const res = await axios.get(`${BASH_URL}/moduleTrackings/user`, {
                 headers: {
                     'Authorization': `Bearer ${tokenCookie}`,
                     'Content-Type': 'application/json',
@@ -18,10 +18,23 @@ export const consumeOrderApi = {
             return error
         }
     },
-
-    createOrderUser : async (payload) => {
+    createModuleTrackingsUser : async (payload) => {
         try {
-            const res = await axios.post(`${BASH_URL}/orders`,payload ,{
+            const res = await axios.post(`${BASH_URL}/moduleTrackings`, payload, {
+                headers: {
+                    'Authorization': `Bearer ${tokenCookie}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            return res.data;
+        } catch (error) {
+            return error
+        }
+    },
+    updateModuleTrackingsUser : async (payload) => {
+        try {
+            const res = await axios.put(`${BASH_URL}/moduleTrackings`, payload, {
                 headers: {
                     'Authorization': `Bearer ${tokenCookie}`,
                     'Content-Type': 'application/json',
