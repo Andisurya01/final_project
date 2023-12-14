@@ -27,12 +27,15 @@ const CourseDetailUnlock = () => {
     const [totalTime, setTotalTime] = useState(0)
     const [totalTimeCh1, setTotalTimeCh1] = useState(0)
     const [totalTimeCh2, setTotalTimeCh2] = useState(0)
+    const [moduleTrack, setModuleTrack] = useState([])
+    const [indicatorPercent, setIndicatorPercent] = useState(0)
     const [chapter1, setChapter1] = useState([])
     const [chapter2, setChapter2] = useState([])
     const [listText1, setListText1] = useState('')
     const [listText2, setListText2] = useState('')
     const [listText3, setListText3] = useState('')
     const [moduleVideo, setModuleVideo] = useState('')
+
     const [currentModuleVideo, setCurrentModuleVideo] = useState('')
     
     const handleOpen = () => setOpen(!open)
@@ -51,6 +54,7 @@ const CourseDetailUnlock = () => {
                 for (let j = 0; j < chapter2.length; j++) {
                     count2 = count2 + chapter2[j]?.time
                 }
+
                 setCourse(response)
                 setTotalTimeCh1(count)
                 setTotalTimeCh2(count2)
@@ -65,9 +69,41 @@ const CourseDetailUnlock = () => {
             }).catch((err) => {
                 console.log(err);
             })
+
+            getModuleTrackingsByUserTrack();
+            indicatorCourseValidation();
     })
 
+
+
+    const getModuleTrackingsByUserTrack = () => {
+        if(moduleTrack.length <= 0){
+            consumeModuleTrackingsApi.getModuleTrackingsByUserTrack({
+            }).then(res => {
+                setModuleTrack(res.data)
+            })
+        }else{
+            return moduleTrack;
+        }
+
+    }
+
+    const indicatorCourseValidation = () => {
+        let indicator = 0; 
+        const doneValue =  100 / totalModule;
+        const progressValue = 100 / totalModule / 2;
     
+        for( let i = 0 ; i < moduleTrack.length ; i++ ){
+            if(moduleTrack[i].status == 'PROGRESS'){
+                indicator += progressValue;
+            }else if(moduleTrack[i].status == 'DONE'){
+                indicator += doneValue;
+
+            }
+        }
+
+        setIndicatorPercent(indicator)
+    }
 
     const createModuleTrackAPI = (payload) => {
         consumeModuleTrackingsApi.createModuleTrackingsUser(payload).then((res)=>{
@@ -149,8 +185,8 @@ const CourseDetailUnlock = () => {
                         <div className="flex items-center justify-between mb-3">
                         <h1 className="text-lg font-bold">Materi Belajar</h1>
                         <ProgressBar
-                            width="0%"
-                            complete={"0% Complete"}
+                            width={`${indicatorPercent}%`}
+                            complete={`${indicatorPercent}% Complete`}
                         />
                     </div>
                     <div className="pt-2 pb-4">
@@ -159,6 +195,16 @@ const CourseDetailUnlock = () => {
                             <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1 / 60 } Menit</p>
                         </div>
                         {chapter1.map((item, index) => {
+
+                            // var videoStatus = false;
+                            // if(item.id == moduleTrack[index].moduleId ){
+                            //     videoStatus = true
+                            // }else{
+                            //     videoStatus = false
+                            // }
+
+                            // console.log(videoStatus)
+
                             return (
                                 <div key={item.id} className="flex justify-between items-center my-2 cursor-pointer">
                                     <Subject
@@ -167,12 +213,11 @@ const CourseDetailUnlock = () => {
                                     />
                                     <AnimatedButton>
                                         <button onClick={()=>{ 
-                                                console.log('diklik')
                                                 moduleTrackingValidation(item)
                                                 setModuleVideo(item.video) 
                                             
                                             }}>
-                                            <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
+                                            <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS"  />
                                         </button>
                                     </AnimatedButton>
                                 </div>
@@ -194,7 +239,7 @@ const CourseDetailUnlock = () => {
                                 />
                                 <AnimatedButton>
                                     <div onClick={()=>{ 
-
+                                            moduleTrackingValidation(item)
                                             setModuleVideo(item.video) 
                                         
                                         }}>
