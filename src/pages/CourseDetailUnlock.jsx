@@ -72,16 +72,25 @@ const CourseDetailUnlock = () => {
 
             getModuleTrackingsByUserTrack();
             indicatorCourseValidation();
+
     })
-
-
 
     const getModuleTrackingsByUserTrack = () => {
         if(moduleTrack.length <= 0){
-            consumeModuleTrackingsApi.getModuleTrackingsByUserTrack({
-            }).then(res => {
-                setModuleTrack(res.data)
+
+            consumeUserApi.getCurrentUser().then( user => {
+                const filteredModule = course.module.filter(data => {
+                    if(data.moduleTracking.length > 0){
+                        if(data.moduleTracking.userId == user.id ){
+                            return data.moduleTracking;
+                        }
+                    }
+                })
+
+                setModuleTrack(filteredModule)
             })
+
+
         }else{
             return moduleTrack;
         }
@@ -94,9 +103,10 @@ const CourseDetailUnlock = () => {
         const progressValue = 100 / totalModule / 2;
     
         for( let i = 0 ; i < moduleTrack.length ; i++ ){
-            if(moduleTrack[i].status == 'PROGRESS'){
+            console.log(moduleTrack[i] )
+            if(moduleTrack[i].moduleTracking[0].status == 'PROGRESS'){
                 indicator += progressValue;
-            }else if(moduleTrack[i].status == 'DONE'){
+            }else if(moduleTrack[i].moduleTracking[0].status == 'DONE'){
                 indicator += doneValue;
 
             }
