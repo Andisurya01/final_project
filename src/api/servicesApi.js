@@ -41,3 +41,17 @@ export const getNotifications = async () => {
         return error
     }
 }
+
+export const putNotification = async () => {
+    try {
+        const response = await axios.put(`${BASH_URL}/notification/user`, {
+            headers: {
+                'Authorization': `Bearer ${tokenCookie}`,
+                'Content-Type': 'application/json',
+            }
+        })
+        return response
+    } catch (error) {
+        return error
+    }
+}

@@ -20,7 +20,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const path = location.pathname;
-        setKelasActive(path === '/courseTrackings');
+        setKelasActive(path === '/courses');
         setBellActive(path === '/notification');
         setUserActive(path === '/users');
     }, [location.pathname]);
@@ -29,7 +29,7 @@ const Navbar = () => {
         setKelasActive(true);
         setBellActive(false);
         setUserActive(false);
-        navigate("/courseTrackings")
+        navigate("/courses")
     };
 
     const handleBellClick = () => {
@@ -54,16 +54,14 @@ const Navbar = () => {
         }
     }, [token])
 
-    useEffect(() => { 
-        if (isLogin) {
-            getNotifications()
-                .then((res) => {
-                    const response = res.data?.data.length
-                    setNotification(response)
-                    console.log(notification);
-                })
-        }
-    }, [notification, isLogin])
+    useEffect(() => {
+        getNotifications()
+            .then((res) => {
+                const response = res.data.data.length
+                setNotification(response)
+                console.log(notification);
+            })
+    }, [notification])
 
     return (
         <>
