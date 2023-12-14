@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 const CourseTracking = () => {
     const navigate = useNavigate()
-    const [ course, setCourse  ] = useState('');
+    const [ course, setCourse  ] = useState([]);
 
     useEffect(()=>{
         getCourseByOrder();
