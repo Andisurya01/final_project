@@ -12,7 +12,6 @@ const Notification = () => {
                 setNotification(response)
             })
     }, [])
-
     return (
         <section>
         <div className="bg-LIGHTBLUE h-[170px]">
@@ -41,7 +40,7 @@ const Notification = () => {
                         <div className='w-[700px]'>
                             {notification.map((item) => {
                                 return (
-                                    <div key={item.id} className='py-4'>
+                                    <div key={item.id} className='py-4 cursor-pointer'>
                                         <div key={item.id} className='flex justify-between'>
                                             <div className='flex items-center'>
                                                 <Icon icon="material-symbols-light:circle-notifications-rounded" className='text-4xl text-DARKBLUE05' />
