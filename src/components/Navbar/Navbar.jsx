@@ -54,14 +54,16 @@ const Navbar = () => {
         }
     }, [token])
 
-    useEffect(() => {
-        getNotifications()
-            .then((res) => {
-                const response = res.data.data.length
-                setNotification(response)
-                console.log(notification);
-            })
-    }, [notification])
+    useEffect(() => { 
+        if (isLogin) {
+            getNotifications()
+                .then((res) => {
+                    const response = res.data?.data.length
+                    setNotification(response)
+                    console.log(notification);
+                })
+        }
+    }, [notification, isLogin])
 
     return (
         <>

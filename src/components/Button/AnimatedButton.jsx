@@ -36,9 +36,9 @@ const AnimatedButton = ({ children }) => {
   }, []);
 
   return (
-    <button ref={buttonRef} className="button-hover">
+    <div ref={buttonRef} className="button-hover">
       {children}
-    </button>
+    </div>
   );
 };
 
