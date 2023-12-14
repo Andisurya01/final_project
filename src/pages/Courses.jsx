@@ -114,7 +114,10 @@ const Courses = () => {
                     return data;
                 }
 
-                
+                if(fieldClass.value == '' & filterList.length == 0){
+                    return data;
+                }
+
                 if(initiateData == ''){
                     return data;
                 }
@@ -266,11 +269,11 @@ const Courses = () => {
                         topic={courseSelection.title}
                         author={courseSelection.authorBy}
                         level={courseSelection.level}
-                        module={ courseSelection.module.length ?? 10 + " Module"}
+                        module={ courseSelection.module != null ? courseSelection.module.length : 10 + " Module"}
                         time={
-                            `${courseSelection.module.reduce((accumulator, currentValue) => {
+                            courseSelection.module != null ? `${courseSelection.module.reduce((accumulator, currentValue) => {
                                 return accumulator + currentValue.time;
-                            }, 0) / 60} Menit` ??  '26 Menit'
+                            }, 0) / 60} Menit`  :  '26 Menit'
                          
                         }
                         price={formatRupiah(courseSelection.price ?? 19999)} />
