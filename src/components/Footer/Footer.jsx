@@ -6,15 +6,18 @@ const Footer = () => {
 
     return (
         <div className="w-full bg-DARKGREY01">
-            <div className='grid place-content-center'>
-                <div className='w-[1024px] py-10 text-white'>
-                    <div className="grid grid-cols-3 gap-12">
-                        <div>
+            <div className='grid lg:place-content-center'>
+                <div className='w-full px-4 lg:px-0 lg:w-[1024px] py-10 text-white'>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                        <div className='w-[305.3px] h-[87.7px]'>
+                            <img src={logo} className="" />
+                        </div>
+                        <div className=''>
                             <p className="mb-2 text-sm">The Breeze, Jl. BSD Grand Boulevard, BSD City, Kec. Cisauk, Kab. Tangerang, Banten 15345</p>
                             <p className="mb-2 text-sm">belajar@binar.com</p>
                             <p className='text-sm'>081-233-334-808</p>
                         </div>
-                        <div>
+                        <div className=''>
                             <p className="text-2xl font-medium">Connect With Us</p>
                             <div className="text-4xl flex gap-4 mt-3">
                                 <AnimatedButton>
@@ -44,22 +47,19 @@ const Footer = () => {
                                 </AnimatedButton>
                             </div>
                         </div>
-                        <div>
-                            <img src={logo} className="" />
-                        </div>
                     </div>
                 </div>
             </div>
             <hr style={{height: '1px', border: '0', background: 'linear-gradient(to right, #232323, #ffffff, #232323)'}}/>
-            <div className='grid place-content-center'>
-                <div className='w-[1024px] py-4'>
-                    <div className='flex justify-between items-center'>
-                        <div className='flex gap-10'>
+            <div className='grid lg:place-content-center'>
+                <div className='w-full px-4 lg:px-0 lg:w-[1024px] py-4'>
+                    <div className='flex flex-col lg:flex-row justify-between lg:items-center'>
+                        <div className='flex flex-col gap-2 lg:flex-row lg:gap-10'>
                             <p className='text-white text-xs'>&copy;2023 Binar Academy</p>
                             <p className='text-white text-xs'>Kampus Merdeka Batch 5</p>
                             <p className='text-white text-xs'>Kelompok 2 FSW1 X AND2</p>
                         </div>
-                        <div className='border border-white py-1 px-2 rounded-full'>
+                        <div className='border border-white py-1 px-2 rounded-full mt-2.5 lg:mt-0 me-auto lg:me-0'>
                             <p className='text-white text-xs'>All Right Reserved</p>
                         </div>
                     </div>
