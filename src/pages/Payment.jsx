@@ -17,6 +17,7 @@ import CardPayment from "../components/CourseCard/CardPayment"
 import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux";
 import { getCourses } from "../api/servicesApi";
+import { formatRupiah } from "../lib/rupiahFormat";
 
 // eslint-disable-next-line react/prop-types
 function Symbol({ id, open }) {
@@ -45,10 +46,14 @@ const Payment = () => {
     const [cardHolderName, setCardHolderName] = useState("");
     const [cvv, setCvv] = useState("");
     const [expiredDate, setExpiredDate] = useState("");
+    const [expPayDate, setExpPayDate] = useState("");
     const [module, setModule] = useState([])
     
     const id = useSelector((state) => state.module.id)
     useEffect(() => {
+
+        setExpPayDateFunction()
+
         getCourses()
             .then((res) => {
                 const response = res.data.data.filter((item) => item.id === id)[0]
@@ -57,6 +62,21 @@ const Payment = () => {
                 console.log(err);
             })
     },[])
+
+    const setExpPayDateFunction = () => {
+
+        
+        var currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() + 2);
+        var dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+        var timeOptions = { hour: 'numeric', minute: 'numeric' };
+
+        var dateFormat = currentDate.toLocaleDateString('id-ID', dateOptions);
+        var timeFormat = currentDate.toLocaleTimeString('id-ID', timeOptions);
+
+        setExpPayDate(`${dateFormat} ${timeFormat}`)
+    }
+
     return (
         <section>
             <div className="bg-white px-20 py-10 h-48" style={{boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15"}}>
@@ -68,7 +88,7 @@ const Payment = () => {
                 </button>
                 <div className="flex items-center justify-center">
                     <div className="rounded-xl bg-WARNING mt-10 py-3 w-[800px]">
-                        <p className="text-white font-medium text-center">Selesaikan Pembayaran sampai 10 Maret 2023 12:00</p>
+                        <p className="text-white font-medium text-center">Selesaikan Pembayaran sampai {expPayDate}</p>
                         </div>
                         </div>
                     </div>
@@ -146,15 +166,18 @@ const Payment = () => {
                         <div className="flex justify-between mb-10">
                             <div>
                                 <p className="font-medium text-sm">Harga</p>
-                                <p className="font-semibold text-sm">Rp 349,000</p>
+                                <p className="font-semibold text-sm">{ formatRupiah(module.price ?? 199999 ) }</p>
                             </div>
                             <div>
                                 <p className="font-medium text-sm">PPN 11%</p>
-                                <p className="font-semibold text-sm">Rp 38,390</p>
+                                <p className="font-semibold text-sm">{ formatRupiah((module.price / 100 * 11).toFixed(0)?? 199999) }</p>
                             </div>
                             <div>
                                 <p className="font-medium text-sm">Total Bayar</p>
-                                <p className="font-semibold text-sm text-DARKBLUE05">Rp 387,390</p>
+                                <p className="font-semibold text-sm text-DARKBLUE05">{ 
+                                    formatRupiah(module.price + parseInt((module.price  / 100 * 11).toFixed(0)))
+                                
+                                }</p>
                             </div>
                         </div>
                         <div className="flex items-center justify-center">

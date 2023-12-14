@@ -274,11 +274,14 @@ const Courses = () => {
                             courseSelection.module != null ? `${courseSelection.module.reduce((accumulator, currentValue) => {
                                 return accumulator + currentValue.time;
                             }, 0) / 60} Menit`  :  '26 Menit'
-                         
                         }
                         price={formatRupiah(courseSelection.price ?? 19999)} />
                     <AnimatedButton>
-                    <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>
+                    <button className="mt-6 w-80 mb-4" onClick={() => {
+                                navigate("/payment")
+                                dispatch(updateId(courseSelection.id))
+                            }
+                        }>
                         <div className="bg-DARKBLUE05 rounded-full py-3 flex justify-center items-center gap-2">
                             <p className="text-white font-bold">Beli Sekarang</p>
                             <Icon icon="carbon:next-filled" className="text-white text-2xl" />
