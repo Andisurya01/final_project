@@ -12,7 +12,8 @@ import { useDispatch } from 'react-redux';
 const CourseTracking = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [ course, setCourse  ] = useState([]);
+    const [ courseTrack, setCourseTrack  ] = useState([]);
+    const [currentCourseTrack, setCurrentCourseTrack] = useState([])
 
     useEffect(()=>{
         getCourseByOrder();
