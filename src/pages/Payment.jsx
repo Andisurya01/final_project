@@ -18,6 +18,9 @@ import { useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux";
 import { getCourses } from "../api/servicesApi";
 import { formatRupiah } from "../lib/rupiahFormat";
+import { consumeOrderApi } from "../api/order";
+import { consumeUserApi } from "../api/user";
+import { consumeCourseTrackingsApi } from "../api/courseTrackings";
 
 // eslint-disable-next-line react/prop-types
 function Symbol({ id, open }) {
@@ -44,9 +47,10 @@ const Payment = () => {
 
     const [cardNumber, setCardNumber] = useState("");
     const [cardHolderName, setCardHolderName] = useState("");
-    const [cvv, setCvv] = useState("");
+    const [cvv, setCvv] = useState('');
     const [expiredDate, setExpiredDate] = useState("");
     const [expPayDate, setExpPayDate] = useState("");
+    const [isPaid, setIsPaid] = useState(false);
     const [module, setModule] = useState([])
     
     const id = useSelector((state) => state.module.id)
@@ -61,11 +65,14 @@ const Payment = () => {
             }).catch((err) => {
                 console.log(err);
             })
+
+        paymentFunction()
+
+
     },[])
 
     const setExpPayDateFunction = () => {
 
-        
         var currentDate = new Date();
         currentDate.setDate(currentDate.getDate() + 2);
         var dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -75,6 +82,44 @@ const Payment = () => {
         var timeFormat = currentDate.toLocaleTimeString('id-ID', timeOptions);
 
         setExpPayDate(`${dateFormat} ${timeFormat}`)
+    }
+
+
+
+    // const createCourseTracking = (payload) => {
+    //     consumeUserApi.getCurrentUser().then(res => {
+    //         const { status , courseId } = payload
+    //         consumeCourseTrackingsApi.createCourseTrackingsUser({
+    //             status : status,
+    //             userId : res.data.id,
+    //             courseId : courseId
+    //         })
+    //     })
+    // }
+
+    const paymentFunction = () => {
+        const paymentButton = document.getElementById('paymentButton')
+        const cvvField = document.getElementById('cvvField').value;
+        paymentButton.onclick= () => {
+            const payload = {
+            courseId: id,
+                payment: {
+                    cardNumber: cardNumber,
+                    cardName: cardHolderName,
+                    cvv: parseInt(cvvField) ?? 123,
+                    expiryDate: new Date(),
+                    amount: 4000000
+                }
+            }
+
+            consumeOrderApi.createOrderUser(payload).then((res)=>{
+                if(res.status == 'OK' ){
+                    setIsPaid(true)
+                }else{
+                    setIsPaid(false)
+                }
+            })
+        }
     }
 
     return (
@@ -127,23 +172,24 @@ const Payment = () => {
                                 <div>
                                     <div className="mb-6">
                                         <p className="font-medium text-black mb-1">Card number</p>
-                                        <input type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
+                                        <input onChange={(event)=>{setCardNumber(event.target.value)
+                                        }} type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
                                         <hr className="w-80 h-0.5 bg-LIGHTGREY" />
                                     </div>
                                     <div className="mb-6">
                                         <p className="font-medium text-black mb-1">Card holder name</p>
-                                        <input type="text" placeholder="John Doe" className="focus:outline-none focus:ring-0 mb-1" />
+                                        <input onChange={(event)=>{setCardHolderName(event.target.value)}} type="text" placeholder="John Doe" className="focus:outline-none focus:ring-0 mb-1" />
                                         <hr className="w-80 h-0.5 bg-LIGHTGREY" />
                                     </div>
                                     <div className="flex gap-3 mb-6">
                                         <div className="">
                                             <p className="font-medium text-black mb-1">CVV</p>
-                                            <input type="text" placeholder="000" className="focus:outline-none focus:ring-0 mb-1" />
+                                            <input id="cvvField" onChange={(event)=>{setCvv(event.target.value)}} type="text" placeholder="000" className="focus:outline-none focus:ring-0 mb-1" />
                                             <hr className="w-32 h-0.5 bg-LIGHTGREY" />
                                         </div>
                                         <div className="">
                                             <p className="font-medium text-black mb-1">Expired date</p>
-                                            <input type="text" placeholder="07/24" className="focus:outline-none focus:ring-0 mb-1" />
+                                            <input onChange={(event)=>{setExpiredDate(event.target.value)}} type="text" placeholder="07/24" className="focus:outline-none focus:ring-0 mb-1" />
                                             <hr className="w-32 h-0.5 bg-LIGHTGREY" />
                                         </div>
                                     </div>
@@ -181,12 +227,17 @@ const Payment = () => {
                             </div>
                         </div>
                         <div className="flex items-center justify-center">
-                            <button className="flex items-center justify-center gap-2 bg-WARNING rounded-full w-80 py-3 px-6 text-center"
+                            <button id = 'paymentButton' className="flex items-center justify-center gap-2 bg-WARNING rounded-full w-80 py-3 px-6 text-center"
                                 onClick={() => {
-                                    if (cardNumber && cardHolderName && cvv && expiredDate === "") {
+                                    if (cardNumber == "" && cardHolderName == "" && cvv == "" && expiredDate == "") {
                                         alert("Mohon isi data kartu kredit anda")
                                     } else {
-                                        navigate("/payment/success")
+                                        if(isPaid){
+                                            navigate("/payment/success")
+                                        }else{
+                                            alert("Pembayaran gagal mohon coba lagi")
+                                            
+                                        }
                                     }
                                 }}>
                                 <p className="text-white text-sm font-medium">Bayar dan Ikuti Kelas Selamanya</p>

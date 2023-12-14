@@ -18,4 +18,19 @@ export const consumeOrderApi = {
             return error
         }
     },
+
+    createOrderUser : async (payload) => {
+        try {
+            const res = await axios.post(`${BASH_URL}/orders`,payload ,{
+                headers: {
+                    'Authorization': `Bearer ${tokenCookie}`,
+                    'Content-Type': 'application/json',
+                }
+            });
+    
+            return res.data;
+        } catch (error) {
+            return error
+        }
+    },
 }

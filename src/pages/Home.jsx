@@ -51,12 +51,12 @@ const Home = () => {
             <Header />
             <div className="w-full bg-LIGHTBLUE">
                 <div className="grid place-content-center">
-                    <div className="w-[1024px] py-5">
+                    <div className="w-full lg:w-[1024px] py-5">
                         <div className="pb-4 flex justify-between">
                             <p className="text-xl font-bold">Kategori Belajar</p>
                             <button onClick={() => navigate("/courses")} className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-0 lg:flex lg:flex-row justify-between">
                             {
                                 categories.map((data) => {
                                     return (<AnimatedButton key={data.id}><Frame picture={data.image} title={data.title} /></AnimatedButton>)
@@ -69,13 +69,13 @@ const Home = () => {
             </div>
             <div className="w-full">
                 <div className="grid place-content-center">
-                    <div className="w-[1024px] py-5">
+                    <div className="w-full lg:w-[1024px] py-5">
                         <div className="pb-4 flex justify-between">
                             <p className="text-xl font-bold">Kursus Populer</p>
                             <button onClick={() => navigate("/courses")} className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
                         </div>
 
-                        <div className="pb-4 flex justify-between">
+                        <div className="grid grid-cols-2 md:grid-cols-4 mb-5 gap-2 lg:gap-0 lg:flex lg:flex-row justify-between">
                             <FilterCourseHome title={"All"} />
                             {
                                 categories.map((data) => {
@@ -86,7 +86,7 @@ const Home = () => {
 
                         </div>
 
-                        <div className="pb-4 flex justify-between">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 lg:flex lg:flex-row justify-between mb-10">
                             {
                                 course.map(data => {
                                     return (

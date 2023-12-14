@@ -12,12 +12,12 @@ import Footer from "../components/Footer/Footer";
 import CourseTitle from "../components/CourseDetail/CourseTitle";
 import ProgressBar from "../components/CourseDetail/CourseTracklist/ProgressBar";
 import Subject from "../components/CourseDetail/CourseTracklist/Subject";
-import { useNavigate } from "react-router-dom"
 import { getCourses } from "../api/servicesApi";
-import getCookieValue from "../api/getCookie";
 import AnimatedButton from "../components/Button/AnimatedButton";
 import ReactPlayer from 'react-player'
 import illustration from "../assets/img/illustration2.png"
+import { consumeModuleTrackingsApi } from "../api/moduleTracking";
+import { consumeUserApi } from "../api/user";
 
 const CourseDetailUnlock = () => {
     const [course, setCourse] = useState([])
@@ -34,18 +34,9 @@ const CourseDetailUnlock = () => {
     const [listText3, setListText3] = useState('')
     const [moduleVideo, setModuleVideo] = useState('')
     const [currentModuleVideo, setCurrentModuleVideo] = useState('')
-    const navigate = useNavigate()
-    const token = getCookieValue("token")
     
     const handleOpen = () => setOpen(!open)
 
-    const handleLogin = () => {
-        if (token === null) {
-            navigate("/login")
-        } else {
-            setOpen(!open)
-        }
-    }
 
     useEffect(() => {
         getCourses()
@@ -75,6 +66,46 @@ const CourseDetailUnlock = () => {
                 console.log(err);
             })
     })
+
+    
+
+    const createModuleTrackAPI = (payload) => {
+        consumeModuleTrackingsApi.createModuleTrackingsUser(payload).then((res)=>{
+            if(res.status == 'OK'){
+                console.log('module success')
+            }
+        })
+    }
+    const updateModuleTrackAPI = (payload) => {
+        consumeModuleTrackingsApi.updateModuleTrackingsUser(payload).then((res)=>{
+            if(res.status == 'OK'){
+                console.log('module update success')
+            }
+        })
+    }
+
+    const moduleTrackingValidation = (item) => {
+        consumeUserApi.getCurrentUser().then( user => {
+            consumeModuleTrackingsApi.getModuleTrackings().then((res)=>{
+                const moduleChecked = res.data.filter( modules => {
+                    return modules.moduleId == item.id
+                })
+
+                if(moduleChecked.length > 0){
+                    updateModuleTrackAPI({
+                        id :moduleChecked[0].id,
+                        status : 'DONE'
+                    })                    
+                }else{
+                    createModuleTrackAPI({
+                            status : 'PROGRESS',
+                            userId : user.data.id,
+                            moduleId : item.id
+                        }) 
+                }
+            })
+        })
+    }
 
     return (
         <section>
@@ -135,9 +166,14 @@ const CourseDetailUnlock = () => {
                                         subject={item.title}
                                     />
                                     <AnimatedButton>
-                                        <div onClick={()=>{ setModuleVideo(item.video) }}>
+                                        <button onClick={()=>{ 
+                                                console.log('diklik')
+                                                moduleTrackingValidation(item)
+                                                setModuleVideo(item.video) 
+                                            
+                                            }}>
                                             <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
-                                        </div>
+                                        </button>
                                     </AnimatedButton>
                                 </div>
                             )
@@ -157,7 +193,11 @@ const CourseDetailUnlock = () => {
                                     subject={item.title}
                                 />
                                 <AnimatedButton>
-                                    <div onClick={()=>{ setModuleVideo(item.video) }}>
+                                    <div onClick={()=>{ 
+
+                                            setModuleVideo(item.video) 
+                                        
+                                        }}>
                                         <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
                                     </div>
                                 </AnimatedButton>
