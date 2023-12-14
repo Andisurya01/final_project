@@ -32,6 +32,8 @@ const CourseDetail = () => {
     const [listText1, setListText1] = useState('')
     const [listText2, setListText2] = useState('')
     const [listText3, setListText3] = useState('')
+    const [moduleVideo, setModuleVideo] = useState('')
+    const [currentModuleVideo, setCurrentModuleVideo] = useState('')
     const navigate = useNavigate()
     const token = getCookieValue("token")
 
@@ -66,9 +68,12 @@ const CourseDetail = () => {
                 setListText1(chapter2[0].title)
                 setListText2(chapter2[1].title)
                 setListText3(chapter2[2].title)
+                setCurrentModuleVideo(chapter1[0].video)
             }).catch((err) => {
                 console.log(err);
             })
+
+
     })
 
     return (
@@ -85,8 +90,8 @@ const CourseDetail = () => {
                         <div className="flex items-center justify-between mb-3">
                         <h1 className="text-lg font-bold">Materi Belajar</h1>
                         <ProgressBar
-                            width="50%"
-                            complete={"50% Complete"}
+                            width="0%"
+                            complete={"0% Complete"}
                         />
                     </div>
                     <div className="pt-2 pb-4">
@@ -101,7 +106,11 @@ const CourseDetail = () => {
                                         number={index + 1 + "."}
                                         subject={item.title}
                                     />
-                                    <AnimatedButton><Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" /></AnimatedButton>
+                                    <AnimatedButton>
+                                        <div onClick={()=>{ setModuleVideo(item.video) }}>
+                                            <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
+                                        </div>
+                                    </AnimatedButton>
                                 </div>
                             )
                         })}
@@ -142,19 +151,15 @@ const CourseDetail = () => {
             </div>
             <div className="w-[600px] pt-10">
                 <div className="relative w-[600px] h-[327px] bg-DARKGREY02 rounded-3xl flex flex-col justify-center">
-                    {chapter1.map((item) => {
-                        return (
                             <ReactPlayer
-                            key={item.id}
-                            url={item.video}
-                            light={true}
-                            controls={true}
-                            playing={true}
-                            width={"600px"}
-                            style={{ borderRadius: "24px", overflow: "hidden" }}
+                                url={moduleVideo == '' ? currentModuleVideo : moduleVideo }
+                                light={true}
+                                controls={true}
+                                playing={true}
+                                width={"600px"}
+                                height={'100%'}
+                                style={{ borderRadius: "24px", overflow: "hidden" }}
                             />
-                        )
-                    })}
                     </div>
                     <div className="py-10">
                             <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>

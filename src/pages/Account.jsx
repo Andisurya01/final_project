@@ -193,7 +193,7 @@ const Account = () => {
                                     <div className={`float-right w-[480px] grid place-content-center py-8 ${isProfileVisible ? '' : 'hidden'}`}>
                                         <div className='flex justify-center'>
                                             <div className='bg-DARKBLUE05 w-24 h-24 rounded-full flex justify-center items-center mb-6'>
-                                                <img  className='w-24 h-24 rounded-full ' src={user.image} alt='profile-photos' ></img>
+                                                <img  className='w-24 h-24 rounded-full ' src={user.image ?? ''} alt='profile-photos' ></img>
                                             </div>
                                         </div>
                                         <div className='mb-6'>
