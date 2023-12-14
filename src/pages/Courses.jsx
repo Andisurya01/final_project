@@ -3,7 +3,12 @@ import { Icon } from '@iconify/react';
 import Footer from "../components/Footer/Footer"
 import Card from "../components/CourseCard/Card"
 import { updateId } from '../store/moduleCourses';
-
+import {
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    Typography,
+} from "@material-tailwind/react";
 import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 
 import { useNavigate } from "react-router-dom"
@@ -14,20 +19,29 @@ import { formatRupiah } from '../lib/rupiahFormat';
 import FreeCard from '../components/CourseCard/FreeCard';
 import AnimatedButton from '../components/Button/AnimatedButton';
 import SidebarFilter from '../components/Filter/SidebarFilter';
+import getCookieValue from "../api/getCookie";
 
 const Courses = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const [open, setOpen] = useState(false);
     const [currentCourse, setCurrentCourse] = useState([])
     const [course, setCourse] = useState([])
+    const [courseSelection, setCourseSelection] = useState({})
+    const token = getCookieValue("token")
 
     useEffect(() => {
         getCoursesApi();
         sideFilterFunction()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     })
 
+    const handleLogin = () => {
+        if (token === null) {
+            navigate("/login")
+        } else {
+            setOpen(!open)
+        }
+    }
 
     const getCoursesApi = () => {
         if(currentCourse.length <= 0  ){
@@ -185,7 +199,7 @@ const Courses = () => {
                                                 navigate("/courses/detail")
                                                 dispatch(updateId(item.id))
                                             }}>
-                                                <AnimatedButton>
+                                            <AnimatedButton>
                                             <FreeCard
                                                 picture={item.image}
                                                 course={item.category.title}
@@ -202,9 +216,9 @@ const Courses = () => {
                                     return (
                                         <div
                                             key={item.id}
-                                            onClick={() => {
-                                                navigate("/courses/detail")
-                                                dispatch(updateId(item.id))
+                                            onClick={()=>{
+                                                handleLogin()
+                                                setCourseSelection(item)
                                             }}>
                                                 <AnimatedButton>
                                             <Card
@@ -230,6 +244,46 @@ const Courses = () => {
                 </div>
             </div>
             <Footer />
+            <Dialog open={open} handler={()=>setOpen(!open)}>
+                <div className="flex justify-end">
+                    <button className="px-2 py-2" onClick={()=>setOpen(!open)}>
+                        <Icon icon="material-symbols:close" className="text-3xl" />
+                    </button>
+                </div>
+                <DialogHeader className="grid place-content-center">
+                    <Typography variant="h3" className="text-center text-black">
+                        Selangkah lagi menuju
+                    </Typography>
+                    <Typography variant="h3" className="text-center text-DARKBLUE05">
+                        Kelas Premium
+                    </Typography>
+                </DialogHeader>
+                <DialogBody className="grid place-items-center gap-4 text-black">
+                    <Card
+                        picture={courseSelection.category?.image}
+                        course={courseSelection.category?.title}
+                        rating={courseSelection.rating}
+                        topic={courseSelection.title}
+                        author={courseSelection.authorBy}
+                        level={courseSelection.level}
+                        module={ courseSelection.module.length ?? 10 + " Module"}
+                        time={
+                            `${courseSelection.module.reduce((accumulator, currentValue) => {
+                                return accumulator + currentValue.time;
+                            }, 0) / 60} Menit` ??  '26 Menit'
+                         
+                        }
+                        price={formatRupiah(courseSelection.price ?? 19999)} />
+                    <AnimatedButton>
+                    <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>
+                        <div className="bg-DARKBLUE05 rounded-full py-3 flex justify-center items-center gap-2">
+                            <p className="text-white font-bold">Beli Sekarang</p>
+                            <Icon icon="carbon:next-filled" className="text-white text-2xl" />
+                        </div>
+                    </button>
+                    </AnimatedButton>
+                </DialogBody>
+            </Dialog>
         </section>
     )
 }

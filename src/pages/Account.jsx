@@ -29,6 +29,8 @@ const Account = () => {
         updateUserPass();
         setAlertTime();
     })
+
+    
     
 
     const currentUserAPI  = ()=> {
