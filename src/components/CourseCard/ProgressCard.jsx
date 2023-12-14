@@ -8,7 +8,7 @@ const Card = ({picture, course, rating, topic, author, level, module, time, widt
     };
 
     return (
-        <button className="bg-white w-[323px] h-[250px] rounded-2xl flex flex-col" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
+        <button className="bg-white w-[323px] h-[230px] rounded-2xl flex flex-col" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
             <div className='h-[80px] rounded-t-[20px] overflow-hidden'>
                 <img src={picture} className="w-[323px] h-full object-cover" alt="" />
             </div>
