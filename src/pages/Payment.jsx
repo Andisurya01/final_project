@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import { getCourses } from "../api/servicesApi";
 import { formatRupiah } from "../lib/rupiahFormat";
 import { consumeOrderApi } from "../api/order";
+import { consumeUserApi } from "../api/user";
+import { consumeCourseTrackingsApi } from "../api/courseTrackings";
 
 // eslint-disable-next-line react/prop-types
 function Symbol({ id, open }) {
@@ -45,7 +47,7 @@ const Payment = () => {
 
     const [cardNumber, setCardNumber] = useState("");
     const [cardHolderName, setCardHolderName] = useState("");
-    const [cvv, setCvv] = useState("");
+    const [cvv, setCvv] = useState('');
     const [expiredDate, setExpiredDate] = useState("");
     const [expPayDate, setExpPayDate] = useState("");
     const [isPaid, setIsPaid] = useState(false);
@@ -66,6 +68,7 @@ const Payment = () => {
 
         paymentFunction()
 
+
     },[])
 
     const setExpPayDateFunction = () => {
@@ -82,26 +85,39 @@ const Payment = () => {
     }
 
 
+
+    // const createCourseTracking = (payload) => {
+    //     consumeUserApi.getCurrentUser().then(res => {
+    //         const { status , courseId } = payload
+    //         consumeCourseTrackingsApi.createCourseTrackingsUser({
+    //             status : status,
+    //             userId : res.data.id,
+    //             courseId : courseId
+    //         })
+    //     })
+    // }
+
     const paymentFunction = () => {
         const paymentButton = document.getElementById('paymentButton')
-
+        const cvvField = document.getElementById('cvvField').value;
         paymentButton.onclick= () => {
-
-            console.log('oy')
-
             const payload = {
             courseId: id,
                 payment: {
                     cardNumber: cardNumber,
                     cardName: cardHolderName,
-                    cvv: 123,
+                    cvv: parseInt(cvvField) ?? 123,
                     expiryDate: new Date(),
                     amount: 4000000
                 }
             }
 
             consumeOrderApi.createOrderUser(payload).then((res)=>{
-                res.status == 'OK' ? setIsPaid(true) : setIsPaid(false)
+                if(res.status == 'OK' ){
+                    setIsPaid(true)
+                }else{
+                    setIsPaid(false)
+                }
             })
         }
     }
@@ -156,23 +172,24 @@ const Payment = () => {
                                 <div>
                                     <div className="mb-6">
                                         <p className="font-medium text-black mb-1">Card number</p>
-                                        <input onChange={(value)=>{setCardNumber(value)}} type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
+                                        <input onChange={(event)=>{setCardNumber(event.target.value)
+                                        }} type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
                                         <hr className="w-80 h-0.5 bg-LIGHTGREY" />
                                     </div>
                                     <div className="mb-6">
                                         <p className="font-medium text-black mb-1">Card holder name</p>
-                                        <input onChange={(value)=>{setCardHolderName(value)}} type="text" placeholder="John Doe" className="focus:outline-none focus:ring-0 mb-1" />
+                                        <input onChange={(event)=>{setCardHolderName(event.target.value)}} type="text" placeholder="John Doe" className="focus:outline-none focus:ring-0 mb-1" />
                                         <hr className="w-80 h-0.5 bg-LIGHTGREY" />
                                     </div>
                                     <div className="flex gap-3 mb-6">
                                         <div className="">
                                             <p className="font-medium text-black mb-1">CVV</p>
-                                            <input onChange={(value)=>{setCvv(value)}} type="text" placeholder="000" className="focus:outline-none focus:ring-0 mb-1" />
+                                            <input id="cvvField" onChange={(event)=>{setCvv(event.target.value)}} type="text" placeholder="000" className="focus:outline-none focus:ring-0 mb-1" />
                                             <hr className="w-32 h-0.5 bg-LIGHTGREY" />
                                         </div>
                                         <div className="">
                                             <p className="font-medium text-black mb-1">Expired date</p>
-                                            <input onChange={(value)=>{setExpiredDate(value)}} type="text" placeholder="07/24" className="focus:outline-none focus:ring-0 mb-1" />
+                                            <input onChange={(event)=>{setExpiredDate(event.target.value)}} type="text" placeholder="07/24" className="focus:outline-none focus:ring-0 mb-1" />
                                             <hr className="w-32 h-0.5 bg-LIGHTGREY" />
                                         </div>
                                     </div>
