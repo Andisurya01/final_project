@@ -20,7 +20,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const path = location.pathname;
-        setKelasActive(path === '/courses');
+        setKelasActive(path === '/courseTrackings');
         setBellActive(path === '/notification');
         setUserActive(path === '/users');
     }, [location.pathname]);
@@ -29,7 +29,7 @@ const Navbar = () => {
         setKelasActive(true);
         setBellActive(false);
         setUserActive(false);
-        navigate("/courses")
+        navigate("/courseTrackings")
     };
 
     const handleBellClick = () => {
