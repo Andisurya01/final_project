@@ -187,7 +187,7 @@ const Courses = () => {
                                 <FilterPlanProgress title={"Kelas Gratis"} />
                             </div>
                         </div>
-                        <div id='courseList' className="flex flex-wrap gap-10">
+                        <div id='courseList' className="flex flex-wrap gap-x-14 gap-y-10">
                             {course.map((item) => {
                                 let count = 0
                                 for (let i = 0; i < item.module.length; i++) {
