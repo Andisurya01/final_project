@@ -12,7 +12,6 @@ const Notification = () => {
             .then((res) => {
                 const response = res.data.data
                 setNotification(response)
-                console.log(response);
             })
     }, [])
 
@@ -26,19 +25,17 @@ const Notification = () => {
 
     const handleViewed = async () => {
         try {
-            const response = await putNotification(user)
-            console.log(response);
+            await putNotification(user)
         } catch (error) {
-            console.log(error);
+            return error
         }
     }
 
     const handleViewedId = async (id) => {
         try {
-            const response = await putNotificationId(id)
-            console.log(response);
+            await putNotificationId(id)
         } catch (error) {
-            console.log(error);
+            return error
         }
     }
 

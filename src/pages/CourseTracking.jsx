@@ -22,7 +22,7 @@ const CourseTracking = () => {
         getCourseByOrder();
         sideFilterFunction();
     })
-}
+
 
 
 const getCurrentUserAPI = () => {
@@ -239,6 +239,6 @@ return (
         <Footer />
     </section>
 )
-}
+                            }
 
 export default CourseTracking
