@@ -79,7 +79,7 @@ const Navbar = () => {
         <>
             <nav className="w-full bg-DARKBLUE05 h-[100px]">
                 <div className='lg:grid lg:place-content-center px-6 lg:px-0'>
-                    <div className='flex w-full lg:w-[1024px] py-5 justify-between items-center'>
+                    <div className='flex w-full lg:w-[1024px] py-5 items-center justify-between lg:justify-start'>
                         <button onClick={() => navigate("/home")}>
                             <img src={logo} alt="" className='my-auto w-[183.2px] h-[52.6px] mt-1 lg:mt-0'/>
                         </button>
@@ -113,10 +113,12 @@ const Navbar = () => {
                                     <NavbarButton isActive={isUserActive} onClick={handleUserClick} icon="lucide:user" text="Akun" />
                                 </div>
                             </div> :
-                            <button className='flex gap-2 items-center justify-center my-auto ml-auto' onClick={() => navigate("/login")}>
-                                <Icon icon="ic:round-login" color="white" />
-                                <p className='text-white font-medium'>Masuk</p>
-                            </button>
+                            <div className='hidden lg:inline lg:ml-auto'>
+                                <button className='flex gap-2 items-center justify-center my-auto' onClick={() => navigate("/login")}>
+                                    <Icon icon="ic:round-login" color="white" />
+                                    <p className='text-white font-medium'>Masuk</p>
+                                </button>
+                            </div>
                         }
                         </div>
                     </div>
@@ -136,37 +138,37 @@ const Navbar = () => {
                             </div>
                         </div>
                         {isLogin ?
-                            <div className='my-auto'>
-                                <div className="">
+                                <List>
+                                    <ListItem className="" onClick={handleKelasClick}>
+                                        <NavbarButton isActive={isKelasActive} icon="tabler:list" text="Kelas" />
+                                    </ListItem>
+                                    <ListItem onClick={handleBellClick} >
+                                        <NavbarButton isActive={isBellActive} icon="lucide:bell" text="Notifikasi" />
+                                        <ListItemSuffix>
+                                            {notification === 0 ? null :
+                                                <Chip
+                                                value={notification}
+                                                size="sm"
+                                                color="red"
+                                                className="rounded-full"
+                                            />
+                                            }
+                                        </ListItemSuffix>
+                                    </ListItem>
+                                    <ListItem onClick={handleUserClick}>
+                                        <NavbarButton isActive={isUserActive} icon="lucide:user" text="Akun" />
+                                    </ListItem>
+                                </List> :
                                     <List>
-                                        <ListItem className="" onClick={handleKelasClick}>
-                                            <NavbarButton isActive={isKelasActive} icon="tabler:list" text="Kelas" />
-                                        </ListItem>
-                                        <ListItem onClick={handleBellClick} >
-                                            <NavbarButton isActive={isBellActive} icon="lucide:bell" text="Notifikasi" />
-                                            <ListItemSuffix>
-                                                {notification === 0 ? null :
-                                                    <Chip
-                                                    value={notification}
-                                                    size="sm"
-                                                    color="red"
-                                                    className="rounded-full"
-                                                />
-                                                }
-                                            </ListItemSuffix>
-                                        </ListItem>
-                                        <ListItem onClick={handleUserClick}>
-                                            <NavbarButton isActive={isUserActive} icon="lucide:user" text="Akun" />
+                                        <ListItem onClick={() => navigate("/login")}>
+                                            <button className='flex gap-2 items-center justify-center lg:my-auto lg:ml-auto'>
+                                                <Icon icon="ic:round-login" className='text-black lg:text-white' />
+                                                <p className='text-black lg:text-white font-medium'>Masuk</p>
+                                            </button>
                                         </ListItem>
                                     </List>
-                                </div>
-                            </div> :
-                            <button className='flex gap-2 items-center justify-center my-auto ml-auto' onClick={() => navigate("/login")}>
-                                <Icon icon="ic:round-login" color="white" />
-                                <p className='text-white font-medium'>Masuk</p>
-                            </button>
-                        }
-                    </Drawer>
+                                }
+                        </Drawer>
                 </nav>
             <main>
                 <Outlet />
