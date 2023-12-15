@@ -93,11 +93,12 @@ const sideFilterFunction = () => {
         }
 
         const filteredDone = currentCourseTrack.filter((data) => {
-            const initiateData = `${data.category.title + ' ' + data.level.toLowerCase() + ' ' + data.title + ' ' + data.description}`
+            const initiateData = `${data.course.category.title + ' ' + data.course.level.toLowerCase() + ' ' + data.course.title + ' ' + data.course.description}`
             const filterChecked = filterList.map((value) => {
                 return initiateData.includes(value);
             })
 
+        
             if (filterChecked.includes(true)) {
                 return data;
             }
