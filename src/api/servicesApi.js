@@ -42,14 +42,30 @@ export const getNotifications = async () => {
     }
 }
 
-export const putNotification = async () => {
+export const putNotification = async (userId) => {
     try {
-        const response = await axios.put(`${BASH_URL}/notification/user`, {
-            headers: {
-                'Authorization': `Bearer ${tokenCookie}`,
-                'Content-Type': 'application/json',
-            }
-        })
+        const response = await axios.put(`${BASH_URL}/notification/user`, { userId },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${tokenCookie}`,
+                }
+            })
+        return response
+    } catch (error) {
+        return error
+    }
+}
+
+export const putNotificationId = async (id) => {
+    try {
+        const response = await axios.put(`${BASH_URL}/notification`, { notificationId: id },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${tokenCookie}`,
+                }
+            })
         return response
     } catch (error) {
         return error

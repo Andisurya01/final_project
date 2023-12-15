@@ -34,7 +34,7 @@ export const consumeModuleTrackingsApi = {
     },
     getModuleTrackingsByUserTrack : async (payload) => {
         try {
-            const res = await axios.get(`${BASH_URL}/moduleTrackings/userTrack`, payload ,{
+            const res = await axios.post(`${BASH_URL}/moduleTrackings/userTrack`, payload ,{
                 headers: {
                     'Authorization': `Bearer ${tokenCookie}`,
                     'Content-Type': 'application/json',

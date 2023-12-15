@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom"
 import SidebarFilter from "../components/Filter/SidebarFilter";
 import { useEffect , useState} from "react";
 import { consumeCourseTrackingsApi } from '../api/courseTrackings';
+import { consumeUserApi } from "../api/user";
 import { useDispatch } from 'react-redux';
 
 const CourseTracking = () => {
@@ -14,11 +15,19 @@ const CourseTracking = () => {
     const navigate = useNavigate()
     const [ courseTrack, setCourseTrack  ] = useState([]);
     const [currentCourseTrack, setCurrentCourseTrack] = useState([])
+    const [user , setUser] = useState([])
 
     useEffect(()=>{
+        getCurrentUserAPI();
         getCourseByOrder();
         sideFilterFunction();
     })
+
+    const getCurrentUserAPI = () => {
+        consumeUserApi.getCurrentUser().then(res => {
+            setUser(res.data)
+        })
+    }
 
     const getCourseByOrder = () => {
         if(currentCourseTrack.length <= 0 ){          
@@ -166,6 +175,36 @@ const CourseTracking = () => {
                         <div className="flex flex-wrap gap-x-14 gap-y-10">
                             {
                                 courseTrack.map((data) => {
+
+                                    const totalModule = data.course.module.length
+                                    var moduleTrack = []
+                                    const filteredData = data.course.module.filter(data => {
+                                        if(data.moduleTracking.length > 0){
+                                            return data.moduleTracking.filter( item => {
+                                                if(item.userId == user.id ){
+                                                    return item ;
+                                                }
+                                            })
+                                            
+                                        }
+                                    })
+                                    
+                                    moduleTrack = filteredData
+
+                                    let indicator = 0; 
+                                    const doneValue =  100 / totalModule;
+                                    const progressValue = 100 / totalModule / 2;
+                                
+                                    for( let i = 0 ; i < moduleTrack.length ; i++ ){
+                                        if(moduleTrack[i].moduleTracking[0].status == 'PROGRESS'){
+                                            indicator += progressValue;
+                                        }else if(moduleTrack[i].moduleTracking[0].status == 'DONE'){
+                                            indicator += doneValue;
+                            
+                                        }
+                                    }
+
+
                                     return (
                                         <button key={data.id} onClick={() => {
                                             navigate("/courses/detail/unlock")
@@ -183,8 +222,8 @@ const CourseTracking = () => {
                                                         return accumulator + currentValue.time;
                                                     }, 0) / 60} Menit`
                                                 }
-                                                width="50%"
-                                                complete={"50% Complete"}/>
+                                                width={`${indicator}%`}
+                                                complete={`${indicator}% Complete`}/>
                                         </button>
                                     )
                                 })
