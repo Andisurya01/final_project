@@ -50,7 +50,6 @@ const Payment = () => {
     const [cvv, setCvv] = useState('');
     const [expiredDate, setExpiredDate] = useState("");
     const [expPayDate, setExpPayDate] = useState("");
-    const [isPaid, setIsPaid] = useState(false);
     const [module, setModule] = useState([])
     
     const id = useSelector((state) => state.module.id)
@@ -65,9 +64,6 @@ const Payment = () => {
             }).catch((err) => {
                 console.log(err);
             })
-
-        paymentFunction()
-
 
     },[])
 
@@ -84,42 +80,56 @@ const Payment = () => {
         setExpPayDate(`${dateFormat} ${timeFormat}`)
     }
 
-
-
-    // const createCourseTracking = (payload) => {
-    //     consumeUserApi.getCurrentUser().then(res => {
-    //         const { status , courseId } = payload
-    //         consumeCourseTrackingsApi.createCourseTrackingsUser({
-    //             status : status,
-    //             userId : res.data.id,
-    //             courseId : courseId
-    //         })
-    //     })
-    // }
-
-    const paymentFunction = () => {
-        const paymentButton = document.getElementById('paymentButton')
-        const cvvField = document.getElementById('cvvField').value;
-        paymentButton.onclick= () => {
-            const payload = {
-            courseId: id,
-                payment: {
-                    cardNumber: cardNumber,
-                    cardName: cardHolderName,
-                    cvv: parseInt(cvvField) ?? 123,
-                    expiryDate: new Date(),
-                    amount: 4000000
-                }
-            }
-
-            consumeOrderApi.createOrderUser(payload).then((res)=>{
-                if(res.status == 'OK' ){
-                    setIsPaid(true)
+    const createCourseTracking = (payload) => {
+        consumeUserApi.getCurrentUser().then(res => {
+            const { status , courseId } = payload
+            consumeCourseTrackingsApi.createCourseTrackingsUser({
+                status : status,
+                userId : res.data.id,
+                courseId : courseId
+            }).then(res => {
+                if(res.status == 'OK'){
+                    navigate("/payment/success")
                 }else{
-                    setIsPaid(false)
+                    alert('Kursus Sedang Berjalan')
                 }
             })
+        })
+    }
+
+    const paymentFunction = async () => {
+
+        const cvvField = document.getElementById('cvvField').value;
+
+        if(module.type == 'FREE'){
+            createCourseTracking({ status : 'PROGRESS' , courseId : module.id })
+        }else{
+            if (cardNumber == "" && cardHolderName == "" && cvv == "" && expiredDate == "") {
+                alert("Mohon isi data kartu kredit anda")
+            } else {
+                const payload = {
+                    courseId: id,
+                        payment: {
+                            cardNumber: cardNumber,
+                            cardName: cardHolderName,
+                            cvv: parseInt(cvvField) ?? 123,
+                            expiryDate: new Date(),
+                            amount: 4000000
+                        }
+                    }
+
+                    consumeOrderApi.createOrderUser(payload).then((res)=>{
+                        if(res.status == 'OK' ){
+                            navigate("/payment/success")
+                        }else{
+                            alert("Pembayaran gagal mohon coba lagi")
+                        }
+                    })
+                
+            }
         }
+
+
     }
 
     return (
@@ -212,34 +222,24 @@ const Payment = () => {
                         <div className="flex justify-between mb-10">
                             <div>
                                 <p className="font-medium text-sm">Harga</p>
-                                <p className="font-semibold text-sm">{ formatRupiah(module.price ?? 199999 ) }</p>
+                                <p className="font-semibold text-sm">{ module.type == 'FREE' ? 'Gratis' : formatRupiah(module.price ?? 199999 ) }</p>
                             </div>
                             <div>
                                 <p className="font-medium text-sm">PPN 11%</p>
-                                <p className="font-semibold text-sm">{ formatRupiah((module.price / 100 * 11).toFixed(0)?? 199999) }</p>
+                                <p className="font-semibold text-sm">{ module.type == 'FREE' ? 'Gratis' : formatRupiah( (module.price / 100 * 11).toFixed(0)?? 199999) }</p>
                             </div>
                             <div>
                                 <p className="font-medium text-sm">Total Bayar</p>
                                 <p className="font-semibold text-sm text-DARKBLUE05">{ 
-                                    formatRupiah(module.price + parseInt((module.price  / 100 * 11).toFixed(0)))
+                                   module.type == 'FREE' ? 'Gratis' :  formatRupiah(module.price + parseInt((module.price  / 100 * 11).toFixed(0)))
                                 
                                 }</p>
                             </div>
                         </div>
                         <div className="flex items-center justify-center">
-                            <button id = 'paymentButton' className="flex items-center justify-center gap-2 bg-WARNING rounded-full w-80 py-3 px-6 text-center"
-                                onClick={() => {
-                                    if (cardNumber == "" && cardHolderName == "" && cvv == "" && expiredDate == "") {
-                                        alert("Mohon isi data kartu kredit anda")
-                                    } else {
-                                        if(isPaid){
-                                            navigate("/payment/success")
-                                        }else{
-                                            alert("Pembayaran gagal mohon coba lagi")
-                                            
-                                        }
-                                    }
-                                }}>
+                            <button id = 'paymentButton' onClick={()=>{
+                                paymentFunction()
+                            }}   className="flex items-center justify-center gap-2 bg-WARNING rounded-full w-80 py-3 px-6 text-center">
                                 <p className="text-white text-sm font-medium">Bayar dan Ikuti Kelas Selamanya</p>
                                 <Icon icon="carbon:next-filled" className="text-white text-2xl" />
                             </button>

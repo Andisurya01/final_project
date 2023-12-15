@@ -203,9 +203,9 @@ const CourseDetail = () => {
                         level={course.level}
                         module={totalModule + " Module"}
                         time={totalTime / 60 + " Minute"}
-                        price={course.price} />
+                        price={ course.type == 'FREE' ? 'Gratis' : course.price} />
                     <AnimatedButton>
-                    <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment")}>
+                    <button className="mt-6 w-80 mb-4" onClick={() => navigate("/payment") }>
                         <div className="bg-DARKBLUE05 rounded-full py-3 flex justify-center items-center gap-2">
                             <p className="text-white font-bold">Beli Sekarang</p>
                             <Icon icon="carbon:next-filled" className="text-white text-2xl" />
