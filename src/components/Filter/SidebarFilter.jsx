@@ -22,9 +22,9 @@ const SidebarFilter = () => {
             <div className="mb-10">
                 <h1 className="text-2xl font-bold mb-5">Level Kesulitan</h1>
                 <Checkbox title={'Semua Level'} id={'semua'} value = {'Semua Level'} />
-                <Checkbox title={'Beginner Level'} id={'beginner'} value = {'Beginner'} />
-                <Checkbox title={'Intermediate Level'} id={'intermediate'} value = {'Intermediate'} />
-                <Checkbox title={'Advanced Level'} id={'advanced'} value = {'Advanced'} />
+                <Checkbox title={'Beginner Level'} id={'beginner'} value = {'beginner'} />
+                <Checkbox title={'Intermediate Level'} id={'intermediate'} value = {'intermediate'} />
+                <Checkbox title={'Advanced Level'} id={'advanced'} value = {'advanced'} />
             </div>
             <hr className="mb-3"/>
             <div className="flex justify-center">

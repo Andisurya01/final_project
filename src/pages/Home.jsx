@@ -19,6 +19,7 @@ const Home = () => {
     const navigate = useNavigate()
     const [categories, setCategories] = useState([]);
     const [course, setCourse] = useState([])
+    const [currentCourse, setCurrentCourse] = useState([])
 
 
     useEffect(() => {
@@ -41,10 +42,28 @@ const Home = () => {
             const popularCourses = popularCourse.filter(data => popularCourse.indexOf(data) < 3)
 
             setCourse(popularCourses);
+            setCurrentCourse(popularCourses)
         })
 
     }, []);
+    
 
+
+    const filterCategories = (titleCategory) => {
+        getCourses().then((res) => {
+            const response = res.data.data
+
+            const popularCourse = response.filter((data) => {
+                if(data.category.title == titleCategory){
+                    return data.rating >= 4.5 
+                }
+            })
+
+            const popularCourses = popularCourse.filter(data => popularCourse.indexOf(data) < 3)
+
+            setCourse(popularCourses);
+        })
+    }
 
     return (
         <section className="">
@@ -76,10 +95,10 @@ const Home = () => {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 mb-5 gap-2 lg:gap-0 lg:flex lg:flex-row justify-between">
-                            <FilterCourseHome title={"All"} />
+                            <button onClick={()=>{ setCourse(currentCourse) }} ><FilterCourseHome title={"All"} /></button>
                             {
                                 categories.map((data) => {
-                                    return (<FilterCourseHome key={data.id} title={data.title} />)
+                                    return (<button onClick={()=>{filterCategories(data.title)}} key={data.id}><FilterCourseHome title={data.title} /></button>)
 
                                 })
                             }

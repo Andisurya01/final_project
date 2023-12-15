@@ -190,7 +190,7 @@ const CourseDetail = () => {
                         Selangkah lagi menuju
                     </Typography>
                     <Typography variant="h3" className="text-center text-DARKBLUE05">
-                        Kelas Premium
+                        Kelas {course.type == 'FREE' ? 'Gratis' : 'Premium'}
                     </Typography>
                 </DialogHeader>
                 <DialogBody className="grid place-items-center gap-4 text-black">
