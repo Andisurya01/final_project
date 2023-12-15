@@ -3,7 +3,7 @@ import logo from "../assets/img/craftiq.png"
 import logo2 from "../assets/img/color_craftiq.png"
 
 
-const Login = () => {
+const Register = () => {
   return (
     <section className="mx-auto">
       <div className="lg:hidden grid place-content-center m-20">
@@ -25,4 +25,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
