@@ -18,6 +18,7 @@ import ReactPlayer from 'react-player'
 import illustration from "../assets/img/illustration2.png"
 import { consumeModuleTrackingsApi } from "../api/moduleTracking";
 import { consumeUserApi } from "../api/user";
+import { consumeCourseTrackingsApi } from "../api/courseTrackings";
 
 const CourseDetailUnlock = () => {
     const [course, setCourse] = useState([])
@@ -72,8 +73,8 @@ const CourseDetailUnlock = () => {
         getModuleTrackingsByUserTrack();
         indicatorCourseValidation();
 
-    })
-
+        })
+        
 
     const getModuleTrackingsByUserTrack = () => {
         if (moduleTrack.length <= 0) {
@@ -89,6 +90,7 @@ const CourseDetailUnlock = () => {
                     }
                 })
                 setModuleTrack(filteredModule)
+                courseDoneValidation(filteredModule);
             })
         } else {
             return moduleTrack;
@@ -111,6 +113,37 @@ const CourseDetailUnlock = () => {
         }
 
         setIndicatorPercent(indicator)
+    }
+
+
+    const courseDoneValidation = async (mods) => {
+        if(mods.length == totalModule){
+
+            const coursesCheck = await course.module.map(item => {
+                return  mods.filter(data => {
+                        if(data.id == item.id){
+                            return item.moduleTracking.some(modules => modules.userId === user.id && modules.status === 'DONE');
+                        }
+                        return false;
+                })
+            })
+
+            const courseFilter = await coursesCheck.filter(item => {
+                return item.length > 0
+            })
+
+            if(courseFilter.length == totalModule){
+                const payload = {
+                    id : id ,
+                    status : 'DONE'
+                }
+                const res = await consumeCourseTrackingsApi.updateCourseTrackingsUser(payload);
+                if(res.status){
+                    alert('Selamat Kelas Telah Selesai')
+                }
+            }
+                    
+        }
     }
 
     const getCurrentUserAPI = () => {
