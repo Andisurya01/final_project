@@ -139,10 +139,10 @@ const Navbar = () => {
                         </div>
                         {isLogin ?
                                 <List>
-                                    <ListItem className="" onClick={handleKelasClick}>
+                                    <ListItem className="" onClick={() => { handleKelasClick(); closeDrawer()}}>
                                         <NavbarButton isActive={isKelasActive} icon="tabler:list" text="Kelas" />
                                     </ListItem>
-                                    <ListItem onClick={handleBellClick} >
+                                    <ListItem onClick={() => { handleBellClick(); closeDrawer()}}>
                                         <NavbarButton isActive={isBellActive} icon="lucide:bell" text="Notifikasi" />
                                         <ListItemSuffix>
                                             {notification === 0 ? null :
@@ -155,12 +155,12 @@ const Navbar = () => {
                                             }
                                         </ListItemSuffix>
                                     </ListItem>
-                                    <ListItem onClick={handleUserClick}>
+                                    <ListItem onClick={() => { handleUserClick(); closeDrawer()}}>
                                         <NavbarButton isActive={isUserActive} icon="lucide:user" text="Akun" />
                                     </ListItem>
                                 </List> :
                                     <List>
-                                        <ListItem onClick={() => navigate("/login")}>
+                                        <ListItem onClick={() => {navigate("/login"); closeDrawer()}}>
                                             <button className='flex gap-2 items-center justify-center lg:my-auto lg:ml-auto'>
                                                 <Icon icon="ic:round-login" className='text-black lg:text-white' />
                                                 <p className='text-black lg:text-white font-medium'>Masuk</p>
