@@ -8,7 +8,7 @@ const CourseTitle = ({course, rating, topic, author, level, module, time , tele 
             <div className="flex justify-between">
                 <p className="text-lg font-semibold text-DARKBLUE05">{course}</p>
                 <div className="flex gap-1">
-                    <Icon icon="bi:star-fill" className="text-ATTENTION text-sm"/>
+                    <Icon icon="bi:star-fill" className="text-ATTENTION mt-0.5"/>
                     <p className="font-semibold">{rating}</p>
                 </div>
             </div>
