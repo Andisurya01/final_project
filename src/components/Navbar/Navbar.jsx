@@ -13,7 +13,6 @@ import {
     ListItemSuffix,
     Chip,
 } from "@material-tailwind/react";
-
 const Navbar = () => {
     const navigate = useNavigate()
     const location = useLocation()

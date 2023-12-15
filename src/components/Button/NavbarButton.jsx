@@ -13,7 +13,8 @@ const NavbarButton = ({ isActive, onClick, icon, text }) => {
         <div className='flex gap-2 lg:inline lg:gap:0 justify-center items-center'>
           <Icon icon={icon} className="text-black lg:text-white w-6 h-6" />
           <p className="text-black font-medium lg:hidden">{text}</p>
-        </div>      )}
+        </div>
+      )}
     </button>
   );
 };

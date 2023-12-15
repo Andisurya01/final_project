@@ -40,7 +40,6 @@ const CourseDetailUnlock = () => {
 
     const handleOpen = () => setOpen(!open)
 
-
     useEffect(() => {
         getCourses()
             .then((res) => {
@@ -68,7 +67,7 @@ const CourseDetailUnlock = () => {
             }).catch((err) => {
                 console.log(err);
             })
-            
+
         getCurrentUserAPI();
         getModuleTrackingsByUserTrack();
         indicatorCourseValidation();

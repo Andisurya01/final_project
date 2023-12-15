@@ -65,7 +65,7 @@ const Payment = () => {
                 console.log(err);
             })
 
-    }, [])
+    },[id])
 
     const setExpPayDateFunction = () => {
 
@@ -82,15 +82,15 @@ const Payment = () => {
 
     const createCourseTracking = (payload) => {
         consumeUserApi.getCurrentUser().then(res => {
-            const { status, courseId } = payload
+            const { status , courseId } = payload
             consumeCourseTrackingsApi.createCourseTrackingsUser({
-                status: status,
-                userId: res.data.id,
-                courseId: courseId
+                status : status,
+                userId : res.data.id,
+                courseId : courseId
             }).then(res => {
-                if (res.status == 'OK') {
+                if(res.status == 'OK'){
                     navigate("/payment/success")
-                } else {
+                }else{
                     alert('Kursus Sedang Berjalan')
                 }
             })
@@ -100,31 +100,32 @@ const Payment = () => {
     const paymentFunction = async () => {
 
         const cvvField = document.getElementById('cvvField').value;
-        if (module.type == 'FREE') {
-            createCourseTracking({ status: 'PROGRESS', courseId: module.id })
-        } else {
+
+        if(module.type == 'FREE'){
+            createCourseTracking({ status : 'PROGRESS' , courseId : module.id })
+        }else{
             if (cardNumber == "" && cardHolderName == "" && cvv == "" && expiredDate == "") {
                 alert("Mohon isi data kartu kredit anda")
             } else {
                 const payload = {
                     courseId: id,
-                    payment: {
-                        cardNumber: cardNumber,
-                        cardName: cardHolderName,
-                        cvv: parseInt(cvvField) ?? 123,
-                        expiryDate: new Date(),
-                        amount: 4000000
+                        payment: {
+                            cardNumber: cardNumber,
+                            cardName: cardHolderName,
+                            cvv: parseInt(cvvField) ?? 123,
+                            expiryDate: new Date(),
+                            amount: 4000000
+                        }
                     }
-                }
 
-                consumeOrderApi.createOrderUser(payload).then((res) => {
-                    if (res.status == 'OK') {
-                        navigate("/payment/success")
-                    } else {
-                        alert("Pembayaran gagal mohon coba lagi")
-                    }
-                })
-
+                    consumeOrderApi.createOrderUser(payload).then((res)=>{
+                        if(res.status == 'OK' ){
+                            navigate("/payment/success")
+                        }else{
+                            alert("Pembayaran gagal mohon coba lagi")
+                        }
+                    })
+                
             }
         }
 

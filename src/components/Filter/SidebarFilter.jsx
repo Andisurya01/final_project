@@ -17,7 +17,6 @@ const SidebarFilter = () => {
                 <Checkbox title={'Web Development'} id={'webdev'} value = {'Web Development'} />
                 <Checkbox title={'Android Development'} id={'android'} value = {'Android Development'} />
                 <Checkbox title={'iOS Development'} id={'ios'} value = {'iOS Development'} />
-
                 <Checkbox title={'Data Science'} id={'datasc'} value = {'Data Science'} />
             </div>
             <div className="mb-10">

@@ -185,7 +185,7 @@ const Account = () => {
                     <div className="w-full lg:w-[1024px]">
                         <div>
                             <div className='flex justify-center'>
-                                <div className='grid md:grid-flow-col grid-cols-1 w-full md:w-[720px] lg:w-[900px] border border-DARKBLUE05 rounded-b-2xl'>
+                                <div className='grid md:grid-flow-col grid-cols-1 w-full md:w-[720px] lg:w-[900px] border border-DARKBLUE05 rounded-b-2xl'> 
                                     <div className='w-full md:w-[300px] lg:w[370px] px-10 md:px-0 bg-LIGHTBLUE md:bg-transparent rounded-b-2xl'>
                                         <div className='flex justify-between md:flex-col py-4 px-0 md:px-4'>
                                             <button onClick={toggleProfileVisibility}>
@@ -194,32 +194,32 @@ const Account = () => {
                                                     <p className={`font-medium ${profileButtonSize} hidden md:inline`}>Profil Saya</p>
                                                 </div>
                                             </button>
-                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline" />
+                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline"/>
                                             <button onClick={toggleSetPasswordVisibility}>
                                                 <div className='flex items-center gap-4 py-4'>
                                                     <Icon icon="lets-icons:setting-line" className='text-DARKBLUE05 text-3xl' />
                                                     <p className={`font-medium ${setPasswordButtonSize} hidden md:inline`}>Ubah Password</p>
                                                 </div>
                                             </button>
-                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline" />
+                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline"/>
                                             <button onClick={toggleHistoryVisibility}>
                                                 <div className='flex items-center gap-4 py-4'>
                                                     <Icon icon="mdi:cart-outline" className='text-DARKBLUE05 text-3xl' />
                                                     <p className={`font-medium ${historyButtonSize} hidden md:inline`}>Riwayat Pembayaran</p>
                                                 </div>
                                             </button>
-                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline" />
+                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline"/>
                                             <button onClick={handleExit}>
                                                 <div className='flex items-center gap-4 py-4'>
                                                     <Icon icon="ic:round-logout" className='text-DARKBLUE05 text-3xl' />
                                                     <p className='font-medium hidden md:inline'>Keluar</p>
                                                 </div>
                                             </button>
-                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline" />
+                                            <hr className="w-64 lg:w-80 h-0.5 bg-LIGHTGREY hidden md:inline"/>
                                             {/* <div className='flex justify-center mt-10'>
                                                 <p className='text-sm text-DARKGREY'>Version 1.1.0</p>
                                             </div> */}
-                                        </div>
+                                        </div> 
                                     </div>
                                     <div className='w-full md:w-[405px] lg:w-[505px]'>
                                         <div className={`grid place-content-center py-8 ${isProfileVisible ? '' : 'hidden'}`}>
@@ -228,14 +228,14 @@ const Account = () => {
                                             </div>
                                             <div className='flex justify-center'>
                                                 <div className='bg-DARKBLUE05 w-24 h-24 rounded-full flex justify-center items-center mb-6'>
-                                                    <img className='w-24 h-24 rounded-full ' src={user.image ?? ''} alt='profile-photos' ></img>
+                                                    <img  className='w-24 h-24 rounded-full ' src={user.image ?? ''} alt='profile-photos' ></img>
                                                 </div>
                                             </div>
                                             <div className='mb-6'>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Nama</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input id='field-name' type="text" placeholder={user.name} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input  id='field-name' type="text" placeholder={user.name} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
@@ -269,89 +269,87 @@ const Account = () => {
                                                 </div>
                                             </button>
                                         </div>
-                                        <div className={`w-full md:w-[405px] grid place-content-center py-8 ${isSetPasswordVisible ? '' : 'hidden'}`}>
-                                            <div className='flex justify-center mb-6'>
-                                                <h1 className='font-bold text-2xl'>Ubah Password</h1>
-                                            </div>
-                                            <div className='mb-6'>
-                                                <div className='mb-4'>
-                                                    <p className='mb-2'>Masukkan Password Lama</p>
-                                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                        <input id='old-pass' type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
-                                                        <Icon icon="lucide:eye" className='text-DARKGREY text-2xl' />
-                                                    </div>
-                                                </div>
-                                                <div className='mb-4'>
-                                                    <p className='mb-2'>Masukkan Password Baru</p>
-                                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                        <input id='new-pass' type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
-                                                        <Icon icon="lucide:eye" className='text-DARKGREY text-2xl' />
-                                                    </div>
-                                                </div>
-                                                <div className='mb-4'>
-                                                    <p className='mb-2'>Ulangi Password Baru</p>
-                                                    <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                        <input id='new-pass-again' type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
-                                                        <Icon icon="lucide:eye" className='text-DARKGREY text-2xl' />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button id='up-pass-button' >
-                                                <div className='bg-DARKBLUE05 p-3 rounded-full'>
-                                                    <p className='text-lg text-white font-bold'>Ubah Password</p>
-                                                </div>
-                                            </button>
+                                    <div className={`w-full md:w-[405px] grid place-content-center py-8 ${isSetPasswordVisible ? '' : 'hidden'}`}>
+                                        <div className='flex justify-center mb-6'>
+                                            <h1 className='font-bold text-2xl'>Ubah Password</h1>
                                         </div>
-                                        <div className={`w-full md:w-[405px] grid place-content-center py-8 ${isHistoryVisible ? '' : 'hidden'}`}>
-                                            <div className='flex justify-center mb-6'>
-                                                <h1 className='font-bold text-2xl'>Riwayat Pembayaran</h1>
+                                        <div className='mb-6'>
+                                            <div className='mb-4'>
+                                                <p className='mb-2'>Masukkan Password Lama</p>
+                                                <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
+                                                    <input id='old-pass' type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <Icon icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+                                                </div>
                                             </div>
-                                            <div className='mb-6'>
-                                                {
-                                                    orderHistory.map((data) => {
-                                                        return (
-                                                            <div key={data.id} className='mb-4'>
-                                                                <CardPaid picture={data.course?.image}
-                                                                    course={data.course.category.title}
-                                                                    rating={data.course.rating}
-                                                                    topic={data.course.title}
-                                                                    author={data.course.authorBy}
-                                                                    level={data.course.level}
-                                                                    module={`${data.course.module.length} Module`}
-                                                                    time={
-                                                                        `${data.course.module.reduce((accumulator, currentValue) => {
-                                                                            return accumulator + currentValue.time;
-                                                                        }, 0) / 60} Menit`
-                                                                    }
-                                                                    price={data.course.price}
-                                                                    isPaid={data.status == 'WAITING' ? false : true}
-                                                                />
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
+                                            <div className='mb-4'>
+                                                <p className='mb-2'>Masukkan Password Baru</p>
+                                                <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
+                                                    <input id='new-pass' type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <Icon icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+                                                </div>
                                             </div>
+                                            <div className='mb-4'>
+                                                <p className='mb-2'>Ulangi Password Baru</p>
+                                                <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
+                                                    <input id='new-pass-again'  type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <Icon icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button id='up-pass-button' >
+                                            <div className='bg-DARKBLUE05 p-3 rounded-full'>
+                                                <p className='text-lg text-white font-bold'>Ubah Password</p>
+                                            </div>
+                                        </button>
+                                    </div>
+                                    <div className={`w-full md:w-[405px] grid place-content-center py-8 ${isHistoryVisible ? '' : 'hidden'}`}>
+                                        <div className='flex justify-center mb-6'>
+                                            <h1 className='font-bold text-2xl'>Riwayat Pembayaran</h1>
+                                        </div>
+                                        <div className='mb-6'>
+                                            {
+                                                orderHistory.map((data)=>{
+                                                    return (
+                                                        <div key={data.id} className='mb-4'>
+                                                            <CardPaid picture={data.course.image}
+                                                                course={data.course.category.title} 
+                                                                rating={data.course.rating}
+                                                                topic={data.course.title}
+                                                                author={data.course.authorBy}
+                                                                level={data.course.level}
+                                                                module={`${data.course.module.length} Module`}
+                                                                time={
+                                                                    `${data.course.module.reduce((accumulator, currentValue) => {
+                                                                        return accumulator + currentValue.time;
+                                                                    }, 0) / 60} Menit`
+                                                                }
+                                                                price={data.course.price}
+                                                                isPaid={data.status == 'WAITING' ? false : true} 
+                                                            />
+                                                        </div>
+                                                    )
+                                                })
+                                            }
                                         </div>
                                     </div>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div className='mt-4'>
                             {
                                 alertAction ?
-                                    <div className='relative mb-4 w-[100%] flex justify-center'>
+                                <div className='relative mb-4 w-[100%] flex justify-center'>
                                         <AllertReset
-                                            message={alertStatus ? 'Update Success' : 'Update Gagal'}
-                                            type={alertStatus ? 'success' : 'warning'}
-                                        />
-                                    </div> : ''
+                                        message={ alertStatus ? 'Update Success' : 'Update Gagal' }
+                                        type={alertStatus ? 'success' : 'warning' }
+                                />
+                                </div>: '' 
                             }
                         </div>
                     </div>
                 </div>
                 <Footer />
-
             </div>
         </section>
     )
