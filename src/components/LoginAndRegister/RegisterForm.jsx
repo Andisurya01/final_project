@@ -91,7 +91,7 @@ const RegisterForm = () => {
           title={"Daftar"}
           onClick={register}
         ></Button>
-        <p className="text-sm pt-12 text-center">
+        <p className="text-sm pt-12 text-center mb-20 lg:mb-0">
           Sudah punya akun?{" "}
           <button
             className="text-DARKBLUE05 font-bold"
