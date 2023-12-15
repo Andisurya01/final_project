@@ -1,27 +1,60 @@
 import { Icon } from '@iconify/react';
 import Footer from "../components/Footer/Footer"
 import { useEffect, useState } from 'react';
-import { getNotifications } from '../api/servicesApi';
+import { getNotifications, putNotification, putNotificationId } from '../api/servicesApi';
+import { consumeUserApi } from '../api/user';
 
 const Notification = () => {
     const [notification, setNotification] = useState([])
+    const [user, setUser] = useState("")
     useEffect(() => {
         getNotifications()
             .then((res) => {
                 const response = res.data.data
                 setNotification(response)
+                console.log(response);
             })
     }, [])
+
+    useEffect(() => {
+        consumeUserApi.getCurrentUser()
+        .then((res) => {
+            console.log(res.data.id);
+            setUser(res.data.id)
+        })
+    }, [])
+
+    const handleViewed = async () => {
+        try {
+            const response = await putNotification(user)
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleViewedId = async (id) => {
+        try {
+            const response = await putNotificationId(id)
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <section>
             <div className="bg-LIGHTBLUE h-[170px]">
                 <div className='lg:grid lg:place-content-center px-4 lg:px-0'>
                     <div className="w-full lg:w-[1024px] pt-10">
                         <div>
-                            <div className='mb-12'>
-                                <button className="flex justify-center items-center gap-4 mb-10" onClick={() => history.back()} >
+                            <div className='mb-12 flex justify-between items-center'>
+                                <button className="flex gap-4 " onClick={() => history.back()} >
                                     <Icon icon="ph:arrow-left-bold" className="text-xl text-DARKBLUE05" />
                                     <p className="font-bold text-DARKBLUE05">Kembali ke Beranda</p>
+                                </button>
+                                <button onClick={()=>handleViewed()}>
+                                    <p className='font-bold text-DARKBLUE05'>See All</p>
                                 </button>
                             </div>
                             <div className='flex justify-center'>
@@ -40,7 +73,10 @@ const Notification = () => {
                                     <div className='w-full px-2 lg:px-0 md:w-[700px]'>
                                         {notification.map((item) => {
                                             return (
-                                                <div key={item.id} className='py-4 cursor-pointer'>
+                                                <div key={item.id} className='py-4 cursor-pointer' 
+                                                onClick={()=>{
+                                                        handleViewedId(item.id)
+                                                }}>
                                                     <div key={item.id} className='flex justify-between'>
                                                         <div className='flex items-center'>
                                                             <Icon icon="material-symbols-light:circle-notifications-rounded" className='text-4xl text-DARKBLUE05' />
