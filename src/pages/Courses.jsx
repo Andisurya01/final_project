@@ -30,6 +30,9 @@ const Courses = () => {
     const [currentCourse, setCurrentCourse] = useState([])
     const [course, setCourse] = useState([])
     const [courseSelection, setCourseSelection] = useState({})
+    const [filterColor1, setFilterColor1] = useState('bg-DARKBLUE05 text-white')
+    const [filterColor2, setFilterColor2] = useState(null)
+    const [filterColor3, setFilterColor3] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const token = getCookieValue("token")
 
@@ -137,17 +140,27 @@ const Courses = () => {
 
 
     const filterTypeFunction = (TYPE) => {
+        console.log(filterColor1)
         if(TYPE == 'PREMIUM' ){
             const premiumData = currentCourse.filter((data)=>{
                 return data.type == 'PREMIUM';
             }) 
+            setFilterColor1(null)
+            setFilterColor2('bg-DARKBLUE05 text-white')
+            setFilterColor3(null)
             setCourse(premiumData)
         }else if(TYPE == 'FREE'){
             const freeData = currentCourse.filter((data)=>{
                 return data.type == 'FREE';
-            }) 
+            })
+            setFilterColor1(null)
+            setFilterColor2(null)
+            setFilterColor3('bg-DARKBLUE05 text-white')
             setCourse(freeData)
         }else{
+            setFilterColor1('bg-DARKBLUE05 text-white')
+            setFilterColor2(null)
+            setFilterColor3(null)
             setCourse(currentCourse);
         } 
     }
@@ -178,20 +191,20 @@ const Courses = () => {
                         <div className="mb-10 flex justify-between">
                             <div onClick={()=>{
                                 filterTypeFunction('')
-                            }}><FilterPlanProgress title={"All"} /></div>
+                            }}><FilterPlanProgress title={"All"} color={filterColor1} /></div>
 
                             <div onClick={()=>{
                                 
                                 filterTypeFunction('PREMIUM')
                             }}>
-                                <FilterPlanProgress title={"Premium"} />
+                                <FilterPlanProgress title={"Premium"} color={filterColor2} />
                             </div>
 
                             <div onClick={()=>{
                                 filterTypeFunction('FREE')
                                 
                             }}> 
-                                <FilterPlanProgress title={"Kelas Gratis"} />
+                                <FilterPlanProgress title={"Kelas Gratis"} color={filterColor3} />
                             </div>
                         </div>
                         <div id='courseList' className="flex flex-wrap gap-x-14 gap-y-10">

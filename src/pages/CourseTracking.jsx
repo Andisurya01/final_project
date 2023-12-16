@@ -18,6 +18,9 @@ const CourseTracking = () => {
     const [courseTrack, setCourseTrack] = useState([]);
     const [currentCourseTrack, setCurrentCourseTrack] = useState([])
     const [user, setUser] = useState([])
+    const [filterColor1, setFilterColor1] = useState('bg-DARKBLUE05 text-white')
+    const [filterColor2, setFilterColor2] = useState(null)
+    const [filterColor3, setFilterColor3] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -127,13 +130,22 @@ const filterTypeFunction = (TYPE) => {
         const progressData = currentCourseTrack.filter((data) => {
             return data.status == 'PROGRESS';
         })
+        setFilterColor1(null)
+        setFilterColor2('bg-DARKBLUE05 text-white')
+        setFilterColor3(null)
         setCourseTrack(progressData)
     } else if (TYPE == 'DONE') {
         const doneData = currentCourseTrack.filter((data) => {
             return data.status == 'DONE';
         })
+        setFilterColor1(null)
+        setFilterColor2(null)
+        setFilterColor3('bg-DARKBLUE05 text-white')
         setCourseTrack(doneData)
     } else {
+        setFilterColor1('bg-DARKBLUE05 text-white')
+        setFilterColor2(null)
+        setFilterColor3(null)
         setCourseTrack(currentCourseTrack);
     }
 }
@@ -164,20 +176,20 @@ return (
                             <div className="mb-10 flex justify-between">
                                 <div onClick={() => {
                                     filterTypeFunction('')
-                                }}><FilterPlanProgress title={"All"} /></div>
+                                }}><FilterPlanProgress title={"All"} color={filterColor1} /></div>
 
                                 <div onClick={() => {
 
                                     filterTypeFunction('PROGRESS')
                                 }}>
-                                    <FilterPlanProgress title={"In Progress"} />
+                                    <FilterPlanProgress title={"In Progress"} color={filterColor2} />
                                 </div>
 
                                 <div onClick={() => {
                                     filterTypeFunction('DONE')
 
                                 }}>
-                                    <FilterPlanProgress title={"Complete"} />
+                                    <FilterPlanProgress title={"Complete"} color={filterColor3} />
                                 </div>
                             </div>
                             <div className="flex flex-wrap gap-x-14 gap-y-10">

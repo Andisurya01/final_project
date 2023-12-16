@@ -85,6 +85,7 @@ const CourseDetailUnlock = () => {
         getCurrentUserAPI();
         getModuleTrackingsByUserTrack();
         indicatorCourseValidation();
+        courseDoneValidation();
 
         })
         
@@ -103,7 +104,6 @@ const CourseDetailUnlock = () => {
                     }
                 })
                 setModuleTrack(filteredModule)
-                courseDoneValidation(filteredModule);
             })
         } else {
             return moduleTrack;
@@ -131,33 +131,16 @@ const CourseDetailUnlock = () => {
         setIndicatorPercent(indicator)
     }
 
-    const courseDoneValidation = async (mods) => {
-        if(mods.length == totalModule){
-
-            const coursesCheck = await course.module.map(item => {
-                return  mods.filter(data => {
-                        if(data.id == item.id){
-                            return item.moduleTracking.some(modules => modules.userId === user.id && modules.status === 'DONE');
-                        }
-                        return false;
-                })
-            })
-
-            const courseFilter = await coursesCheck.filter(item => {
-                return item.length > 0
-            })
-
-            if(courseFilter.length == totalModule){
-                const payload = {
-                    id : id ,
-                    status : 'DONE'
-                }
-                const res = await consumeCourseTrackingsApi.updateCourseTrackingsUser(payload);
-                if(res.status){
-                    alert('Selamat Kelas Telah Selesai')
-                }
+    const courseDoneValidation = async () => {
+        if(indicatorPercent == 100){
+            const payload = {
+                id : id ,
+                status : 'DONE'
             }
-                    
+            const res = await consumeCourseTrackingsApi.updateCourseTrackingsUser(payload);
+            if(res.status){
+                alert('Selamat Kelas Telah Selesai')
+            }
         }
     }
 
