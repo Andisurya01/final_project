@@ -7,10 +7,15 @@ import NavbarButton from '../Button/NavbarButton';
 import { getNotifications } from '../../api/servicesApi';
 import { getCourses } from "../../api/servicesApi";
 import AnimatedButton from "../Button/AnimatedButton";
+import { useDispatch } from 'react-redux';
+import { updateId } from '../../store/moduleCourses';
 import Card from "../CourseCard/Card"
+import { formatRupiah } from '../../lib/rupiahFormat';
 import {
     Dialog,
+    DialogHeader,
     DialogBody,
+    Typography,
 } from "@material-tailwind/react";
 
 import {
@@ -23,17 +28,20 @@ import {
 const Navbar = () => {
     const navigate = useNavigate()
     const location = useLocation()
+    const dispatch = useDispatch()
 
     const [isLogin, setIsLogin] = useState(false)
     const token = getCookieValue("token");
     const [notification, setNotification] = useState(0)
 
     const [openModal, setOpenModal] = useState(false);
+    const [openModalPremium, setOpenModalPremium] = useState(false);
     const [isKelasActive, setKelasActive] = useState(true);
     const [isBellActive, setBellActive] = useState(false);
     const [isUserActive, setUserActive] = useState(false);
     const [course, setCourse] = useState([])
     const [currentCourse, setCurrentCourse] = useState([])
+    const [courseSelection, setCourseSelection] = useState({})
 
 
     useEffect(() => {
@@ -87,6 +95,7 @@ const Navbar = () => {
     const openDrawer = () => setOpen(true);
     const closeDrawer = () => setOpen(false);
     const handleOpen = () => setOpenModal(!openModal)
+    const handleOpenPremium = () => setOpenModalPremium(!openModalPremium)
 
 
     useEffect(()=>{
@@ -98,6 +107,7 @@ const Navbar = () => {
             const response = res.data.data
             if(res.data.status == 'OK'){
                 setCurrentCourse(response)
+                setCourse(response)
             }
         })
     }
@@ -229,12 +239,33 @@ const Navbar = () => {
                     
                     {/*  */}
 
-                    <div>
+                    <div className=' h-[520px] w-[424px] overflow-y-scroll  flex flex-col items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2'>
                         {
                             course.map((data)=>{
                                 return(
-                                    <AnimatedButton key={data.id}>
+                                    <div key={data.id} className='mb-[20px]'>
+                                        <AnimatedButton >
                                             <Card
+                                                onClick={()=>{
+
+                                                    if(data.type === 'PREMIUM'){
+                                                        if(token === null){
+                                                            navigate("/login")
+                                                            handleOpen()
+                                                        }else{
+                                                            handleOpenPremium()
+                                                            handleOpen()
+                                                            setCourseSelection(data)
+                                                            dispatch(updateId(data.id))
+                                                  
+                                                        }
+                                                    }else{
+                                                        navigate("/courses/detail")
+                                                        handleOpen()
+                                                        dispatch(updateId(data.id))
+                                                    }
+
+                                                }}
                                                 picture={data.image}
                                                 course={data.category.title}
                                                 rating={data.rating}
@@ -249,13 +280,57 @@ const Navbar = () => {
                                                 }
                                                 price={null}
                                             />
-                                        </AnimatedButton>
+                                    </AnimatedButton>
+                                    </div>
                                 )
                             })
                         }
                     </div>
+                </DialogBody>
+            </Dialog>
+            <Dialog open={openModalPremium} handler={()=>setOpenModalPremium(!openModalPremium)}>
+                <div className="flex justify-end">
+                    <button className="px-2 py-2" onClick={()=>setOpenModalPremium(!openModalPremium)}>
+                        <Icon icon="material-symbols:close" className="text-3xl" />
+                    </button>
+                </div>
+                <DialogHeader className="grid place-content-center">
+                    <Typography variant="h3" className="text-center text-black">
+                        Selangkah lagi menuju
+                    </Typography>
+                    <Typography variant="h3" className="text-center text-DARKBLUE05">
+                        Kelas Premium
+                    </Typography>
+                </DialogHeader>
+                <DialogBody className="grid place-items-center gap-4 text-black">
+                    <Card
+                        picture={courseSelection.category?.image}
+                        course={courseSelection.category?.title}
+                        rating={courseSelection.rating}
+                        topic={courseSelection.title}
+                        author={courseSelection.authorBy}
+                        level={courseSelection.level}
+                        module={ courseSelection.module != null ? courseSelection.module.length : 10 + " Module"}
+                        time={
+                            courseSelection.module != null ? `${courseSelection.module.reduce((accumulator, currentValue) => {
+                                return accumulator + currentValue.time;
+                            }, 0) / 60} Menit`  :  '26 Menit'
+                        }
+                        price={formatRupiah(courseSelection.price ?? 19999)} />
+                    <AnimatedButton>
+                    <button className="mt-6 w-80 mb-4" onClick={() => {
+                                navigate("/payment")
+                                handleOpenPremium()
+                                dispatch(updateId(courseSelection.id))
 
-
+                            }
+                        }>
+                        <div className="bg-DARKBLUE05 rounded-full py-3 flex justify-center items-center gap-2">
+                            <p className="text-white font-bold">Beli Sekarang</p>
+                            <Icon icon="carbon:next-filled" className="text-white text-2xl" />
+                        </div>
+                    </button>
+                    </AnimatedButton>
                 </DialogBody>
             </Dialog>
                 <Outlet />
