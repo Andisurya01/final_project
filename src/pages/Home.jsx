@@ -12,6 +12,8 @@ import { consumeCategoriesApi } from "../api/category"
 import { getCourses } from "../api/servicesApi";
 import { formatRupiah } from '../lib/rupiahFormat';
 import AnimatedButton from "../components/Button/AnimatedButton"
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 const Home = () => {
@@ -20,6 +22,7 @@ const Home = () => {
     const [categories, setCategories] = useState([]);
     const [course, setCourse] = useState([])
     const [currentCourse, setCurrentCourse] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
 
     useEffect(() => {
@@ -33,16 +36,19 @@ const Home = () => {
 
 
         getCourses().then((res) => {
+            setIsLoading(true)
             const response = res.data.data
-
-            const popularCourse = response.filter((data) => {
-                return data.rating >= 4.5
-            })
-
-            const popularCourses = popularCourse.filter(data => popularCourse.indexOf(data) < 3)
-
-            setCourse(popularCourses);
-            setCurrentCourse(popularCourses)
+            if(res.data.status == 'OK'){
+                const popularCourse = response.filter((data) => {
+                    return data.rating >= 4.5
+                })
+    
+                const popularCourses = popularCourse.filter(data => popularCourse.indexOf(data) < 3)
+    
+                setCourse(popularCourses);
+                setCurrentCourse(popularCourses)
+                setIsLoading(false)
+            }
         })
 
     }, []);
@@ -107,6 +113,22 @@ const Home = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 lg:flex lg:flex-row justify-between mb-10">
                             {
+                                isLoading ? 
+                                    <>
+                                        <div >
+                                            <Skeleton height={'100px'} width={'323px'}/>
+                                            <Skeleton count={3} />
+                                        </div>
+                                        <div >
+                                            <Skeleton height={'100px'} width={'323px'}/>
+                                            <Skeleton count={3} />
+                                        </div>
+                                        <div >
+                                            <Skeleton height={'100px'} width={'323px'}/>
+                                            <Skeleton count={3} />
+                                        </div>
+                                    </>
+                                :
                                 course.map(data => {
                                     return (
                                         <AnimatedButton key={data.id}>

@@ -19,6 +19,8 @@ import illustration from "../assets/img/illustration2.png"
 import { consumeModuleTrackingsApi } from "../api/moduleTracking";
 import { consumeUserApi } from "../api/user";
 import { consumeCourseTrackingsApi } from "../api/courseTrackings";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const CourseDetailUnlock = () => {
     const [course, setCourse] = useState([])
@@ -38,33 +40,44 @@ const CourseDetailUnlock = () => {
     const [moduleVideo, setModuleVideo] = useState('')
     const [user, setUser] = useState([])
     const [currentModuleVideo, setCurrentModuleVideo] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
+
 
     const handleOpen = () => setOpen(!open)
 
     useEffect(() => {
         getCourses()
             .then((res) => {
-                const response = res.data.data.filter((item) => item.id === id)[0]
-                const totalModule = response.module?.length
-                let count = 0
-                for (let i = 0; i < chapter1.length; i++) {
-                    count = count + chapter1[i]?.time
+                setIsLoading(true)
+                if(id != null){
+                    setIsLoading(true)
+                    if(res.data.status == 'OK'){
+                        const response = res.data.data.filter((item) => item.id === id)[0]
+                        const totalModule = response.module?.length
+                        let count = 0
+                        for (let i = 0; i < chapter1.length; i++) {
+                            count = count + chapter1[i]?.time
+                        }
+                        let count2 = 0
+                        for (let j = 0; j < chapter2.length; j++) {
+                            count2 = count2 + chapter2[j]?.time
+                        }
+                        setCourse(response)
+                        setTotalTimeCh1(count)
+                        setTotalTimeCh2(count2)
+                        setTotalTime(count + count2)
+                        setTotalModule(totalModule)
+                        setChapter1(response.module?.filter((item) => item.chapter === 1))
+                        setChapter2(response.module?.filter((item) => item.chapter === 2))
+                        setListText1(chapter2[0].title)
+                        setListText2(chapter2[1].title)
+                        setListText3(chapter2[2].title)
+                        setCurrentModuleVideo(chapter1[0].video)
+                        setIsLoading(false)
+                    }
+                }else{
+                    setIsLoading(true)
                 }
-                let count2 = 0
-                for (let j = 0; j < chapter2.length; j++) {
-                    count2 = count2 + chapter2[j]?.time
-                }
-                setCourse(response)
-                setTotalTimeCh1(count)
-                setTotalTimeCh2(count2)
-                setTotalTime(count + count2)
-                setTotalModule(totalModule)
-                setChapter1(response.module?.filter((item) => item.chapter === 1))
-                setChapter2(response.module?.filter((item) => item.chapter === 2))
-                setListText1(chapter2[0].title)
-                setListText2(chapter2[1].title)
-                setListText3(chapter2[2].title)
-                setCurrentModuleVideo(chapter1[0].video)
             }).catch((err) => {
                 console.log(err);
             })
@@ -112,9 +125,11 @@ const CourseDetailUnlock = () => {
             }
         }
 
+        if(indicator > 0 ){
+            setOpen(false)
+        }
         setIndicatorPercent(indicator)
     }
-
 
     const courseDoneValidation = async (mods) => {
         if(mods.length == totalModule){
@@ -241,9 +256,14 @@ const CourseDetailUnlock = () => {
                                         <p className="text-DARKBLUE05 font-bold text-sm">Chapter 1 - Pendahuluan</p>
                                         <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1 / 60} Menit</p>
                                     </div>
-                                    {chapter1.map((item, index) => {
-
-
+                                    {
+                                    
+                                    isLoading ? 
+                                    <div key={''} className="flex justify-between items-center my-2 cursor-pointer">
+                                        <Skeleton width={'350px'} count={4}/>
+                                    </div>
+                                    :
+                                    chapter1.map((item, index) => {
                                         const checkedModule = moduleTrack.filter(data => {
                                             if (data.id == item.id) {
                                                 return item.moduleTracking.some(modules => modules.userId === user.id && modules.status === 'DONE');
@@ -285,7 +305,14 @@ const CourseDetailUnlock = () => {
                                         <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2 / 60} Menit</p>
                                     </div>
 
-                                    {chapter2.map((item, index) => {
+                                    {
+                                    
+                                    isLoading ? 
+                                    <div key={''} className="flex justify-between items-center my-2 cursor-pointer">
+                                        <Skeleton width={'350px'} count={4}/>
+                                    </div>
+                                    :
+                                    chapter2.map((item, index) => {
 
                                         const checkedModule = moduleTrack.filter(data => {
                                             if (data.id == item.id) {
@@ -308,7 +335,7 @@ const CourseDetailUnlock = () => {
                                             <div key={item.id} className="flex justify-between items-center my-2 cursor-pointer">
                                                 <Subject
                                                     number={index + 1 + "."}
-                                                    subject={item.title}
+                                                    subject={item.title }
                                                 />
                                                 <AnimatedButton>
                                                     <div onClick={() => {
@@ -326,7 +353,7 @@ const CourseDetailUnlock = () => {
                             </div>
                         </div>
                         <CourseTitle
-                            course={course.category?.title}
+                            course={ course.category?.title}
                             rating={course.rating}
                             topic={course.title}
                             author={course.authorBy}
@@ -352,14 +379,14 @@ const CourseDetailUnlock = () => {
                             <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
                             <div className="w-[600px]">
                                 <p className="text-justify indent-10 mb-4">
-                                    {course.description}
+                                    {course.description ?? <Skeleton count={4}/>} 
                                 </p>
                             </div>
                             <h1 className="font-bold text-2xl mb-2">Kelas Ini Ditujukan Untuk?</h1>
                             <ol className="list-decimal list-inside">
-                                <li className="py-2">Anda yang ingin memahami poin penting {listText1} </li>
-                                <li className="py-2">Anda yang ingin membantu perusahaan lebih optimal dalam {listText2} </li>
-                                <li className="py-2">Anda yang ingin latihan {listText3} </li>
+                                <li className="py-2">Anda yang ingin memahami poin penting { !isLoading ? listText1 : <Skeleton width={'100px'}/> } </li>
+                                <li className="py-2">Anda yang ingin membantu perusahaan lebih optimal dalam {!isLoading ? listText2 : <Skeleton width={'100px'}/> } </li>
+                                <li className="py-2">Anda yang ingin latihan {!isLoading ? listText3 : <Skeleton width={'100px'}/> } </li>
                             </ol>
                         </div>
                     </div>

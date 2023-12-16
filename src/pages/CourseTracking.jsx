@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { consumeCourseTrackingsApi } from '../api/courseTrackings';
 import { consumeUserApi } from "../api/user";
 import { useDispatch } from 'react-redux';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const CourseTracking = () => {
     const dispatch = useDispatch()
@@ -16,6 +18,7 @@ const CourseTracking = () => {
     const [courseTrack, setCourseTrack] = useState([]);
     const [currentCourseTrack, setCurrentCourseTrack] = useState([])
     const [user, setUser] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         getCurrentUserAPI();
@@ -34,9 +37,11 @@ const getCurrentUserAPI = () => {
 const getCourseByOrder = () => {
     if (currentCourseTrack.length <= 0) {
         consumeCourseTrackingsApi.getCourseTrackings().then((res) => {
+            setIsLoading(true)
             if (res.status == 'OK') {
                 setCourseTrack(res.data)
                 setCurrentCourseTrack(res.data)
+                setIsLoading(false)
             }
         })
     } else {
@@ -177,6 +182,28 @@ return (
                             </div>
                             <div className="flex flex-wrap gap-x-14 gap-y-10">
                                 {
+                                    isLoading ?
+                                    <SkeletonTheme baseColor="#dcdee0" >
+                                        <div className='flex flex-wrap gap-x-14 gap-y-10'>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                        </div>
+                                    </SkeletonTheme>
+                                    :
                                     courseTrack.map((data) => {
 
                                         const totalModule = data.course.module.length
@@ -207,8 +234,8 @@ return (
                                             }
                                         }
 
-
                                         return (
+
                                             <button key={data.id} onClick={() => {
                                                 navigate("/courses/detail/unlock")
                                                 dispatch(updateId(data.course.id))

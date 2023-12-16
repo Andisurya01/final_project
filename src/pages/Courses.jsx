@@ -20,6 +20,8 @@ import FreeCard from '../components/CourseCard/FreeCard';
 import AnimatedButton from '../components/Button/AnimatedButton';
 import SidebarFilter from '../components/Filter/SidebarFilter';
 import getCookieValue from "../api/getCookie";
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const Courses = () => {
     const dispatch = useDispatch()
@@ -28,6 +30,7 @@ const Courses = () => {
     const [currentCourse, setCurrentCourse] = useState([])
     const [course, setCourse] = useState([])
     const [courseSelection, setCourseSelection] = useState({})
+    const [isLoading, setIsLoading] = useState(true)
     const token = getCookieValue("token")
 
     useEffect(() => {
@@ -46,9 +49,13 @@ const Courses = () => {
     const getCoursesApi = () => {
         if(currentCourse.length <= 0  ){
             getCourses().then((res) => {
-                const response = res.data.data
-                setCourse(response);
-                setCurrentCourse(response)
+                setIsLoading(true)
+                if(res.data.status == 'OK'){
+                    const response = res.data.data
+                    setCourse(response);
+                    setCurrentCourse(response)
+                    setIsLoading(false)
+                }
             })
         }else{
             return currentCourse;
@@ -188,7 +195,33 @@ const Courses = () => {
                             </div>
                         </div>
                         <div id='courseList' className="flex flex-wrap gap-x-14 gap-y-10">
-                            {course.map((item) => {
+                            {
+                                
+                                isLoading ?
+                                    <SkeletonTheme baseColor="#dcdee0" >
+                                        <div className='flex flex-wrap gap-x-14 gap-y-10'>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                            <div >
+                                                <Skeleton height={'100px'} width={'323px'}/>
+                                                <Skeleton count={3} />
+                                            </div>
+                                        </div>
+                                    </SkeletonTheme>
+                                :
+                                
+                            course.map((item) => {
+
                                 let count = 0
                                 for (let i = 0; i < item.module.length; i++) {
                                     count = count + item.module[i].time
@@ -203,18 +236,19 @@ const Courses = () => {
                                                 dispatch(updateId(item.id))
                                             }}>
                                             <AnimatedButton>
-                                            <FreeCard
-                                                picture={item.image}
-                                                course={item.category.title}
-                                                rating={item.rating}
-                                                topic={item.title}
-                                                author={item.authorBy}
-                                                level={item.level}
-                                                module={item.module.length + " Module"} 
-                                                time={count / 60  + " Menit"} 
-                                            />
+                                                <FreeCard
+                                                    picture={item.image}
+                                                    course={item.category.title}
+                                                    rating={item.rating}
+                                                    topic={item.title}
+                                                    author={item.authorBy}
+                                                    level={item.level}
+                                                    module={item.module.length + " Module"} 
+                                                    time={count / 60  + " Menit"} 
+                                                />
                                             </AnimatedButton>
-                                        </div>)
+                                        </div>
+                                        )
                                 }else{
                                     return (
                                         <div
@@ -239,7 +273,8 @@ const Courses = () => {
                                     )
                                 }
                                 
-                            })}
+                            })
+                            }
                             </div>
                             </div>
                         </div>
