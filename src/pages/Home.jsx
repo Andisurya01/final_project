@@ -27,11 +27,15 @@ const Home = () => {
 
     useEffect(() => {
         consumeCategoriesApi.getCategories().then((res) => {
-            const currentCategory = res.data?.filter((data) => {
-                return res.data.indexOf(data) < 6
-            })
-
-            setCategories(currentCategory);
+            setIsLoading(true)
+            if(res.status == 'OK'){
+                const currentCategory = res.data?.filter((data) => {
+                    return res.data.indexOf(data) < 6
+                })
+                
+                setCategories(currentCategory);
+                setIsLoading(false)
+            }
         })
 
 
@@ -83,8 +87,17 @@ const Home = () => {
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-0 lg:flex lg:flex-row justify-between">
                             {
+                                isLoading ?
+
+                                Array.from({ length: 6 }, (_, index) => index + 1).map(data => {
+                                    return(
+                                        <Skeleton key={data} height={'100px'} width={140}/> 
+                                    )
+                                }) :
                                 categories.map((data) => {
-                                    return (<AnimatedButton key={data.id}><Frame picture={data.image} title={data.title} /></AnimatedButton>)
+                                    return (
+                                        <AnimatedButton key={data.id}><Frame picture={data.image} title={data.title} /></AnimatedButton>
+                                    )
 
                                 })
                             }
