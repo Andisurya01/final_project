@@ -18,6 +18,8 @@ import { getCourses } from "../api/servicesApi";
 import getCookieValue from "../api/getCookie";
 import AnimatedButton from "../components/Button/AnimatedButton";
 import ReactPlayer from 'react-player'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const CourseDetail = () => {
     const [course, setCourse] = useState([])
@@ -34,6 +36,7 @@ const CourseDetail = () => {
     const [listText3, setListText3] = useState('')
     const [moduleVideo, setModuleVideo] = useState('')
     const [currentModuleVideo, setCurrentModuleVideo] = useState('')
+    const [isLoading, setIsLoading] = useState(true)
     const navigate = useNavigate()
     const token = getCookieValue("token")
 
@@ -47,32 +50,39 @@ const CourseDetail = () => {
 
     useEffect(() => {
         getCourses()
-            .then((res) => {
-                const response = res.data.data.filter((item) => item.id === id)[0]
-                const totalModule = response.module?.length
-                let count = 0
-                for (let i = 0; i < chapter1.length; i++) {
-                    count = count + chapter1[i]?.time
+        .then((res) => {
+            setIsLoading(true)
+            if(id != null){
+                    if(res.data.status == 'OK'){
+                        const response = res.data.data.filter((item) => item.id === id)[0]
+                        const totalModule = response.module?.length
+                        let count = 0
+                        for (let i = 0; i < chapter1.length; i++) {
+                            count = count + chapter1[i]?.time
+                        }
+                        let count2 = 0
+                        for (let j = 0; j < chapter2.length; j++) {
+                            count2 = count2 + chapter2[j]?.time
+                        }
+                        setCourse(response)
+                        setTotalTimeCh1(count)
+                        setTotalTimeCh2(count2)
+                        setTotalTime(count + count2)
+                        setTotalModule(totalModule)
+                        setChapter1(response.module?.filter((item) => item.chapter === 1))
+                        setChapter2(response.module?.filter((item) => item.chapter === 2))
+                        setListText1(chapter2[0].title)
+                        setListText2(chapter2[1].title)
+                        setListText3(chapter2[2].title)
+                        setCurrentModuleVideo(chapter1[0].video)
+                        setIsLoading(false)
+                    }
+                }else{
+                    setIsLoading(true)
                 }
-                let count2 = 0
-                for (let j = 0; j < chapter2.length; j++) {
-                    count2 = count2 + chapter2[j]?.time
-                }
-                setCourse(response)
-                setTotalTimeCh1(count)
-                setTotalTimeCh2(count2)
-                setTotalTime(count + count2)
-                setTotalModule(totalModule)
-                setChapter1(response.module?.filter((item) => item.chapter === 1))
-                setChapter2(response.module?.filter((item) => item.chapter === 2))
-                setListText1(chapter2[0].title)
-                setListText2(chapter2[1].title)
-                setListText3(chapter2[2].title)
-                setCurrentModuleVideo(chapter1[0].video)
             }).catch((err) => {
                 return err
             })
-
 
     })
 
@@ -99,15 +109,23 @@ const CourseDetail = () => {
                             <p className="text-DARKBLUE05 font-bold text-sm">Chapter 1 - Pendahuluan</p>
                             <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1 / 60 } Menit</p>
                         </div>
-                        {chapter1.map((item, index) => {
+                        {
+                        
+                        isLoading ? 
+                        <div key={''} className="flex justify-between items-center my-2 cursor-pointer">
+                            <Skeleton width={'350px'} count={4}/>
+                        </div>
+                        :
+                        
+                        chapter1.map((item, index) => {
                             return (
-                                <div key={item.id} className="flex justify-between items-center my-2">
+                                <div onClick={()=>{ setModuleVideo(item.video) }} key={item.id} className="flex justify-between items-center my-2">
                                     <Subject
                                         number={index + 1 + "."}
                                         subject={item.title}
                                     />
                                     <AnimatedButton>
-                                        <div onClick={()=>{ setModuleVideo(item.video) }}>
+                                        <div>
                                             <Icon icon="icon-park-solid:play" className="text-2xl text-SUCCESS" />
                                         </div>
                                     </AnimatedButton>
@@ -121,7 +139,15 @@ const CourseDetail = () => {
                             <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2 / 60} Menit</p>
                         </div>
 
-                        {chapter2.map((item, index) => {
+                        {
+                        
+                        isLoading ? 
+                        <div key={''} className="flex justify-between items-center my-2 cursor-pointer">
+                            <Skeleton width={'350px'} count={4}/>
+                        </div>
+                        :
+                        
+                        chapter2.map((item, index) => {
                             return (
                                 <div key={item.id} className="flex justify-between items-center my-2 cursor-pointer"
                                     onClick={handleLogin}>
@@ -165,14 +191,14 @@ const CourseDetail = () => {
                             <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
                             <div className="w-[600px]">
                                 <p className="text-justify indent-10 mb-4">
-                                    {course.description}
+                                    {course.description ?? <Skeleton count={4}/>}
                                 </p>
                             </div>
                             <h1 className="font-bold text-2xl mb-2">Kelas Ini Ditujukan Untuk?</h1>
                             <ol className="list-decimal list-inside">
-                                <li className="py-2">Anda yang ingin memahami poin penting {listText1} </li>
-                                <li className="py-2">Anda yang ingin membantu perusahaan lebih optimal dalam {listText2} </li>
-                                <li className="py-2">Anda yang ingin latihan {listText3} </li>
+                            <li className="py-2">Anda yang ingin memahami poin penting { !isLoading ? listText1 : <Skeleton width={'100px'}/> } </li>
+                                <li className="py-2">Anda yang ingin membantu perusahaan lebih optimal dalam {!isLoading ? listText2 : <Skeleton width={'100px'}/> } </li>
+                                <li className="py-2">Anda yang ingin latihan {!isLoading ? listText3 : <Skeleton width={'100px'}/> } </li>
                             </ol>
                         </div>
                 </div>

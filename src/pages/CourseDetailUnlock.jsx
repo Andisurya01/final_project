@@ -281,17 +281,17 @@ const CourseDetailUnlock = () => {
                                         }
 
                                         return (
-                                            <div key={item.id} className="flex justify-between items-center my-2 cursor-pointer">
+                                            <div key={item.id} onClick={() => {
+                                                moduleTrackingValidation(item)
+                                                setModuleVideo(item.video)
+
+                                            }} className="flex justify-between items-center my-2 cursor-pointer">
                                                 <Subject
                                                     number={index + 1 + "."}
                                                     subject={item.title}
                                                 />
                                                 <AnimatedButton>
-                                                    <button onClick={() => {
-                                                        moduleTrackingValidation(item)
-                                                        setModuleVideo(item.video)
-
-                                                    }}>
+                                                    <button >
                                                         <Icon icon="icon-park-solid:play" className={videoStatus ? "text-2xl text-DARKBLUE05" : "text-2xl text-SUCCESS"} />
                                                     </button>
                                                 </AnimatedButton>
@@ -332,17 +332,17 @@ const CourseDetailUnlock = () => {
 
 
                                         return (
-                                            <div key={item.id} className="flex justify-between items-center my-2 cursor-pointer">
+                                            <div key={item.id} onClick={() => {
+                                                moduleTrackingValidation(item)
+                                                setModuleVideo(item.video)
+
+                                            }} className="flex justify-between items-center my-2 cursor-pointer">
                                                 <Subject
                                                     number={index + 1 + "."}
                                                     subject={item.title }
                                                 />
                                                 <AnimatedButton>
-                                                    <div onClick={() => {
-                                                        moduleTrackingValidation(item)
-                                                        setModuleVideo(item.video)
-
-                                                    }}>
+                                                    <div >
                                                         <Icon icon="icon-park-solid:play" className={videoStatus ? "text-2xl text-DARKBLUE05" : "text-2xl text-SUCCESS"} />
                                                     </div>
                                                 </AnimatedButton>
