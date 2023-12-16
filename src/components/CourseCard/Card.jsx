@@ -3,6 +3,9 @@ import { Icon } from '@iconify/react';
 
 // eslint-disable-next-line react/prop-types
 const Card = ({picture, course, rating, topic, author, level, module, time, price}) => {
+
+    price == null ? price = null: price ;
+
     return (
         <button className="bg-white w-[323px] h-[250px] rounded-2xl flex flex-col" style={{ boxShadow: '0px 4px 10px 0px rgba(0, 0, 0, 0.08)' }}>
             <div className='h-[80px] rounded-t-[20px] overflow-hidden'>
@@ -32,6 +35,8 @@ const Card = ({picture, course, rating, topic, author, level, module, time, pric
                         <p className="text-xs font-medium mt-1">{time}</p>
                     </div>
                 </div>
+            {
+                price != null ? 
                 <div className="bg-DARKBLUE03 text-white flex justify-between px-4 py-1 mt-3" style={{borderRadius: '15px', width: '180px'}}>
                     <div className="flex gap-1">
                         <Icon icon="fluent:premium-12-filled" className="text-lg" />
@@ -40,7 +45,8 @@ const Card = ({picture, course, rating, topic, author, level, module, time, pric
                     <div>
                         <p className="text-sm font-medium">{price}</p>
                     </div>
-                </div>
+                </div> : <></>
+            }
             </div>
         </button>
     )

@@ -5,6 +5,13 @@ import React, { useEffect, useState } from 'react';
 import getCookieValue from '../../api/getCookie';
 import NavbarButton from '../Button/NavbarButton';
 import { getNotifications } from '../../api/servicesApi';
+import { getCourses } from "../../api/servicesApi";
+import AnimatedButton from "../Button/AnimatedButton";
+import Card from "../CourseCard/Card"
+import {
+    Dialog,
+    DialogBody,
+} from "@material-tailwind/react";
 
 import {
     Drawer,
@@ -21,9 +28,13 @@ const Navbar = () => {
     const token = getCookieValue("token");
     const [notification, setNotification] = useState(0)
 
+    const [openModal, setOpenModal] = useState(false);
     const [isKelasActive, setKelasActive] = useState(true);
     const [isBellActive, setBellActive] = useState(false);
     const [isUserActive, setUserActive] = useState(false);
+    const [course, setCourse] = useState([])
+    const [currentCourse, setCurrentCourse] = useState([])
+
 
     useEffect(() => {
         const path = location.pathname;
@@ -75,6 +86,33 @@ const Navbar = () => {
     const [open, setOpen] = React.useState(false);
     const openDrawer = () => setOpen(true);
     const closeDrawer = () => setOpen(false);
+    const handleOpen = () => setOpenModal(!openModal)
+
+
+    useEffect(()=>{
+        getCourseAPI();
+    })
+
+    const getCourseAPI = () => {
+        getCourses().then((res) => {
+            const response = res.data.data
+            if(res.data.status == 'OK'){
+                setCurrentCourse(response)
+            }
+        })
+    }
+
+    const searchCourse = (event) => {
+            event.target.value;
+            const fieldClass = document.getElementById('searchClass').value
+
+            const courseFiltered = currentCourse.filter(( data) => {
+                return data.title.toLowerCase().indexOf(fieldClass.toLowerCase()) > -1;
+            })
+
+
+            setCourse(courseFiltered)
+    }
 
     return (
         <>
@@ -90,7 +128,7 @@ const Navbar = () => {
                         <div className="my-auto hidden lg:inline">
                             <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl">
                                 <div className="py-3 px-6 flex gap-8">
-                                    <input type="text" className="w-[424px] outline-none border-none" placeholder="Cari Kursus Terbaik.." />
+                                    <input onClick={()=>{handleOpen()}} type="text" className="w-[424px] outline-none border-none" placeholder="Cari Kursus Terbaik.." />
                                     <button className="bg-DARKBLUE05 flex items-center justify-center w-[38px] h-[38px] rounded-lg">
                                         <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
                                     </button>
@@ -172,6 +210,54 @@ const Navbar = () => {
                 </Drawer>
             </nav>
             <main>
+
+            <Dialog open={openModal} handler={handleOpen}>
+                <div className="flex justify-end">
+                    <button className="px-2 py-2" onClick={handleOpen}>
+                        <Icon icon="material-symbols:close" className="text-3xl" />
+                    </button>
+                </div>
+                <DialogBody className="grid place-items-center gap-4">
+                    <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl">
+                        <div className="py-3 px-6 flex gap-8">
+                            <input id='searchClass' onChange={(event)=> {searchCourse(event)}} type="text" className="w-[424px] outline-none border-none" placeholder="Cari Kursus Terbaik.." />
+                            <button className="bg-DARKBLUE05 flex items-center justify-center w-[38px] h-[38px] rounded-lg">
+                                <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
+                            </button>
+                        </div>
+                    </div>
+                    
+                    {/*  */}
+
+                    <div>
+                        {
+                            course.map((data)=>{
+                                return(
+                                    <AnimatedButton key={data.id}>
+                                            <Card
+                                                picture={data.image}
+                                                course={data.category.title}
+                                                rating={data.rating}
+                                                topic={data.title}
+                                                author={data.authorBy}
+                                                level={data.level}
+                                                module={`${data.module.length} Module`}
+                                                time={
+                                                    `${data.module.reduce((accumulator, currentValue) => {
+                                                        return accumulator + currentValue.time;
+                                                    }, 0) / 60} Menit`
+                                                }
+                                                price={null}
+                                            />
+                                        </AnimatedButton>
+                                )
+                            })
+                        }
+                    </div>
+
+
+                </DialogBody>
+            </Dialog>
                 <Outlet />
             </main>
         </>

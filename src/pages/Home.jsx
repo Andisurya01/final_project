@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { consumeCategoriesApi } from "../api/category"
 import { getCourses } from "../api/servicesApi";
 import { formatRupiah } from '../lib/rupiahFormat';
-import AnimatedButton from "../components/Button/AnimatedButton"
+import AnimatedButton from "../components/Button/AnimatedButton";
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
 
