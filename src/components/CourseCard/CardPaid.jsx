@@ -43,7 +43,7 @@ const CardPaid = ({picture, course, rating, topic, author, level, module, time, 
                         <div className="bg-WARNING text-white flex justify-between px-4 py-1 mt-3" style={{ borderRadius: '15px', width: '200px' }}>
                             <div className="flex gap-1">
                                 <Icon icon="fluent:premium-12-filled" className="text-lg" />
-                                <p className="text-sm font-medium">Waiting for Payment</p>
+                                <p className="text-sm font-medium">Wait for Approved</p>
                             </div>
                         </div>
                 )}

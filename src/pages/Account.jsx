@@ -15,6 +15,9 @@ const Account = () => {
     const [orderHistory, setOrderHistory] = useState([]);
     const [alertStatus, setAlertStatus] = useState(false);
     const [alertAction, setAlertAction] = useState(false);
+    const [showPass, setShowPass] = useState(false);
+    const [showNewPass, setShowNewPass] = useState(false);
+    const [showNew1Pass, setShowNew1Pass] = useState(false);
 
     const [isProfileVisible, setProfileVisibility] = useState(false);
     const [isSetPasswordVisible, SetPasswordVisibility] = useState(false);
@@ -277,22 +280,22 @@ const Account = () => {
                                             <div className='mb-4'>
                                                 <p className='mb-2'>Masukkan Password Lama</p>
                                                 <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                    <input id='old-pass' type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
-                                                    <Icon icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+                                                    <input id='old-pass' type={showPass ? 'text' : "password"} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <Icon onClick={()=>{setShowPass(!showPass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
                                                 </div>
                                             </div>
                                             <div className='mb-4'>
                                                 <p className='mb-2'>Masukkan Password Baru</p>
                                                 <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                    <input id='new-pass' type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
-                                                    <Icon icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+                                                    <input id='new-pass' type={showNewPass ? 'text' : "password"} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <Icon onClick={()=>{setShowNewPass(!showNewPass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
                                                 </div>
                                             </div>
                                             <div className='mb-4'>
                                                 <p className='mb-2'>Ulangi Password Baru</p>
                                                 <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                    <input id='new-pass-again'  type="password" className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
-                                                    <Icon icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+                                                    <input id='new-pass-again'  type={showNew1Pass ? 'text' : "password"} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <Icon onClick={()=>{setShowNew1Pass(!showNew1Pass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
                                                 </div>
                                             </div>
                                         </div>

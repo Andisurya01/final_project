@@ -25,7 +25,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const CourseDetailUnlock = () => {
     const [course, setCourse] = useState([])
     const id = useSelector((state) => state.module.id)
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const [totalModule, setTotalModule] = useState(0)
     const [moduleId, setModuleId] = useState('')
     const [totalTime, setTotalTime] = useState(0)
@@ -45,7 +45,7 @@ const CourseDetailUnlock = () => {
     const [isLoading, setIsLoading] = useState(true)
 
 
-    const handleOpen = () => setOpen(!open)
+    const handleOpen = () => setOpen(false)
 
     useEffect(() => {
         getCourses()
