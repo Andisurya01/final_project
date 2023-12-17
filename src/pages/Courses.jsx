@@ -38,7 +38,7 @@ const Courses = () => {
 
     useEffect(() => {
         getCoursesApi();
-        sideFilterFunction()
+        sideFilterFunction();
     })
 
     const handleLogin = () => {
@@ -54,7 +54,7 @@ const Courses = () => {
             getCourses().then((res) => {
                 setIsLoading(true)
                 if(res.data.status == 'OK'){
-                    const response = res.data.data
+                    const response = res.data.data;
                     setCourse(response);
                     setCurrentCourse(response)
                     setIsLoading(false)

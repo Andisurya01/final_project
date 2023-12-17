@@ -2,14 +2,14 @@ import { Icon } from '@iconify/react';
 import logo from '../../assets/img/craftiq.png'
 import { useNavigate, useLocation, Outlet } from "react-router-dom"
 import React, { useEffect, useState } from 'react';
-import getCookieValue from '../../api/getCookie';
 import NavbarButton from '../Button/NavbarButton';
 import { getNotifications } from '../../api/servicesApi';
 import { getCourses } from "../../api/servicesApi";
 import AnimatedButton from "../Button/AnimatedButton";
+import Card from "../CourseCard/Card"
+import getCookieValue from '../../api/getCookie';
 import { useDispatch } from 'react-redux';
 import { updateId } from '../../store/moduleCourses';
-import Card from "../CourseCard/Card"
 import { formatRupiah } from '../../lib/rupiahFormat';
 import {
     Dialog,
@@ -30,8 +30,8 @@ const Navbar = () => {
     const location = useLocation()
     const dispatch = useDispatch()
 
-    const [isLogin, setIsLogin] = useState(false)
     const token = getCookieValue("token");
+    const [isLogin, setIsLogin] = useState(false)
     const [notification, setNotification] = useState(0)
 
     const [openModal, setOpenModal] = useState(false);
@@ -103,13 +103,17 @@ const Navbar = () => {
     })
 
     const getCourseAPI = () => {
-        getCourses().then((res) => {
-            const response = res.data.data
-            if(res.data.status == 'OK'){
-                setCurrentCourse(response)
-                setCourse(response)
-            }
-        })
+        if(course.length <= 0){
+            getCourses().then((res) => {
+                const response = res.data.data
+                if(res.data.status == 'OK'){
+                    setCurrentCourse(response)
+                    setCourse(response)
+                }
+            })
+        }else{
+            return course;
+        }
     }
 
     const searchCourse = (event) => {
@@ -228,9 +232,9 @@ const Navbar = () => {
                     </button>
                 </div>
                 <DialogBody className="grid place-items-center gap-4">
-                    <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl">
-                        <div className="py-3 px-6 flex gap-8">
-                            <input id='searchClass' onChange={(event)=> {searchCourse(event)}} type="text" className="w-[424px] outline-none border-none" placeholder="Cari Kursus Terbaik.." />
+                    <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl shadow-lg">
+                        <div className="py-3 px-6 flex gap-8 ">
+                            <input id='searchClass' onChange={(event)=> {searchCourse(event)}} type="text" className="w-[424px] outline-none border-none " placeholder="Cari Kursus Terbaik.." />
                             <button className="bg-DARKBLUE05 flex items-center justify-center w-[38px] h-[38px] rounded-lg">
                                 <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
                             </button>
@@ -239,11 +243,11 @@ const Navbar = () => {
                     
                     {/*  */}
 
-                    <div className=' h-[520px] w-[424px] overflow-y-scroll  flex flex-col items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2'>
+                    <div className=' h-[500px] w-[526px] overflow-y-scroll  flex flex-col items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2 scrollbar-thumb-rounded-2xl'>
                         {
                             course.map((data)=>{
                                 return(
-                                    <div key={data.id} className='mb-[20px]'>
+                                    <div key={data.id} className='my-[20px]'>
                                         <AnimatedButton >
                                             <Card
                                                 onClick={()=>{
@@ -257,7 +261,6 @@ const Navbar = () => {
                                                             handleOpen()
                                                             setCourseSelection(data)
                                                             dispatch(updateId(data.id))
-                                                  
                                                         }
                                                     }else{
                                                         navigate("/courses/detail")
@@ -278,7 +281,7 @@ const Navbar = () => {
                                                         return accumulator + currentValue.time;
                                                     }, 0) / 60} Menit`
                                                 }
-                                                price={null}
+                                                price={formatRupiah(data.price)}
                                             />
                                     </AnimatedButton>
                                     </div>
