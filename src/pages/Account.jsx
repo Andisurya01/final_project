@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom"
 import { consumeUserApi } from '../api/user';
 import { consumeOrderApi } from '../api/order';
 import AllertReset from '../components/Allert/AllertReset';
+import fire from '../lib/firebaseInit'
+import { getStorage, ref, uploadBytes ,getDownloadURL , } from "firebase/storage";
 
 const Account = () => {
     const navigate = useNavigate()
@@ -18,6 +20,8 @@ const Account = () => {
     const [showPass, setShowPass] = useState(false);
     const [showNewPass, setShowNewPass] = useState(false);
     const [showNew1Pass, setShowNew1Pass] = useState(false);
+    const [imageProfile, setImageProfile] = useState('');
+    const [imageUp, setImageUp] = useState('');
 
     const [isProfileVisible, setProfileVisibility] = useState(false);
     const [isSetPasswordVisible, SetPasswordVisibility] = useState(false);
@@ -27,10 +31,10 @@ const Account = () => {
 
         currentUserAPI();
         orderUserAPI();
-
         updateUserProfile();
         updateUserPass();
         setAlertTime();
+
     })
 
     const currentUserAPI = () => {
@@ -64,39 +68,71 @@ const Account = () => {
         const city = document.getElementById('field-city').value;
         const updateProfileButton = document.getElementById('up-profile-button');
 
-        updateProfileButton.onclick = () => {
-            if (name != '' && email != '' && phone != '' && country != '' && city != '') {
+        updateProfileButton.onclick = async () => {
+            if (imageProfile == '') {
+                if(name != '' && email != '' && phone != '' && country != '' && city != ''){
+                    await consumeUserApi.updateUser({
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        country: country,
+                        city: city
+                    }).then((res) => {
+                        if (res.status == 'OK') {
+                            setAlertAction(true)
+                            setAlertStatus(true)
+                        } else {
+                            setAlertAction(true)
+                            setAlertStatus(false)
+                        }
+                    })
+                }
+            // eslint-disable-next-line no-dupe-else-if
+            } else if(imageProfile != '') {
+                if(name != '' && email != '' && phone != '' && country != '' && city != '' && imageProfile != ''){
+                    await uploadImage(imageProfile)
 
-                console.log({
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    country: country,
-                    city: city
-                })
-
-                consumeUserApi.updateUser({
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    country: country,
-                    city: city
-                }).then((res) => {
-                    console.log(res)
-                    if (res.status == 'OK') {
-                        setAlertAction(true)
-                        setAlertStatus(true)
-                    } else {
-                        setAlertAction(true)
-                        setAlertStatus(false)
-                    }
-                })
-            } else {
+                    await consumeUserApi.updateUser({
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        image : imageUp,
+                        country: country,
+                        city: city
+                    }).then((res) => {
+                        if (res.status == 'OK') {
+                            setAlertAction(true)
+                            setAlertStatus(true)
+                        } else {
+                            setAlertAction(true)
+                            setAlertStatus(false)
+                        }
+                    })
+                }
+            }else {
                 setAlertAction(true)
                 setAlertStatus(false)
             }
         }
 
+    }
+    
+    const uploadImage = async () => {
+        const storage = getStorage(fire);
+        const storageRef = ref(storage, `image-${Date.now()}.jpg`);
+        
+        try {
+            fetch(imageProfile)
+            .then(response => response.blob())
+            .then(async (blob) => {
+                const snapshot = await uploadBytes(storageRef, blob);
+                const imageUrl = await getDownloadURL(snapshot.ref);
+                setImageUp(imageUrl);
+            })
+
+        } catch (error_1) {
+            return error_1;
+        }
     }
 
     const updateUserPass = () => {
@@ -133,6 +169,19 @@ const Account = () => {
                 setAlertAction(false)
             }, 5000);
         }
+    }
+
+    const handleImageProfile = () => {
+
+        const imageInput = document.getElementById('fileInput')
+
+        imageInput.onchange = (e) => {
+            
+            setImageProfile(URL.createObjectURL(e.target.files[0]))
+        }
+
+        imageInput.click()
+
     }
 
     const toggleProfileVisibility = () => {
@@ -231,7 +280,11 @@ const Account = () => {
                                             </div>
                                             <div className='flex justify-center'>
                                                 <div className='bg-DARKBLUE05 w-24 h-24 rounded-full flex justify-center items-center mb-6'>
-                                                    <img  className='w-24 h-24 rounded-full ' src={user.image ?? ''} alt='profile-photos' ></img>
+                                                    <img  className='w-24 h-24 rounded-full border-[4px] border-DARKBLUE05 ' src={ imageProfile != '' ? imageProfile : user.image != '' ? user.image : user.image } alt='profile-photos' ></img>
+                                                </div>
+                                                <div className='self-end absolute ml-[50px] mb-[20px] bg-white p-[4px] rounded-lg' >
+                                                    <input id='fileInput' type="file" hidden/>
+                                                    <Icon onClick={()=>{handleImageProfile()}} icon="tabler:photo" className='text-DARKBLUE05 text-2xl'/>
                                                 </div>
                                             </div>
                                             <div className='mb-6'>
