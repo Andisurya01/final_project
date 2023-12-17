@@ -27,6 +27,7 @@ const CourseDetailUnlock = () => {
     const id = useSelector((state) => state.module.id)
     const [open, setOpen] = useState(true);
     const [totalModule, setTotalModule] = useState(0)
+    const [moduleId, setModuleId] = useState('')
     const [totalTime, setTotalTime] = useState(0)
     const [totalTimeCh1, setTotalTimeCh1] = useState(0)
     const [totalTimeCh2, setTotalTimeCh2] = useState(0)
@@ -40,6 +41,7 @@ const CourseDetailUnlock = () => {
     const [moduleVideo, setModuleVideo] = useState('')
     const [user, setUser] = useState([])
     const [currentModuleVideo, setCurrentModuleVideo] = useState('')
+    const [currentModule, setCurrentModule] = useState('')
     const [isLoading, setIsLoading] = useState(true)
 
 
@@ -73,6 +75,7 @@ const CourseDetailUnlock = () => {
                         setListText2(chapter2[1].title)
                         setListText3(chapter2[2].title)
                         setCurrentModuleVideo(chapter1[0].video)
+                        setCurrentModule(chapter1[0].id)
                         setIsLoading(false)
                     }
                 }else{
@@ -82,11 +85,10 @@ const CourseDetailUnlock = () => {
                 console.log(err);
             })
 
-        getCurrentUserAPI();
-        getModuleTrackingsByUserTrack();
-        indicatorCourseValidation();
-        courseDoneValidation();
-
+            getCurrentUserAPI();
+            getModuleTrackingsByUserTrack();
+            indicatorCourseValidation();
+            courseDoneValidation();
         })
         
 
@@ -165,27 +167,41 @@ const CourseDetailUnlock = () => {
         })
     }
 
-    const moduleTrackingValidation = (item) => {
-        consumeUserApi.getCurrentUser().then(user => {
+    const moduleTrackingChanged = async (type) => {
+        if(type == 'PLAY'){
+            consumeUserApi.getCurrentUser().then(user => {
+                consumeModuleTrackingsApi.getModuleTrackings().then((res) => {
+                    const moduleChecked = res.data.filter(modules => {
+                        return modules.moduleId == moduleId == '' ? currentModule : moduleId
+                    })    
+
+                    if(moduleChecked.length > 0){
+                        createModuleTrackAPI({
+                            status: 'PROGRESS',
+                            userId: user.data.id,
+                            moduleId: moduleId == '' ? currentModule : moduleId
+                        })
+                    }else{
+                        return false;
+                    }
+                })
+            })
+        }else if(type == 'END'){
+            
             consumeModuleTrackingsApi.getModuleTrackings().then((res) => {
                 const moduleChecked = res.data.filter(modules => {
-                    return modules.moduleId == item.id
-                })
+                    var sampleModule = moduleId == '' ?  currentModule : moduleId
+                    return modules.moduleId ==  sampleModule
+                })    
 
-                if (moduleChecked.length > 0) {
-                    updateModuleTrackAPI({
-                        id: moduleChecked[0].id,
-                        status: 'DONE'
-                    })
-                } else {
-                    createModuleTrackAPI({
-                        status: 'PROGRESS',
-                        userId: user.data.id,
-                        moduleId: item.id
-                    })
-                }
+                updateModuleTrackAPI({
+                    id: moduleChecked[0].id,
+                    status: 'DONE'
+                })
             })
-        })
+
+        }
+    
     }
 
     return (
@@ -247,25 +263,35 @@ const CourseDetailUnlock = () => {
                                     </div>
                                     :
                                     chapter1.map((item, index) => {
-                                        const checkedModule = moduleTrack.filter(data => {
+                                        const checkedModuleDone = moduleTrack.filter(data => {
                                             if (data.id == item.id) {
                                                 return item.moduleTracking.some(modules => modules.userId === user.id && modules.status === 'DONE');
                                             }
                                             return false;
                                         })
 
+                                        const checkedModuleProgress = moduleTrack.filter(data => {
+                                            if (data.id == item.id) {
+                                                return item.moduleTracking.some(modules => modules.userId === user.id && modules.status === 'PROGRESS');
+                                            }
+                                            return false;
+                                        })
 
-                                        var videoStatus = false;
 
-                                        if (checkedModule.length > 0) {
-                                            videoStatus = true;
-                                        } else {
-                                            videoStatus = false;
+                                        var videoStatus = '';
+
+                                        if (checkedModuleDone.length > 0) {
+                                            videoStatus = 'DONE';
+                                        }else if(checkedModuleProgress.length > 0){
+                                            videoStatus = 'PROGRESS';
+                                        }
+                                        else {
+                                            videoStatus = '';
                                         }
 
                                         return (
                                             <div key={item.id} onClick={() => {
-                                                moduleTrackingValidation(item)
+                                                setModuleId(item.id)
                                                 setModuleVideo(item.video)
 
                                             }} className="flex justify-between items-center my-2 cursor-pointer">
@@ -275,7 +301,7 @@ const CourseDetailUnlock = () => {
                                                 />
                                                 <AnimatedButton>
                                                     <button >
-                                                        <Icon icon="icon-park-solid:play" className={videoStatus ? "text-2xl text-DARKBLUE05" : "text-2xl text-SUCCESS"} />
+                                                        <Icon icon="icon-park-solid:play" className={videoStatus == '' ? "text-2xl text-SUCCESS" : videoStatus == 'PROGRESS' ? "text-2xl text-yellow-200" : videoStatus == 'DONE' ? "text-2xl text-DARKBLUE05"  : "text-2xl text-SUCCESS"} />
                                                     </button>
                                                 </AnimatedButton>
                                             </div>
@@ -297,26 +323,36 @@ const CourseDetailUnlock = () => {
                                     :
                                     chapter2.map((item, index) => {
 
-                                        const checkedModule = moduleTrack.filter(data => {
+                                        const checkedModuleDone = moduleTrack.filter(data => {
                                             if (data.id == item.id) {
                                                 return item.moduleTracking.some(modules => modules.userId === user.id && modules.status === 'DONE');
                                             }
                                             return false;
                                         })
 
+                                        const checkedModuleProgress = moduleTrack.filter(data => {
+                                            if (data.id == item.id) {
+                                                return item.moduleTracking.some(modules => modules.userId === user.id && modules.status === 'PROGRESS');
+                                            }
+                                            return false;
+                                        })
 
-                                        var videoStatus = false;
 
-                                        if (checkedModule.length > 0) {
-                                            videoStatus = true;
-                                        } else {
-                                            videoStatus = false;
+                                        var videoStatus = '';
+
+                                        if (checkedModuleDone.length > 0) {
+                                            videoStatus = 'DONE';
+                                        }else if(checkedModuleProgress.length > 0){
+                                            videoStatus = 'PROGRESS';
+                                        }
+                                        else {
+                                            videoStatus = '';
                                         }
 
 
                                         return (
                                             <div key={item.id} onClick={() => {
-                                                moduleTrackingValidation(item)
+                                                setModuleId(item.id)
                                                 setModuleVideo(item.video)
 
                                             }} className="flex justify-between items-center my-2 cursor-pointer">
@@ -326,7 +362,7 @@ const CourseDetailUnlock = () => {
                                                 />
                                                 <AnimatedButton>
                                                     <div >
-                                                        <Icon icon="icon-park-solid:play" className={videoStatus ? "text-2xl text-DARKBLUE05" : "text-2xl text-SUCCESS"} />
+                                                        <Icon icon="icon-park-solid:play" className={videoStatus == '' ? "text-2xl text-SUCCESS" : videoStatus == 'PROGRESS' ? "text-2xl text-yellow-200" : videoStatus == 'DONE' ? "text-2xl text-DARKBLUE05"  : "text-2xl text-SUCCESS"} />
                                                     </div>
                                                 </AnimatedButton>
                                             </div>
@@ -356,6 +392,8 @@ const CourseDetailUnlock = () => {
                                 width={"600px"}
                                 height={'100%'}
                                 style={{ borderRadius: "24px", overflow: "hidden" }}
+                                onPlay={()=>{moduleTrackingChanged('PLAY')}}
+                                onEnded={()=>{moduleTrackingChanged('END')}}
                             />
                         </div>
                         <div className="py-10">
