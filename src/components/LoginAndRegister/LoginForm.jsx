@@ -30,6 +30,16 @@ const LoginForm = () => {
 
     const onSubmit = async () => {
         try {
+
+            if(emailOrPhone == '' && password == ''){
+                setFailMail(true)
+                setFailPass(true)
+                setAlertAction(true)
+                setAlertStatus(false)
+                setAlertMsg('Toloong Email dan Password Diisi !!')
+                return false;
+            }
+
             setIsLoginDone(false)
             setFailMail(false)
             setFailPass(false)
@@ -101,6 +111,7 @@ const LoginForm = () => {
                 </div>: '' 
             }
             </div>
+        
         </section>
     )
 }
