@@ -21,6 +21,9 @@ import { formatRupiah } from "../lib/rupiahFormat";
 import { consumeOrderApi } from "../api/order";
 import { consumeUserApi } from "../api/user";
 import { consumeCourseTrackingsApi } from "../api/courseTrackings";
+import AllertReset from '../components/Allert/AllertReset'
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 // eslint-disable-next-line react/prop-types
 function Symbol({ id, open }) {
@@ -51,6 +54,10 @@ const Payment = () => {
     const [expiredDate, setExpiredDate] = useState("");
     const [expPayDate, setExpPayDate] = useState("");
     const [module, setModule] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [alertStatus, setAlertStatus] = useState(false);
+    const [alertAction, setAlertAction] = useState(false);
+    const [alertMsg, setAlertMsg] = useState('');
 
     const id = useSelector((state) => state.module.id)
     useEffect(() => {
@@ -59,13 +66,27 @@ const Payment = () => {
 
         getCourses()
             .then((res) => {
+                setIsLoading(true)
                 const response = res.data.data.filter((item) => item.id === id)[0]
                 setModule(response)
+                setIsLoading(false)
             }).catch((err) => {
                 console.log(err);
             })
 
     },[id])
+
+    useEffect(()=>{
+        setAlertTime()
+    })
+
+    const setAlertTime = () => {
+        if (alertAction) {
+            setTimeout(() => {
+                setAlertAction(false)
+            }, 5000);
+        }
+    }
 
     const setExpPayDateFunction = () => {
 
@@ -105,7 +126,9 @@ const Payment = () => {
             createCourseTracking({ status : 'PROGRESS' , courseId : module.id })
         }else{
             if (cardNumber == "" && cardHolderName == "" && cvv == "" && expiredDate == "") {
-                alert("Mohon isi data kartu kredit anda")
+                setAlertAction(true)
+                setAlertStatus(false)
+                setAlertMsg('Mohon diisi kartu pembayarannya')
             } else {
                 const payload = {
                     courseId: id,
@@ -119,10 +142,15 @@ const Payment = () => {
                     }
 
                     consumeOrderApi.createOrderUser(payload).then((res)=>{
+                        console.log(res)
                         if(res.status == 'OK' ){
                             navigate("/payment/success")
                         }else{
-                            alert("Pembayaran gagal mohon coba lagi")
+                            if(res.response.data.message == "Order has already been placed"){
+                                setAlertAction(true)
+                                setAlertStatus(false)
+                                setAlertMsg('Kelas Sudah di Order')
+                            }
                         }
                     })
                 
@@ -152,7 +180,7 @@ const Payment = () => {
             <div className="grid place-content-center">
                 <div className="w-[1024px]">
                     <div className="py-10 flex justify-between">
-                        <div className="w-[550px]">
+                        <div className="w-[550px] relative">
                             <Accordion open={open === 1} icon={<Symbol id={1} open={open} />} className="mb-4 rounded-md bg-DARKGREY02" style={{ boxShadow: "0px 3px 2px 0px rgba(0, 0, 0, 0.05)" }}>
                                 <AccordionHeader
                                     onClick={() => handleOpen(1)}
@@ -208,17 +236,36 @@ const Payment = () => {
                                     </div>
                                 </AccordionBody>
                             </Accordion>
+                            <div className="absolute w-[100%] flex justify-center">
+                            {
+                                alertAction ?
+                                <div className='relative mt-[10px] '>
+                                        <AllertReset
+                                        message={ alertMsg }
+                                        type={alertStatus ? 'success' : 'warning' }
+                                />
+                                </div>: '' 
+                            }
+                            </div>
                         </div>
                         <div>
                             <div className="w-[400px] rounded-2xl border border-DARKBLUE05 py-6 px-8" style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}>
                                 <h1 className="text-xl font-semibold mb-4">Pembayaran Kelas</h1>
                                 <div className="flex items-center justify-center mb-4">
-                                    <CardPayment
+                                    {
+                                        isLoading ?
+                                        <div >
+                                            <Skeleton height={'100px'} width={'323px'}/>
+                                            <Skeleton count={3} />
+                                        </div>
+                                        :
+                                        <CardPayment
                                         picture={module.image}
                                         course={module.category?.title}
                                         topic={module.title}
                                         author={module.authorBy}
-                                    />
+                                        />
+                                    }
                                 </div>
                                 <div className="flex justify-between mb-10">
                                     <div>
@@ -250,6 +297,7 @@ const Payment = () => {
                     </div>
                 </div>
             </div>
+            <div className="mt-[20px]"></div>
             <Footer />
         </section>
     )
