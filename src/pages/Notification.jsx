@@ -18,7 +18,6 @@ const Notification = () => {
     useEffect(() => {
         consumeUserApi.getCurrentUser()
         .then((res) => {
-            console.log(res.data.id);
             setUser(res.data.id)
         })
     }, [])

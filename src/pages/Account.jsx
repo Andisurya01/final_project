@@ -60,59 +60,56 @@ const Account = () => {
         }
     }
 
-    const updateUserProfile = () => {
+    const updateUserProfile = async () => {
         const name = document.getElementById('field-name').value;
         const email = document.getElementById('field-email').value;
         const phone = document.getElementById('nomorTelepon').value;
         const country = document.getElementById('field-country').value;
         const city = document.getElementById('field-city').value;
-        const updateProfileButton = document.getElementById('up-profile-button');
 
-        updateProfileButton.onclick = async () => {
-            if (imageProfile == '') {
-                if(name != '' && email != '' && phone != '' && country != '' && city != ''){
-                    await consumeUserApi.updateUser({
-                        name: name,
-                        email: email,
-                        phone: phone,
-                        country: country,
-                        city: city
-                    }).then((res) => {
-                        if (res.status == 'OK') {
-                            setAlertAction(true)
-                            setAlertStatus(true)
-                        } else {
-                            setAlertAction(true)
-                            setAlertStatus(false)
-                        }
-                    })
-                }
-            // eslint-disable-next-line no-dupe-else-if
-            } else if(imageProfile != '') {
-                if(name != '' && email != '' && phone != '' && country != '' && city != '' && imageProfile != ''){
-                    await uploadImage(imageProfile)
-
-                    await consumeUserApi.updateUser({
-                        name: name,
-                        email: email,
-                        phone: phone,
-                        image : imageUp,
-                        country: country,
-                        city: city
-                    }).then((res) => {
-                        if (res.status == 'OK') {
-                            setAlertAction(true)
-                            setAlertStatus(true)
-                        } else {
-                            setAlertAction(true)
-                            setAlertStatus(false)
-                        }
-                    })
-                }
-            }else {
-                setAlertAction(true)
-                setAlertStatus(false)
+        if (imageProfile == '') {
+            if(name != '' && email != '' && phone != '' && country != '' && city != ''){
+                await consumeUserApi.updateUser({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    country: country,
+                    city: city
+                }).then((res) => {
+                    if (res.status == 'OK') {
+                        setAlertAction(true)
+                        setAlertStatus(true)
+                    } else {
+                        setAlertAction(true)
+                        setAlertStatus(false)
+                    }
+                })
             }
+        // eslint-disable-next-line no-dupe-else-if
+        } else if(imageProfile != '') {
+            if(name != '' && email != '' && phone != '' && country != '' && city != '' && imageProfile != ''){
+                await uploadImage(imageProfile)
+
+                await consumeUserApi.updateUser({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    image : imageUp,
+                    country: country,
+                    city: city
+                }).then((res) => {
+                    if (res.status == 'OK') {
+                        setAlertAction(true)
+                        setAlertStatus(true)
+                    } else {
+                        setAlertAction(true)
+                        setAlertStatus(false)
+                    }
+                })
+            }
+        }else {
+            setAlertAction(true)
+            setAlertStatus(false)
         }
 
     }
@@ -352,7 +349,7 @@ const Account = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <button id='up-pass-button' >
+                                        <button id='up-pass-button' onClick={()=>{updateUserProfile()}} >
                                             <div className='bg-DARKBLUE05 p-3 rounded-full'>
                                                 <p className='text-lg text-white font-bold'>Ubah Password</p>
                                             </div>
