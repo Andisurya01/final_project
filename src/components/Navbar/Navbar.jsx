@@ -121,9 +121,8 @@ const Navbar = () => {
             const fieldClass = document.getElementById('searchClass').value
 
             const courseFiltered = currentCourse.filter(( data) => {
-                return data.title.toLowerCase().indexOf(fieldClass.toLowerCase()) > -1;
+                return `${data.title + '' + data.category.title}`.toLowerCase().indexOf(fieldClass.toLowerCase()) > -1;
             })
-
 
             setCourse(courseFiltered)
     }
