@@ -3,6 +3,9 @@ import Eye from "../../assets/eye.svg";
 import EyeSlash from "../../assets/eyeslash.svg";
 import ButtonReset from "../Button/ButtonReset";
 import AllertReset from "../Allert/AllertReset";
+import axios from "axios";
+import { SERVER_URL } from "../../lib/constants";
+
 const InputTwo = () => {
   let inputShowHide = useRef(null);
   let inputShowHideO = useRef(null);
@@ -40,7 +43,7 @@ const InputTwo = () => {
     inputShowHideO.current.type = "text";
     setEyeHdOne("hidden");
     setEyeShOne("block");
-  };
+  }; /*
   const butt = () => {
     if (
       inputShowHide.current.value.length >= 8 &&
@@ -65,8 +68,33 @@ const InputTwo = () => {
       setSuccessGreen("hidden");
       setWarningRedTwo("hidden");
     }
-  };
+  };*/
 
+  const butt = async () => {
+    try {
+      console.log({ email, password });
+      const response = await axios.put(
+        `${SERVER_URL}/auth/reset-password`,
+        JSON.stringify({ email, password }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("reset password sukses!");
+        setInputOne("border-2");
+        setInputTwo("border-2");
+        setSuccessGreen("block");
+        setWarningRed("hidden");
+      } else {
+        console.log("Reset password gagal. Kode status:", response.status);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
   return (
     <div>
       <div className="mt-8">
