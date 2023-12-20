@@ -1,6 +1,6 @@
 import ButtonReset from "../Button/ButtonReset";
 import { useNavigate, useLocation } from "react-router-dom";
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import AllertReset from "../Allert/AllertReset";
 import axios from "axios";
@@ -99,6 +99,7 @@ const VerifikasiOtp = () => {
   const { name, email, phone, password } = location.state || {};
 
   if (name && email && phone && password) {
+    // eslint-disable-next-line no-unused-vars
     const user = { name, email, phone, password, verified: true };
   }
 
@@ -154,37 +155,37 @@ const VerifikasiOtp = () => {
           type="number"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pr-2 pl-2 pb-1 pt-1 text-xs"
           ref={otpOne}
-          maxlength="1"
+          maxLength="1"
         />
         <input
           type="number"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpTwo}
-          maxlength="1"
+          maxLength="1"
         />
         <input
           type="number"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpThree}
-          maxlength="1"
+          maxLength="1"
         />
         <input
           type="number"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpFor}
-          maxlength="1"
+          maxLength="1"
         />
         <input
           type="number"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpFive}
-          maxlength="1"
+          maxLength="1"
         />
         <input
           type="number"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpNine}
-          maxlength="1"
+          maxLength="1"
         />
       </div>
       <div className="text-xs mt-7">

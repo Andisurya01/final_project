@@ -1,21 +1,27 @@
 import ButtonReset from "../Button/ButtonReset";
-import { useNavigate } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import TitleReset from "../InputPassword/TitleReset";
 import AllertReset from "../Allert/AllertReset";
+import { consumeUserApi } from "../../api/user";
 const Tautan = () => {
   const [warningMailRed, setWarningMailRed] = useState("hidden");
   const [warningMailGreen, setWarningMailGreen] = useState("hidden");
-  const dataMail = "contoh@gmail.com";
   const ipMail = useRef(null);
   const sendMail = () => {
-    if (ipMail.current.value === dataMail) {
-      setWarningMailGreen("block");
-      setWarningMailRed("hidden");
-    } else {
-      setWarningMailRed("block");
-      setWarningMailGreen("hidden");
-    }
+    const email = ipMail.current.value;
+    
+    consumeUserApi.resetPassword({email : email}).then(res => {
+      if(res.status == 'OK'){
+          console.log(res.message)
+          setWarningMailGreen('block')
+          setWarningMailRed('hidden')
+        }else{
+          setWarningMailRed('block')
+          setWarningMailGreen('hidden')
+      }
+    })
+
+
   };
   
   return (
