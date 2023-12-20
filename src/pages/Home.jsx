@@ -127,7 +127,10 @@ const Home = () => {
                     <div className="w-full lg:w-[1024px] py-5">
                         <div className="pb-4 flex justify-between">
                             <p className="text-xl font-bold">Kategori Belajar</p>
-                            <button onClick={() => {  setOpenCategory(!openCategory)  }  } className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
+                            <div className='flex justify-center items-center gap-1'>
+                                <button onClick={() => {  setOpenCategory(!openCategory)  }  } className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
+                                <Icon icon="mingcute:down-line" className='text-DARKBLUE05 text-xl'/>
+                            </div>
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-0 lg:flex lg:flex-row justify-between">
                             {
@@ -192,7 +195,7 @@ const Home = () => {
 
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-y-8 lg:flex lg:flex-row justify-between mb-10">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 justify-between mb-10">
                             {
                                 isLoading ? 
                                     <>
