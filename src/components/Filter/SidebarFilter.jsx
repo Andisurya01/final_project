@@ -3,7 +3,7 @@ import Checkbox from "../Checkbox/Checkbox";
 const SidebarFilter = () => {
 
     return (
-        <div className="bg-white w-1/4 rounded-xl px-6 py-8">
+        <div className="bg-white w-1/4 rounded-xl px-6 py-8 h-full">
             <div className="mb-10">
                 <h1 className="text-2xl font-bold mb-5">Filter</h1>
                 <Checkbox title={'Paling Baru'} id={'baru'} value = {'Paling Baru'} />
@@ -16,8 +16,11 @@ const SidebarFilter = () => {
                 <Checkbox title={'Product Management'} id={'pm'} value = {'Product Management'} />
                 <Checkbox title={'Web Development'} id={'webdev'} value = {'Web Development'} />
                 <Checkbox title={'Android Development'} id={'android'} value = {'Android Development'} />
-                <Checkbox title={'iOS Development'} id={'ios'} value = {'iOS Development'} />
+                <Checkbox title={'IOS Development'} id={'ios'} value = {'IOS Development'} />
                 <Checkbox title={'Data Science'} id={'datasc'} value = {'Data Science'} />
+                <Checkbox title={'Networking'} id={'network'} value = {'Networking'} />
+                <Checkbox title={'Artificial Intelligence'} id={'ai'} value = {'Artificial Intelligence'} />
+                <Checkbox title={'Cloud Computing'} id={'cloud'} value = {'Cloud Computing'} />
             </div>
             <div className="mb-10">
                 <h1 className="text-2xl font-bold mb-5">Level Kesulitan</h1>
