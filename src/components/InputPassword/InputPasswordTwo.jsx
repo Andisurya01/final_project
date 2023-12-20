@@ -1,14 +1,31 @@
 
 import ButtonReset from "../Button/ButtonReset";
 import AllertReset from "../Allert/AllertReset";
-import { useState  , } from "react";
+import { useState  , useEffect } from "react";
 import { consumeUserApi } from "../../api/user";
-import { useNavigate } from "react-router-dom";
 
 
 const InputTwo = () => {
+  const [failPass, setFailPass] = useState(false);
+  const [failPassV, setFailPassV] = useState(false);
+  const [alertStatus, setAlertStatus] = useState(false);
+  const [alertAction, setAlertAction] = useState(false);
+  const [alertMsg, setAlertMsg] = useState("");
 
-  const navigate =  useNavigate();
+
+  useEffect(() => {
+    setAlertTime();
+  });
+
+  const setAlertTime = () => {
+    if (alertAction) {
+      setTimeout(() => {
+        setAlertAction(false);
+      }, 5000);
+    }
+  };
+
+
 
   const butt = async () => {
     const fieldPass = document.getElementById('fieldPass').value;
@@ -19,15 +36,31 @@ const InputTwo = () => {
     const initToken = urlParts.indexOf('resetpassword') + 1;
     const token = urlParts[initToken];
 
-    if(fieldPass === fieldPassValidation ){
-        consumeUserApi.resetPasswordValidation( { password : fieldPassValidation } , token ).then(res => {
-          if(res.status == 'OK'){
-            console.log(res.message)
-            navigate('login')
-          }
-        })
+
+    if(fieldPass != '' && fieldPassValidation != ''){
+        if(fieldPass === fieldPassValidation ){
+          consumeUserApi.resetPasswordValidation( { password : fieldPassValidation } , token ).then(res => {
+            if(res.status == 'OK'){
+              window.location.href = 'http://localhost:3000/login'
+            }else{
+              setAlertAction(true)
+              setAlertStatus(false)
+              setAlertMsg(res.message)
+            }
+          })
+      }else{
+        setFailPass(true)
+        setFailPassV(true)
+        setAlertAction(true)
+        setAlertStatus(false)
+        setAlertMsg('Password Harus sama')
+      }
     }else{
-      return false;
+      setFailPass(true)
+      setFailPassV(true)
+      setAlertAction(true)
+      setAlertStatus(false)
+      setAlertMsg('Tolong Diisi Semua')
     }
 
 
@@ -42,7 +75,11 @@ const InputTwo = () => {
           <input
             id="fieldPass"
             type="password"
-            className={` border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full`}
+            className={`${
+              failPass
+              ? "border-2 border-WARNING "
+              : "border-2 border-neutral-200"
+            } text-sm rounded-2xl px-4 py-3 w-full`}
             required
           />
         </div>
@@ -55,7 +92,11 @@ const InputTwo = () => {
           <input
             id="fieldPassValidation"
             type="password"
-            className={` border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full `}
+            className={` ${
+              failPassV
+              ? "border-2 border-WARNING "
+              : "border-2 border-neutral-200"
+            } text-sm rounded-2xl px-4 py-3 w-full `}
             required
           />
         </div>
@@ -63,7 +104,16 @@ const InputTwo = () => {
           <ButtonReset title={"Simpan"} onClick={butt}></ButtonReset>
         </div>
         <div className={` ml-LEFT mt-8 `}>
-          {/* <AllertReset type="warning" message={"Password minimal 8 karakter"} /> */}
+        {alertAction ? (
+          <div className="relative mt-[40px] ">
+            <AllertReset
+              message={alertMsg}
+              type={alertStatus ? "success" : "warning"}
+            />
+          </div>
+        ) : (
+          ""
+        )}
         </div>
       </div>
     </div>
