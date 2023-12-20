@@ -17,16 +17,15 @@ const Tautan = () => {
       setWarningMailGreen("hidden");
     }
   };
+  
   return (
-    <section>
-      <div className="mt-30 ">  
+    <section className="relative">
+      <div>  
         <TitleReset titleMessage={"Reset Password"} />
-        <div className="pt-8 pr-0 pb-0 ">
+        <div className="pb-4 ">
           <label className="text-sm/[6px] font-normal pb-1.5">
             Masukan Email Untuk Menerima Tautan
           </label>
-        </div>
-        <div>
           <input
             type="email"
             className="border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full"
@@ -34,10 +33,7 @@ const Tautan = () => {
             required
           />
         </div>
-        <div className="pt-8 pr-0 pb-8 pl-0">
-          <ButtonReset title={"Kirim"} onClick={sendMail}></ButtonReset>
-        </div>
-
+          <ButtonReset className="w-full" title={"Kirim"} onClick={sendMail}></ButtonReset>
         <div className={`${warningMailRed} ml-LEFTWR mt-8 `}>
           <AllertReset type="warning" message={"Email tidak terdaftar"} />
         </div>
