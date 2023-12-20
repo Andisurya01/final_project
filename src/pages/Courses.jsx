@@ -70,7 +70,7 @@ const Courses = () => {
 
         const filterList = [];
         const delFilter = document.getElementById('deleteFilter');
-        const checkList = [ 'uiux' , 'webdev' , 'android' , 'datasc' , 'semua' , 'beginner' , 'intermediate' , 'advanced' ];
+        const checkList = [ 'uiux' , 'pm', 'webdev' , 'android' , 'ios', 'datasc' , 'network', 'ai', 'cloud', 'semua' , 'beginner' , 'intermediate' , 'advanced' ];
         const fieldClass = document.getElementById('fieldClass');
         const searchClassButton = document.getElementById('searchClassButton');
         
