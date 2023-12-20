@@ -9,20 +9,11 @@ import { SERVER_URL } from "../../lib/constants";
 const InputTwo = () => {
   let inputShowHide = useRef(null);
   let inputShowHideO = useRef(null);
-  const eye = useRef(null);
-  const eyeS = useRef(null);
-  const eyeO = useRef(null);
-  const eyeOs = useRef(null);
   const [warningRed, setWarningRed] = useState("hidden");
   const [warningRedTwo, setWarningRedTwo] = useState("hidden");
   const [successGreen, setSuccessGreen] = useState("hidden");
   const [inputOne, setInputOne] = useState("border-2");
   const [inputTwo, setInputTwo] = useState("border-2");
-
-  const [eyeHdOne, setEyeHdOne] = useState("");
-  const [eyeShOne, setEyeShOne] = useState("hidden");
-  const [eyeHdTwo, setEyeHdTwo] = useState("");
-  const [eyeShTwo, setEyeShTwo] = useState("hidden");
 
   const show = () => {
     inputShowHide.current.type = "text";
@@ -43,32 +34,7 @@ const InputTwo = () => {
     inputShowHideO.current.type = "text";
     setEyeHdOne("hidden");
     setEyeShOne("block");
-  }; /*
-  const butt = () => {
-    if (
-      inputShowHide.current.value.length >= 8 &&
-      inputShowHideO.current.value.length >= 8 &&
-      inputShowHide.current.value === inputShowHideO.current.value
-    ) {
-      setInputOne("border-2");
-      setInputTwo("border-2");
-      setSuccessGreen("block");
-      setWarningRed("hidden");
-      setWarningRedTwo("hidden");
-    } else if (inputShowHide.current.value !== inputShowHideO.current.value) {
-      setInputOne("border-WARNING");
-      setInputTwo("border-WARNING");
-      setWarningRedTwo("block");
-      setSuccessGreen("hidden");
-      setWarningRed("hidden");
-    } else {
-      setInputOne("border-WARNING");
-      setInputTwo("border-WARNING");
-      setWarningRed("block");
-      setSuccessGreen("hidden");
-      setWarningRedTwo("hidden");
-    }
-  };*/
+  };
 
   const butt = async () => {
     try {
@@ -97,25 +63,11 @@ const InputTwo = () => {
   };
   return (
     <div>
-      <div className="mt-8">
+      <div className="relative">
         <label className="text-xs font-normal pb-1.5">
           Masukan Password Baru
         </label>
         <div className="relative">
-          <img
-            src={Eye}
-            alt="hide"
-            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeHdOne}`}
-            onClick={hid}
-            ref={eyeO}
-          />
-          <img
-            src={EyeSlash}
-            alt="hide"
-            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeShOne}`}
-            onClick={sho}
-            ref={eyeOs}
-          />
           <input
             type="password"
             ref={inputShowHideO}
@@ -129,20 +81,6 @@ const InputTwo = () => {
           Ulangi Password Baru
         </label>
         <div className="relative">
-          <img
-            src={Eye}
-            alt="hide"
-            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeHdTwo}`}
-            onClick={show}
-            ref={eye}
-          />
-          <img
-            src={EyeSlash}
-            alt="hide"
-            className={`w-6 absolute mt-TOP ml-right cursor-pointer ${eyeShTwo}`}
-            onClick={hide}
-            ref={eyeS}
-          />
           <input
             type="password"
             ref={inputShowHide}
