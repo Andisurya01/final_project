@@ -9,11 +9,9 @@ const ResetTautan = () => {
           <img src={logo2}/>
         </div>
       </div>
-            <div className="lg:grid lg:grid-cols-12">
+        <div className="lg:grid lg:grid-cols-12">
         <div className="lg:col-span-7 lg:my-auto lg:px-40 px-10">
           <Tautan/>
-        </div>
-        <div className="hidden col-span-5 bg-DARKBLUE05 h-screen lg:grid place-content-center">
         </div>
       </div>
     </section>
