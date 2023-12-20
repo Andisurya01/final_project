@@ -36,7 +36,7 @@ const Navbar = () => {
 
     const [openModal, setOpenModal] = useState(false);
     const [openModalPremium, setOpenModalPremium] = useState(false);
-    const [isKelasActive, setKelasActive] = useState(true);
+    const [isKelasActive, setKelasActive] = useState(false);
     const [isBellActive, setBellActive] = useState(false);
     const [isUserActive, setUserActive] = useState(false);
     const [course, setCourse] = useState([])
@@ -48,7 +48,7 @@ const Navbar = () => {
         const path = location.pathname;
         setKelasActive(path === '/courseTrackings');
         setBellActive(path === '/notification');
-        setUserActive(path === '/users');
+        setUserActive(path === '/user');
     }, [location.pathname]);
 
     const handleKelasClick = () => {
