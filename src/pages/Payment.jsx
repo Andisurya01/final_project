@@ -189,7 +189,23 @@ const Payment = () => {
                                     Bank Transfer
                                 </AccordionHeader>
                                 <AccordionBody className="px-12 py-8 text-base font-normal bg-white">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                <div className="flex items-center justify-center">
+                                        <div>
+                                            <div className="mb-6">
+                                                <p className="font-medium text-black mb-1">No Rekening</p>
+                                                <input onChange={(event) => {
+                                                    setCardNumber(event.target.value)
+                                                }} type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
+                                                <hr className="w-80 h-0.5 bg-LIGHTGREY" />
+                                            </div>
+                                            <div className="mb-6">
+                                                <p className="font-medium text-black mb-1">Card Name</p>
+                                                <input onChange={(event) => { setCardHolderName(event.target.value) }} type="text" placeholder="John Doe" className="focus:outline-none focus:ring-0 mb-1" />
+                                                <hr className="w-80 h-0.5 bg-LIGHTGREY" />
+                                            </div>
+                                
+                                        </div>
+                                    </div>
                                 </AccordionBody>
                             </Accordion>
                             <Accordion open={open === 2} icon={<Symbol id={2} open={open} />} className="rounded-md bg-DARKBLUE05" style={{ boxShadow: "0px 3px 2px 0px rgba(0, 0, 0, 0.05)" }}>
