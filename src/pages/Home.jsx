@@ -185,7 +185,14 @@ const Home = () => {
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 mb-5 gap-2 lg:gap-0 lg:flex lg:flex-row justify-between">
-                            <button onClick={()=>{ setCourse(currentCourse) }} ><FilterCourseHome title={"All"} /></button>
+                            <button onClick={()=>{ 
+                                const popularCourse = currentCourse.filter((data) => {
+                                    return data.rating >= 4.5
+                                })
+                    
+                                const popularCourses = popularCourse.filter(data => popularCourse.indexOf(data) < 3)
+                                setCourse(popularCourses)
+                            }} ><FilterCourseHome title={"All"} /></button>
                             {
                                 categories.map((data) => {
                                     return (<button onClick={()=>{filterCategories(data.title)}} key={data.id}><FilterCourseHome title={data.title} /></button>)

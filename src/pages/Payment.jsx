@@ -135,14 +135,13 @@ const Payment = () => {
                         payment: {
                             cardNumber: cardNumber,
                             cardName: cardHolderName,
-                            cvv: parseInt(cvvField) ?? 123,
+                            cvv: cvvField != '' ? parseInt(cvvField) : 123,
                             expiryDate: new Date(),
                             amount: 4000000
                         }
                     }
 
                     consumeOrderApi.createOrderUser(payload).then((res)=>{
-                        console.log(res)
                         if(res.status == 'OK' ){
                             navigate("/payment/success")
                         }else{
