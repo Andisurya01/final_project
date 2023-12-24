@@ -224,6 +224,21 @@ const Home = () => {
                                     return (
                                         <AnimatedButton key={data.id}>
                                             <Card
+                                                onClick={()=>{
+                                                    if(data.type === 'PREMIUM'){
+                                                        if(token === null){
+                                                            navigate("/login")
+                                                        }else{
+                                                            handleOpenPremium()
+                                                            setCourseSelection(data)
+                                                            dispatch(updateId(data.id))
+                                                        }
+                                                    }else{
+                                                        navigate("/courses/detail")
+                                                        dispatch(updateId(data.id))
+                                                    }
+                                                }}
+
                                                 picture={data.image}
                                                 course={data.category.title}
                                                 rating={data.rating}
