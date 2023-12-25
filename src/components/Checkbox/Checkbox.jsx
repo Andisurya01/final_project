@@ -13,7 +13,7 @@ const Checkbox = ({title , id , value}) => {
                 className="appearance-none bg-LIGHTBLUE h-6 w-6 rounded-lg border-2 border-DARKGREY checked:bg-DARKBLUE05 checked:border-none absolute"
                 checked={isChecked}
                 onChange={() => setIsChecked(!isChecked)}
-                style={{ cursor: 'pointer' }} z
+                style={{ cursor: 'pointer' }}
                 />
                 {isChecked && (
                 <Icon
