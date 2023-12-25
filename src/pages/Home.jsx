@@ -34,7 +34,6 @@ const Home = () => {
 
     const token = getCookieValue("token");
     const [categories, setCategories] = useState([]);
-    const [categories1, setCategories1] = useState([]);
     const [course, setCourse] = useState([])
     const [currentCourse, setCurrentCourse] = useState([])
     const [courseCategory, setCourseCategory] = useState([])
@@ -44,7 +43,42 @@ const Home = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalPremium, setOpenModalPremium] = useState(false);
     const [courseSelection, setCourseSelection] = useState({})
+    const [activeButton, setActiveButton] = useState(null);
+
+    const handleButtonClick = (buttonTitle) => {
+        if (activeButton === buttonTitle) {
+          setActiveButton(null);
+        } else {
+          setActiveButton(buttonTitle);
+        }
+      };
+
+    const handleToggleCategory = () => {
+        setOpenCategory(!openCategory);
+      };
+
+    const [isMouseDown, setIsMouseDown] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollX, setScrollX] = useState(0);
+
+    const handleMouseDown = (e) => {
+        setIsMouseDown(true);
+        setStartX(e.pageX - document.getElementById('scrollContainer').offsetLeft);
+      };
     
+      const handleMouseMove = (e) => {
+        if (!isMouseDown) return;
+    
+        const currentX = e.pageX - document.getElementById('scrollContainer').offsetLeft;
+        const diffX = currentX - startX;
+    
+        document.getElementById('scrollContainer').scrollLeft = scrollX - diffX;
+      };
+    
+      const handleMouseUp = () => {
+        setIsMouseDown(false);
+        setScrollX(document.getElementById('scrollContainer').scrollLeft);
+      };
 
     const handleOpen = () => setOpenModal(!openModal)
     const handleOpenPremium = () => setOpenModalPremium(!openModalPremium)
@@ -52,27 +86,12 @@ const Home = () => {
     useEffect(() => {
         consumeCategoriesApi.getCategories().then((res) => {
             setIsLoading(true)
-            if(res.status == 'OK'){
-                const currentCategory = res.data?.filter((data) => {
-                    return res.data.indexOf(data) < 6
-                })
-                
+            if (res.status === 'OK') {
+                const currentCategory = res.data || [];
                 setCategories(currentCategory);
-                setIsLoading(false)
             }
-        })
-
-        consumeCategoriesApi.getCategories().then((res) => {
-            setIsLoading(true)
-            if(res.status == 'OK'){
-                const currentCategory = res.data?.filter((data) => {
-                    return res.data.indexOf(data) > 5
-                })
-                
-                setCategories1(currentCategory);
-                setIsLoading(false)
-            }
-        })
+            setIsLoading(false);
+        });
 
 
         getCourses().then((res) => {
@@ -128,51 +147,25 @@ const Home = () => {
                         <div className="pb-4 flex justify-between">
                             <p className="text-xl font-bold">Kategori Belajar</p>
                             <div className='flex justify-center items-center gap-1'>
-                                <button onClick={() => {  setOpenCategory(!openCategory)  }  } className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
+                                <button onClick={handleToggleCategory} className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
                                 <Icon icon="mingcute:down-line" className='text-DARKBLUE05 text-xl'/>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-0 lg:flex lg:flex-row justify-between">
-                            {
-                                isLoading ?
-
-                                Array.from({ length: 6 }, (_, index) => index + 1).map(data => {
-                                    return(
-                                        <Skeleton key={data} height={'100px'} width={140}/> 
-                                    )
-                                }) :
-                                categories.map((data) => {
-                                    return (
-                                        <button key={data.id} onClick={()=>{
-                                            categoryFilterCourse(data.title)
-                                    }}><AnimatedButton ><Frame picture={data.image} title={data.title} /></AnimatedButton></button>
-                                    )
-
-                                })
-                            }
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 justify-between">
+                        {isLoading ? (
+                        Array.from({ length: 6 }, (_, index) => (
+                            <Skeleton key={index + 1} height={'100px'} width={140}/>
+                        ))
+                        ) : (
+                        categories.map((data) => (
+                            <button key={data.id} onClick={() => categoryFilterCourse(data.title)}>
+                            <AnimatedButton>
+                                <Frame picture={data.image} title={data.title} />
+                            </AnimatedButton>
+                            </button>
+                        )).slice(0, openCategory ? categories.length : 6)
+                        )}
                         </div>
-                        {
-                            openCategory ? 
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 lg:gap-0 lg:flex lg:flex-row justify-between">
-                            {
-                                isLoading ?
-
-                                Array.from({ length: 6 }, (_, index) => index + 1).map(data => {
-                                    return(
-                                        <Skeleton key={data} height={'100px'} width={140}/> 
-                                    )
-                                }) :
-                                categories1.map((data) => {
-                                    return (
-                                        <button  key={data.id} onClick={()=>{
-                                            categoryFilterCourse(data.title)
-                                    }} ><AnimatedButton><Frame picture={data.image} title={data.title} /></AnimatedButton></button>
-                                    )
-
-                                })
-                            }
-                        </div> : <></>
-                        }
                     </div>
                 </div>
             </div>
@@ -184,7 +177,13 @@ const Home = () => {
                             <button onClick={() => navigate("/courses")} className="text-DARKBLUE05 text-sm font-bold">Lihat Semua</button>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-4 mb-5 gap-2 lg:gap-0 lg:flex lg:flex-row justify-between">
+                        <div
+                        id="scrollContainer"
+                        onMouseDown={handleMouseDown}
+                        onMouseMove={handleMouseMove}
+                        onMouseUp={handleMouseUp}
+                        onMouseLeave={handleMouseUp}
+                        className="w-[360px] md:w-[700px] lg:w-full mb-5 gap-2 flex justify-between overflow-x-auto scrollbar-hide">
                             <button onClick={()=>{ 
                                 const popularCourse = currentCourse.filter((data) => {
                                     return data.rating >= 4.5
@@ -192,14 +191,14 @@ const Home = () => {
                     
                                 const popularCourses = popularCourse.filter(data => popularCourse.indexOf(data) < 3)
                                 setCourse(popularCourses)
-                            }} ><FilterCourseHome title={"All"} /></button>
+                                handleButtonClick('All')
+                            }} ><FilterCourseHome title={"All"} activeButton={activeButton} setActiveButton={handleButtonClick}/></button>
                             {
                                 categories.map((data) => {
-                                    return (<button onClick={()=>{filterCategories(data.title)}} key={data.id}><FilterCourseHome title={data.title} /></button>)
+                                    return (<button onClick={()=>{filterCategories(data.title), handleButtonClick(data.title)}} key={data.id}><FilterCourseHome title={data.title} activeButton={activeButton} setActiveButton={handleButtonClick}/></button>)
 
                                 })
                             }
-
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 justify-between mb-10">

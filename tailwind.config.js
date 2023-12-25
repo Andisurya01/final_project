@@ -59,5 +59,7 @@ export default withMT({
   plugins: [
     // eslint-disable-next-line no-undef
     require('tailwind-scrollbar')({ nocompatible: true }),
+    // eslint-disable-next-line no-undef
+    require('tailwind-scrollbar-hide')
   ],
 });
