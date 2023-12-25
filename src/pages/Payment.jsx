@@ -21,6 +21,7 @@ import { formatRupiah } from "../lib/rupiahFormat";
 import { consumeOrderApi } from "../api/order";
 import { consumeUserApi } from "../api/user";
 import { consumeCourseTrackingsApi } from "../api/courseTrackings";
+import { consumeNotificationApi } from "../api/notification";
 import AllertReset from '../components/Allert/AllertReset'
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -111,10 +112,25 @@ const Payment = () => {
             }).then(res => {
                 if(res.status == 'OK'){
                     navigate("/payment/success")
+                    createNotificationOrderClass(module.title)
                 }else{
                     alert('Kursus Sedang Berjalan')
                 }
             })
+        })
+    }
+
+    const createNotificationOrderClass = (course) => {
+        const payload = {
+            title : 'Kelas Order',
+            subtitle : `Kelas ${course} sudah dipesan`,
+            description :`Ikuti kelas hingga selesai dan mendapatkan value yang diharapkan`
+        }
+
+        consumeNotificationApi.postNotification(payload).then(res => {
+            if(res.status != 'OK'){
+                return false;
+            }
         })
     }
 
@@ -144,6 +160,7 @@ const Payment = () => {
                     consumeOrderApi.createOrderUser(payload).then((res)=>{
                         if(res.status == 'OK' ){
                             navigate("/payment/success")
+                            createNotificationOrderClass(module.title)
                         }else{
                             if(res.response.data.message == "Order has already been placed"){
                                 setAlertAction(true)
