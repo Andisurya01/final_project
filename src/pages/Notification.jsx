@@ -38,6 +38,21 @@ const Notification = () => {
         }
     }
 
+    const formattedDate = (isoDate) => {
+        const dateObject = new Date(isoDate);
+        function getMonthName(month) {
+            var monthNames = [
+                "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+                "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+            ];
+            return monthNames[month];
+        }
+        const formattedDate = dateObject.getDate() + " " + getMonthName(dateObject.getMonth()) + ", " +
+        dateObject.getHours() + ":" + (dateObject.getMinutes() < 10 ? '0' : '') + dateObject.getMinutes();
+        return formattedDate;
+    }
+        
+
     return (
         <section>
             <div className="bg-LIGHTBLUE h-[170px]">
@@ -79,7 +94,7 @@ const Notification = () => {
                                                             <p className='text-DARKBLUE05 font-medium ml-2'>{item.title}</p>
                                                         </div>
                                                         <div className='flex gap-2 items-center'>
-                                                            <p className='text-DARKGREY text-sm'>{item.createdAt}</p>
+                                                            <p className='text-DARKGREY text-sm'>{formattedDate(item.createdAt)}</p>
                                                             <Icon icon="material-symbols:circle" className={item.isViewed ? "text-SUCCESS" : "text-WARNING"} />
                                                         </div>
                                                     </div>
