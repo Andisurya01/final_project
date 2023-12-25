@@ -1,10 +1,25 @@
-// eslint-disable-next-line react/prop-types
-const FilterCourseHome = ({title}) => {
-    return (
-        <button className="bg-LIGHTBLUE py-1 px-5 rounded-2xl hover:bg-DARKBLUE05 hover:text-white active:bg-DARKBLUE05 active:text-white">
-            <p className="text-xs">{title}</p>
-        </button>
-    )
-}
+import React from 'react';
 
-export default FilterCourseHome
+const FilterCourseHome = ({ title, activeButton, setActiveButton }) => {
+  const isActive = title === activeButton;
+  const color = isActive ? 'bg-DARKBLUE05 text-white' : 'bg-LIGHTBLUE text-black';
+
+  const handleClick = () => {
+    if (!isActive) {
+      setActiveButton(title);
+    } else {
+      setActiveButton(null); // Deselect the active button if clicked again
+    }
+  };
+
+  return (
+    <button
+      className={`${color} py-1 px-2 w-44 rounded-2xl hover:bg-DARKBLUE05 hover:text-white`}
+      onClick={handleClick}
+    >
+      <p className={`text-xs ${isActive ? 'text-white' : 'text-black'}`}>{title}</p>
+    </button>
+  );
+};
+
+export default FilterCourseHome;
