@@ -1,16 +1,16 @@
-import Button from "../Button/Button";
 import React, { useState } from "react";
+import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER_URL } from "../../lib/constants";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const register = async () => {
-    //update menggunakan try and catch
     try {
       console.log({ name, email, phone, password });
       const response = await axios.post(
@@ -32,14 +32,12 @@ const RegisterForm = () => {
         console.log("Registrasi gagal. Kode status:", response.status);
       }
     } catch (error) {
-      console.error("Error:", error.message);
+      console.error("Error:", error);
     }
   };
-  //sampai sini updatenya
 
-  const navigate = useNavigate();
   return (
-    <section className="">
+    <section className="" data-testid="register-form">
       <div className="">
         <h1 className="font-bold pb-6 text-2xl text-DARKBLUE05">Daftar</h1>
         <div className="pb-4">
@@ -51,6 +49,7 @@ const RegisterForm = () => {
             className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            data-testid="namaLengkap"
           />
         </div>
         <div className="pb-4">
@@ -62,6 +61,7 @@ const RegisterForm = () => {
             className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            data-testid="email"
           />
         </div>
         <div className="pb-4">
@@ -73,6 +73,7 @@ const RegisterForm = () => {
             className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            data-testid="notelp"
           />
         </div>
         <div className="pb-4">
@@ -84,6 +85,7 @@ const RegisterForm = () => {
             className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            data-testid="password"
           />
         </div>
         <Button
@@ -96,6 +98,7 @@ const RegisterForm = () => {
           <button
             className="text-DARKBLUE05 font-bold"
             onClick={() => navigate("/Login")}
+            data-testid="buttonLogin"
           >
             {" "}
             Masuk di sini
