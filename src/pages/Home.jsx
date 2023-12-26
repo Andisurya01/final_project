@@ -183,7 +183,7 @@ const Home = () => {
                         onMouseMove={handleMouseMove}
                         onMouseUp={handleMouseUp}
                         onMouseLeave={handleMouseUp}
-                        className="w-[360px] md:w-[700px] lg:w-full mb-5 gap-2 flex justify-between overflow-x-auto scrollbar-hide">
+                        className="w-[340px] md:w-[700px] lg:w-full mb-5 gap-2 flex justify-between overflow-x-auto scrollbar-hide">
                             <button onClick={()=>{ 
                                 const popularCourse = currentCourse.filter((data) => {
                                     return data.rating >= 4.5
@@ -201,7 +201,7 @@ const Home = () => {
                             }
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-8 justify-between mb-10">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-between mb-10">
                             {
                                 isLoading ? 
                                     <>
