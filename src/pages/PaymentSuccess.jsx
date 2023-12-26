@@ -23,7 +23,7 @@ const PaymentSuccess = () => {
                         <p className="font-semibold mb-2 text-center">Transaksi pembayaran kelas premium berhasil!</p>
                         <p className="text-center">E-receipt telah dikirimkan ke email.</p>
                     </div>
-                    <div className="text-center">
+                    <div className="text-center flex flex-col">
                         <button onClick={() => navigate("/courses/detail/unlock")} className="bg-DARKBLUE05 rounded-full py-4 w-80 mb-4">
                             <p className="text-white font-medium text-center">Mulai Belajar</p>
                         </button>

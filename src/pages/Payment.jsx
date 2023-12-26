@@ -144,7 +144,7 @@ const Payment = () => {
             if (cardNumber == "" && cardHolderName == "" && cvv == "" && expiredDate == "") {
                 setAlertAction(true)
                 setAlertStatus(false)
-                setAlertMsg('Mohon diisi kartu pembayarannya')
+                setAlertMsg('Mohon isi kartu pembayaran anda')
             } else {
                 const payload = {
                     courseId: id,
@@ -165,7 +165,7 @@ const Payment = () => {
                             if(res.response.data.message == "Order has already been placed"){
                                 setAlertAction(true)
                                 setAlertStatus(false)
-                                setAlertMsg('Kelas Sudah di Order')
+                                set('Kelas sudah di-order!')
                             }
                         }
                     })
@@ -268,17 +268,6 @@ const Payment = () => {
                                     </div>
                                 </AccordionBody>
                             </Accordion>
-                            <div className="absolute w-[100%] flex justify-center">
-                            {
-                                alertAction ?
-                                <div className='relative mt-[10px] '>
-                                        <AllertReset
-                                        message={ alertMsg }
-                                        type={alertStatus ? 'success' : 'warning' }
-                                />
-                                </div>: '' 
-                            }
-                            </div>
                         </div>
                         <div>
                             <div className="w-full lg:w-[400px] rounded-2xl border border-DARKBLUE05 py-6 px-8" style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}>
@@ -329,7 +318,17 @@ const Payment = () => {
                     </div>
                 </div>
             </div>
-            <div className="mt-[20px]"></div>
+            <div className="w-[100%] flex justify-center">
+                {
+                    alertAction ?
+                    <div className='mb-20 mt-10'>
+                            <AllertReset
+                            message={ alertMsg }
+                            type={alertStatus ? 'success' : 'warning' }
+                    />
+                    </div>: '' 
+                }
+            </div>
             <Footer />
         </section>
     )
