@@ -170,13 +170,13 @@ const Courses = () => {
     return (
         <section>
         <div className="w-full bg-LIGHTBLUE">
-                <div className="lg:grid lg:place-content-center px-4 lg:px-0">
+                <div className="lg:grid lg:place-content-center px-10 lg:px-0">
                     <div className="w-full lg:w-[1024px] pt-10">
-                <div className="flex flex-col md:flex-row justify-between items-center mb-10 md:mb-16">
+                <div className="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-16">
                     <h1 className="text-2xl font-bold mb-8 md:mb-0">Topik Kelas</h1>
-                    <div className='flex items-center gap-4 lg:gap-0'>
+                    <div className='flex items-center gap-5 lg:gap-0'>
                         <div className='flex gap-8 lg:gap-0 justify-center items-center'>
-                            <div className="flex gap-16 bg-white border-2 border-DARKBLUE05 rounded-full px-6 py-3">
+                            <div className="flex gap-36 md:gap-16 bg-white border-2 border-DARKBLUE05 rounded-full px-6 py-3">
                                 <input id='fieldClass' onChange={(event)=> {searchCourse(event)}} type="text" className="w-32 outline-none border-none" placeholder="Cari Kelas" />
                                 <button className="bg-DARKBLUE05 flex items-center justify-center w-9 h-9 rounded-xl">
                                     <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
@@ -198,7 +198,7 @@ const Courses = () => {
                                 <SidebarFilter/>
                             </div>
                             <div className="w-full lg:w-3/4">
-                                <div className="mb-10 flex flex-col md:flex-row gap-4 justify-center items-center">
+                                <div className="mb-10 flex gap-4 justify-center items-center">
                                     <div onClick={()=>{
                                         filterTypeFunction('')
                                     }}><FilterPlanProgress title={"All"} color={filterColor1} /></div>
@@ -217,7 +217,7 @@ const Courses = () => {
                                         <FilterPlanProgress title={"Kelas Gratis"} color={filterColor3} />
                                     </div>
                                 </div>
-                            <div id='courseList' className="flex flex-wrap gap-x-14 gap-y-10 justify-center items-center">
+                            <div id='courseList' className="flex flex-wrap gap-x-14 gap-y-10 justify-center items-center lg:justify-normal lg:items-start">
                                 {
 
                                     isLoading ?
