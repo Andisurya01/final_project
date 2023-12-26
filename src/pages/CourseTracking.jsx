@@ -60,7 +60,7 @@ const sideFilterFunction = () => {
 
     const filterList = [];
     const delFilter = document.getElementById('deleteFilter');
-    const checkList = ['uiux', 'webdev', 'android', 'datasc', 'semua', 'beginner', 'intermediate', 'advanced'];
+    const checkList = ['uiux', 'webdev', 'android', 'datasc', 'network', 'ai' , 'cloud' , 'gamedev' ,'iot', 'cyber' , 'semua', 'beginner', 'intermediate', 'advanced'];
     const fieldClass = document.getElementById('fieldClass');
     const searchClassButton = document.getElementById('searchClassButton');
 
