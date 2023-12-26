@@ -64,7 +64,7 @@ const LoginForm = () => {
         document.cookie = `token=${data.data.data.accessToken}`;
         setEmailOrPhone("");
         setPassword("");
-        navigate("/home");
+        navigate("/");
         window.location.reload();
       }
     } catch (err) {
