@@ -178,25 +178,25 @@ const Payment = () => {
 
     return (
         <section>
-            <div className="bg-white px-20 py-10 h-48" style={{ boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15" }}>
-                <div className="grid place-content-center">
-                    <div className="w-[1024px]">
+            <div className="bg-white px-10 lg:px-20 py-10 h-full" style={{ boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15" }}>
+                <div className="lg:grid lg:place-content-center">
+                    <div className="w-full lg:w-[1024px]">
                         <button onClick={() => navigate("/courses/detail")} className="flex justify-center items-center gap-4">
                             <Icon icon="ph:arrow-left-bold" className="text-xl" onClick={() => history.back()} />
                             <p className="font-bold">Kembali</p>
                         </button>
                         <div className="flex items-center justify-center">
-                            <div className="rounded-xl bg-WARNING mt-10 py-3 w-[800px]">
+                            <div className="rounded-xl bg-WARNING mt-10 py-3 px-2 w-[800px]">
                                 <p className="text-white font-medium text-center">Selesaikan Pembayaran sampai {expPayDate}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="grid place-content-center">
-                <div className="w-[1024px]">
-                    <div className="py-10 flex justify-between">
-                        <div className="w-[550px] relative">
+            <div className="lg:grid lg:place-content-center">
+                <div className="w-full lg:w-[1024px]">
+                    <div className="py-10 px-10 lg:px-0 lg:flex justify-between">
+                        <div className="w-250 lg:w-[550px] relative mb-5 lg:mb-0">
                             <Accordion open={open === 1} icon={<Symbol id={1} open={open} />} className="mb-4 rounded-md bg-DARKGREY02" style={{ boxShadow: "0px 3px 2px 0px rgba(0, 0, 0, 0.05)" }}>
                                 <AccordionHeader
                                     onClick={() => handleOpen(1)}
@@ -212,12 +212,12 @@ const Payment = () => {
                                                 <input onChange={(event) => {
                                                     setCardNumber(event.target.value)
                                                 }} type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
-                                                <hr className="w-80 h-0.5 bg-LIGHTGREY" />
+                                                <hr className="w-60 md:w-80 h-0.5 bg-LIGHTGREY" />
                                             </div>
                                             <div className="mb-6">
                                                 <p className="font-medium text-black mb-1">Card Name</p>
                                                 <input onChange={(event) => { setCardHolderName(event.target.value) }} type="text" placeholder="John Doe" className="focus:outline-none focus:ring-0 mb-1" />
-                                                <hr className="w-80 h-0.5 bg-LIGHTGREY" />
+                                                <hr className="w-60 md:w-80 h-0.5 bg-LIGHTGREY" />
                                             </div>
                                 
                                         </div>
@@ -245,23 +245,23 @@ const Payment = () => {
                                                 <input onChange={(event) => {
                                                     setCardNumber(event.target.value)
                                                 }} type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
-                                                <hr className="w-80 h-0.5 bg-LIGHTGREY" />
+                                                <hr className="w-60 md:w-80 h-0.5 bg-LIGHTGREY" />
                                             </div>
                                             <div className="mb-6">
                                                 <p className="font-medium text-black mb-1">Card holder name</p>
                                                 <input onChange={(event) => { setCardHolderName(event.target.value) }} type="text" placeholder="John Doe" className="focus:outline-none focus:ring-0 mb-1" />
-                                                <hr className="w-80 h-0.5 bg-LIGHTGREY" />
+                                                <hr className="w-60 md:w-80 h-0.5 bg-LIGHTGREY" />
                                             </div>
-                                            <div className="flex gap-3 mb-6">
-                                                <div className="">
+                                            <div className="md:flex md:gap-3 mb-6">
+                                                <div className="mb-6">
                                                     <p className="font-medium text-black mb-1">CVV</p>
                                                     <input id="cvvField" onChange={(event) => { setCvv(event.target.value) }} type="text" placeholder="000" className="focus:outline-none focus:ring-0 mb-1" />
-                                                    <hr className="w-32 h-0.5 bg-LIGHTGREY" />
+                                                    <hr className="w-60 md:w-28 h-0.5 bg-LIGHTGREY" />
                                                 </div>
                                                 <div className="">
                                                     <p className="font-medium text-black mb-1">Expired date</p>
                                                     <input onChange={(event) => { setExpiredDate(event.target.value) }} type="text" placeholder="07/24" className="focus:outline-none focus:ring-0 mb-1" />
-                                                    <hr className="w-32 h-0.5 bg-LIGHTGREY" />
+                                                    <hr className="w-60 md:w-28 h-0.5 bg-LIGHTGREY" />
                                                 </div>
                                             </div>
                                         </div>
@@ -281,7 +281,7 @@ const Payment = () => {
                             </div>
                         </div>
                         <div>
-                            <div className="w-[400px] rounded-2xl border border-DARKBLUE05 py-6 px-8" style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}>
+                            <div className="w-full lg:w-[400px] rounded-2xl border border-DARKBLUE05 py-6 px-8" style={{ boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)" }}>
                                 <h1 className="text-xl font-semibold mb-4">Pembayaran Kelas</h1>
                                 <div className="flex items-center justify-center mb-4">
                                     {
@@ -319,7 +319,7 @@ const Payment = () => {
                                 <div className="flex items-center justify-center">
                                     <button id='paymentButton' onClick={() => {
                                         paymentFunction()
-                                    }} className="flex items-center justify-center gap-2 bg-WARNING rounded-full w-80 py-3 px-6 text-center">
+                                    }} className="flex items-center justify-center gap-2 bg-WARNING rounded-full w-full lg:w-80 py-3 px-6 text-center">
                                         <p className="text-white text-sm font-medium">Bayar dan Ikuti Kelas Selamanya</p>
                                         <Icon icon="carbon:next-filled" className="text-white text-2xl" />
                                     </button>
