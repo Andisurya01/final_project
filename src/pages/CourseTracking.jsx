@@ -42,8 +42,12 @@ const getCourseByOrder = () => {
         consumeCourseTrackingsApi.getCourseTrackings().then((res) => {
             setIsLoading(true)
             if (res.status == 'OK') {
-                setCourseTrack(res.data)
-                setCurrentCourseTrack(res.data)
+                const courseTrackFilter = res.data.filter( data => {
+                    return data.userId == user.id
+                }) 
+
+                setCourseTrack(courseTrackFilter)
+                setCurrentCourseTrack(courseTrackFilter)
                 setIsLoading(false)
             }
         })
