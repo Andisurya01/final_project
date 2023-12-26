@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1703571448122" clover="3.2.0">
-  <project timestamp="1703571448122" name="All files">
+<coverage generated="1703574214167" clover="3.2.0">
+  <project timestamp="1703574214167" name="All files">
     <metrics statements="117" coveredstatements="55" conditionals="65" coveredconditionals="19" methods="31" coveredmethods="9" elements="213" coveredelements="83" complexity="0" loc="117" ncloc="117" packages="1" files="1" classes="1"/>
-    <file name="Account.jsx" path="D:\Holiday Project\final_project\src\pages\Account.jsx">
+    <file name="Account.jsx" path="C:\Users\zenitsu\Documents\GitHub\final_project\src\pages\Account.jsx">
       <metrics statements="117" coveredstatements="55" conditionals="65" coveredconditionals="19" methods="31" coveredmethods="9"/>
       <line num="14" count="1" type="stmt"/>
       <line num="15" count="2" type="stmt"/>
