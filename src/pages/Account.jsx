@@ -76,6 +76,8 @@ const Account = () => {
                     country: country,
                     city: city
                 }).then((res) => {
+                    setCookieValue('token',res.data.accessToken)
+                    window.location.reload()
                     if (res.status == 'OK') {
                         setAlertAction(true)
                         setAlertStatus(true)
@@ -98,6 +100,8 @@ const Account = () => {
                         city: city
                     }).then((res) => {
                         if (res.status == 'OK') {
+                            setCookieValue('token',res.data.accessToken)
+                            window.location.reload()
                             setAlertAction(true)
                             setAlertStatus(true)
                         } else {
