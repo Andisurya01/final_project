@@ -147,42 +147,42 @@ const VerifikasiOtp = () => {
       <TitleReset titleMessage={"Masukan OTP"} />
       <div className="pt-8 ml-4">
         <p className="text-MINI">
-          ketik 6 digit kode yang dikirimkan ke <b>co****@gmail.com</b>
+          ketik 6 digit kode yang dikirimkan ke <b>{email}</b>
         </p>
       </div>
       <div className="ml-10 mt-6">
         <input
-          type="number"
+          type="text"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pr-2 pl-2 pb-1 pt-1 text-xs"
           ref={otpOne}
           maxLength="1"
         />
         <input
-          type="number"
+          type="text"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpTwo}
           maxLength="1"
         />
         <input
-          type="number"
+          type="text"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpThree}
           maxLength="1"
         />
         <input
-          type="number"
+          type="text"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpFor}
           maxLength="1"
         />
         <input
-          type="number"
+          type="text"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpFive}
           maxLength="1"
         />
         <input
-          type="number"
+          type="text"
           className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpNine}
           maxLength="1"
@@ -203,7 +203,7 @@ const VerifikasiOtp = () => {
         <AllertReset type="warning" message={"maaf kode OTP salah"} />
       </div>
       <div className={`${successGreen} ml-10 mt-20 `}>
-        <AllertReset type="success" message={"Reset password berhasil"} />
+        <AllertReset type="success" message={"Pendaftaran aKun berhasil"} />
       </div>
     </section>
   );
