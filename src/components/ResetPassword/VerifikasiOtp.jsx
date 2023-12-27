@@ -153,43 +153,43 @@ const VerifikasiOtp = () => {
       <div className="ml-10 mt-6">
         <input
           type="text"
-          className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pr-2 pl-2 pb-1 pt-1 text-xs"
+          className="w-12 h-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pr-2 pl-2 pb-1 pt-1 text-xs"
           ref={otpOne}
           maxLength="1"
         />
         <input
           type="text"
-          className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
+          className="w-12 h-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpTwo}
           maxLength="1"
         />
         <input
           type="text"
-          className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
+          className="w-12 h-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpThree}
           maxLength="1"
         />
         <input
           type="text"
-          className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
+          className="w-12 h-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpFor}
           maxLength="1"
         />
         <input
           type="text"
-          className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
+          className="w-12 h-12 border-2 border-DARKBLUE05 outline-none rounded-md mr-2 pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpFive}
           maxLength="1"
         />
         <input
           type="text"
-          className="w-12 border-2 border-DARKBLUE05 outline-none rounded-md pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
+          className="w-12 h-12 border-2 border-DARKBLUE05 outline-none rounded-md pl-1.5 pr-1.5 pb-1 pt-1 text-xs"
           ref={otpNine}
           maxLength="1"
         />
       </div>
-      <div className="text-xs mt-7">
-        <strong className={`${sendRepeat} text-WARNING ml-24 `} onClick={send}>
+      <div className="text-xs mt-7 ml-32">
+        <strong className={`${sendRepeat} text-WARNING ml-12 `} onClick={send}>
           kirim ulang
         </strong>
         <p className={`${sendSeconds} ml-12`}>
