@@ -1,126 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1703594765457" clover="3.2.0">
-  <project timestamp="1703594765458" name="All files">
-    <metrics statements="117" coveredstatements="55" conditionals="65" coveredconditionals="19" methods="31" coveredmethods="9" elements="213" coveredelements="83" complexity="0" loc="117" ncloc="117" packages="1" files="1" classes="1"/>
-    <file name="Account.jsx" path="D:\Holiday Project\final_project\src\pages\Account.jsx">
-      <metrics statements="117" coveredstatements="55" conditionals="65" coveredconditionals="19" methods="31" coveredmethods="9"/>
-      <line num="14" count="1" type="stmt"/>
-      <line num="15" count="3" type="stmt"/>
-      <line num="17" count="3" type="stmt"/>
-      <line num="18" count="2" type="stmt"/>
-      <line num="19" count="2" type="stmt"/>
-      <line num="20" count="2" type="stmt"/>
-      <line num="21" count="2" type="stmt"/>
-      <line num="22" count="2" type="stmt"/>
-      <line num="23" count="2" type="stmt"/>
-      <line num="24" count="2" type="stmt"/>
-      <line num="25" count="2" type="stmt"/>
-      <line num="27" count="2" type="stmt"/>
-      <line num="28" count="2" type="stmt"/>
-      <line num="29" count="2" type="stmt"/>
-      <line num="31" count="2" type="stmt"/>
-      <line num="33" count="2" type="stmt"/>
-      <line num="34" count="2" type="stmt"/>
-      <line num="35" count="2" type="stmt"/>
-      <line num="36" count="2" type="stmt"/>
-      <line num="37" count="2" type="stmt"/>
-      <line num="41" count="2" type="stmt"/>
-      <line num="42" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="43" count="2" type="stmt"/>
-      <line num="44" count="2" type="stmt"/>
-      <line num="47" count="0" type="stmt"/>
-      <line num="52" count="2" type="stmt"/>
-      <line num="53" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="54" count="2" type="stmt"/>
-      <line num="55" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="56" count="2" type="stmt"/>
-      <line num="60" count="0" type="stmt"/>
-      <line num="64" count="2" type="stmt"/>
-      <line num="65" count="2" type="stmt"/>
-      <line num="66" count="2" type="stmt"/>
-      <line num="67" count="2" type="stmt"/>
-      <line num="68" count="2" type="stmt"/>
-      <line num="69" count="2" type="stmt"/>
-      <line num="71" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="72" count="2" type="cond" truecount="2" falsecount="5"/>
-      <line num="73" count="0" type="stmt"/>
-      <line num="80" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="81" count="0" type="stmt"/>
-      <line num="82" count="0" type="stmt"/>
-      <line num="84" count="0" type="stmt"/>
-      <line num="85" count="0" type="stmt"/>
-      <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="91" count="0" type="cond" truecount="0" falsecount="8"/>
-      <line num="92" count="0" type="stmt"/>
-      <line num="94" count="0" type="stmt"/>
-      <line num="102" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="103" count="0" type="stmt"/>
-      <line num="104" count="0" type="stmt"/>
-      <line num="106" count="0" type="stmt"/>
-      <line num="107" count="0" type="stmt"/>
-      <line num="112" count="0" type="stmt"/>
-      <line num="113" count="0" type="stmt"/>
-      <line num="118" count="2" type="stmt"/>
-      <line num="119" count="0" type="stmt"/>
-      <line num="120" count="0" type="stmt"/>
-      <line num="122" count="0" type="stmt"/>
-      <line num="123" count="0" type="stmt"/>
-      <line num="124" count="0" type="stmt"/>
-      <line num="126" count="0" type="stmt"/>
-      <line num="127" count="0" type="stmt"/>
-      <line num="128" count="0" type="stmt"/>
-      <line num="132" count="0" type="stmt"/>
-      <line num="136" count="2" type="stmt"/>
-      <line num="137" count="2" type="stmt"/>
-      <line num="138" count="2" type="stmt"/>
-      <line num="139" count="2" type="stmt"/>
-      <line num="140" count="2" type="stmt"/>
-      <line num="142" count="2" type="stmt"/>
-      <line num="143" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="144" count="0" type="stmt"/>
-      <line num="148" count="0" type="cond" truecount="0" falsecount="2"/>
-      <line num="149" count="0" type="stmt"/>
-      <line num="150" count="0" type="stmt"/>
-      <line num="152" count="0" type="stmt"/>
-      <line num="153" count="0" type="stmt"/>
-      <line num="157" count="0" type="stmt"/>
-      <line num="158" count="0" type="stmt"/>
-      <line num="164" count="2" type="stmt"/>
-      <line num="165" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="166" count="0" type="stmt"/>
-      <line num="167" count="0" type="stmt"/>
-      <line num="172" count="2" type="stmt"/>
-      <line num="174" count="0" type="stmt"/>
-      <line num="176" count="0" type="stmt"/>
-      <line num="178" count="0" type="stmt"/>
-      <line num="181" count="0" type="stmt"/>
-      <line num="185" count="2" type="stmt"/>
-      <line num="186" count="0" type="stmt"/>
-      <line num="187" count="0" type="stmt"/>
-      <line num="188" count="0" type="stmt"/>
-      <line num="191" count="2" type="stmt"/>
-      <line num="192" count="0" type="stmt"/>
-      <line num="193" count="0" type="stmt"/>
-      <line num="194" count="0" type="stmt"/>
-      <line num="197" count="2" type="stmt"/>
-      <line num="198" count="0" type="stmt"/>
-      <line num="199" count="0" type="stmt"/>
-      <line num="200" count="0" type="stmt"/>
-      <line num="203" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="204" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="205" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="207" count="2" type="stmt"/>
-      <line num="208" count="0" type="stmt"/>
-      <line num="209" count="0" type="stmt"/>
-      <line num="212" count="2" type="stmt"/>
-      <line num="219" count="0" type="stmt"/>
-      <line num="285" count="0" type="stmt"/>
-      <line num="335" count="0" type="stmt"/>
-      <line num="342" count="0" type="stmt"/>
-      <line num="349" count="0" type="stmt"/>
-      <line num="353" count="0" type="stmt"/>
-      <line num="366" count="0" type="stmt"/>
-      <line num="377" count="0" type="stmt"/>
-    </file>
+<coverage generated="1703671799933" clover="3.2.0">
+  <project timestamp="1703671799933" name="All files">
+    <metrics statements="145" coveredstatements="76" conditionals="67" coveredconditionals="20" methods="42" coveredmethods="18" elements="254" coveredelements="114" complexity="0" loc="145" ncloc="145" packages="6" files="7" classes="7"/>
+    <package name="src.api">
+      <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="setCookie.js" path="H:\Video Recording\Binar materi\New folder\final_project\src\api\setCookie.js">
+        <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.Button">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="Button.jsx" path="H:\Video Recording\Binar materi\New folder\final_project\src\components\Button\Button.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.LoginAndRegister">
+      <metrics statements="21" coveredstatements="20" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="7"/>
+      <file name="RegisterForm.jsx" path="H:\Video Recording\Binar materi\New folder\final_project\src\components\LoginAndRegister\RegisterForm.jsx">
+        <metrics statements="21" coveredstatements="20" conditionals="2" coveredconditionals="1" methods="7" coveredmethods="7"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="12" count="13" type="stmt"/>
+        <line num="13" count="13" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="26" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="39" count="13" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="75" count="2" type="stmt"/>
+        <line num="87" count="2" type="stmt"/>
+        <line num="100" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.lib">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.js" path="H:\Video Recording\Binar materi\New folder\final_project\src\lib\constants.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.pages">
+      <metrics statements="117" coveredstatements="51" conditionals="65" coveredconditionals="19" methods="33" coveredmethods="10"/>
+      <file name="Account.jsx" path="H:\Video Recording\Binar materi\New folder\final_project\src\pages\Account.jsx">
+        <metrics statements="115" coveredstatements="49" conditionals="65" coveredconditionals="19" methods="32" coveredmethods="9"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="3" type="stmt"/>
+        <line num="18" count="3" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="52" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="54" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="70" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="71" count="1" type="cond" truecount="2" falsecount="5"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="90" count="0" type="cond" truecount="0" falsecount="8"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="100" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="104" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="112" count="0" type="stmt"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="118" count="2" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
+        <line num="124" count="0" type="stmt"/>
+        <line num="126" count="0" type="stmt"/>
+        <line num="127" count="0" type="stmt"/>
+        <line num="128" count="0" type="stmt"/>
+        <line num="129" count="0" type="stmt"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="137" count="2" type="stmt"/>
+        <line num="138" count="0" type="stmt"/>
+        <line num="139" count="0" type="stmt"/>
+        <line num="140" count="0" type="stmt"/>
+        <line num="142" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="147" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="148" count="0" type="stmt"/>
+        <line num="149" count="0" type="stmt"/>
+        <line num="151" count="0" type="stmt"/>
+        <line num="152" count="0" type="stmt"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="162" count="2" type="stmt"/>
+        <line num="163" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="164" count="0" type="stmt"/>
+        <line num="165" count="0" type="stmt"/>
+        <line num="170" count="2" type="stmt"/>
+        <line num="172" count="0" type="stmt"/>
+        <line num="174" count="0" type="stmt"/>
+        <line num="176" count="0" type="stmt"/>
+        <line num="179" count="0" type="stmt"/>
+        <line num="183" count="2" type="stmt"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="185" count="0" type="stmt"/>
+        <line num="186" count="0" type="stmt"/>
+        <line num="189" count="2" type="stmt"/>
+        <line num="190" count="0" type="stmt"/>
+        <line num="191" count="0" type="stmt"/>
+        <line num="192" count="0" type="stmt"/>
+        <line num="195" count="2" type="stmt"/>
+        <line num="196" count="0" type="stmt"/>
+        <line num="197" count="0" type="stmt"/>
+        <line num="198" count="0" type="stmt"/>
+        <line num="201" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="202" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="203" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="205" count="2" type="stmt"/>
+        <line num="206" count="0" type="stmt"/>
+        <line num="207" count="0" type="stmt"/>
+        <line num="210" count="2" type="stmt"/>
+        <line num="217" count="0" type="stmt"/>
+        <line num="283" count="0" type="stmt"/>
+        <line num="318" count="1" type="stmt"/>
+        <line num="333" count="0" type="stmt"/>
+        <line num="340" count="0" type="stmt"/>
+        <line num="347" count="0" type="stmt"/>
+        <line num="351" count="0" type="stmt"/>
+        <line num="364" count="0" type="stmt"/>
+        <line num="375" count="0" type="stmt"/>
+      </file>
+      <file name="Register.jsx" path="H:\Video Recording\Binar materi\New folder\final_project\src\pages\Register.jsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="test">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="FileMock.js" path="H:\Video Recording\Binar materi\New folder\final_project\test\FileMock.js">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
