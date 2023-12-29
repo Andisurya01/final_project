@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 
 import { useNavigate } from "react-router-dom"
 import { resetId } from '../store/moduleCourses';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getCourses } from "../api/servicesApi";
 import { useDispatch } from 'react-redux';
 import { formatRupiah } from '../lib/rupiahFormat';
@@ -38,12 +38,13 @@ const Courses = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [openFilter, setOpenFilter] = useState(false);
     const token = getCookieValue("token")
+    const sideFilterRef = useRef()
 
     const handleOpen = () => setOpenFilter(!openFilter)
 
     useEffect(() => {
         getCoursesApi();
-        sideFilterFunction();
+        sideFilterValidationDOM();
     })
 
     const handleResetId = () => {
@@ -78,26 +79,31 @@ const Courses = () => {
         }
     }
 
+    const sideFilterValidationDOM = () => {
+        console.log()
+        if(sideFilterRef.current != null){
+            sideFilterFunction()
+        }
+    }
 
     const sideFilterFunction = () => {
-
         const filterList = [];
-        const delFilter = document.getElementById('deleteFilter');
+        const delFilter = sideFilterRef.current.querySelector('#deleteFilter');
         const checkList = ['uiux', 'pm', 'webdev', 'android', 'ios', 'datasc', 'network', 'ai', 'cloud', 'iot', 'gamedev', 'cyber', 'semua', 'beginner', 'intermediate', 'advanced'];
         const fieldClass = document.getElementById('fieldClass');
-        const filterButton = document.getElementById('filterButton');
+        const filterButton = sideFilterRef.current.querySelector(`#filterButton`);
 
         checkList.map((data) => {
-            const checkBoxValue = document.getElementById(data).value;
+            const checkBoxValue = sideFilterRef.current.querySelector(`#${data}`).value;
 
-            if (document.getElementById(data).checked) {
+            if (sideFilterRef.current.querySelector(`#${data}`).checked) {
                 if (filterList.indexOf(checkBoxValue) <= -1) {
                     filterList.push(checkBoxValue)
                 }
             }
 
-            document.getElementById(data).onclick = () => {
-                if (document.getElementById(data).checked) {
+            sideFilterRef.current.querySelector(`#${data}`).onclick = () => {
+                if (sideFilterRef.current.querySelector(`#${data}`).checked) {
                     if (filterList.indexOf(checkBoxValue) <= -1) {
                         filterList.push(checkBoxValue)
                     }
@@ -111,10 +117,10 @@ const Courses = () => {
 
         delFilter.onclick = () => {
             checkList.map((data) => {
-                if (document.getElementById(data).checked) {
-                    document.getElementById(data).addEventListener('click', function () {
+                if (sideFilterRef.current.querySelector(`#${data}`).checked) {
+                    sideFilterRef.current.querySelector(`#${data}`).addEventListener('click', function () {
                     })
-                    document.getElementById(data).click();
+                    sideFilterRef.current.querySelector(`#${data}`).click();
                 }
                 filterList.length = 0
                 setCourse(currentCourse)
@@ -140,6 +146,9 @@ const Courses = () => {
             setCourse(filteredDone)
         }
     }
+
+
+    
 
     const searchCourse = (event) => {
         event.target.value;
@@ -204,8 +213,8 @@ const Courses = () => {
                 <div className="lg:grid lg:place-content-center px-4 lg:px-0">
                     <div className="w-full lg:w-[1024px] pb-20">
                         <div className="flex gap-20">
-                            <div className='w-full lg:w-1/4 hidden lg:inline'>
-                                <SidebarFilter />
+                            <div ref={sideFilterRef} className='w-full lg:w-1/4 hidden lg:inline'>
+                                <SidebarFilter  />
                             </div>
                             <div className="w-full lg:w-3/4">
                                 <div className="mb-10 flex gap-4 justify-center items-center">
@@ -322,9 +331,9 @@ const Courses = () => {
                         <Icon icon="material-symbols:close" className="text-3xl" />
                     </button>
                 </div>
-                <DialogBody className="grid place-items-center text-black">
+                <DialogBody  ref={sideFilterRef}  className="grid place-items-center text-black">
                     <div className='h-[480px] overflow-y-scroll scrollbar scrollbar-thumb-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-2xl mb-10'>
-                        <SidebarFilter />
+                        <SidebarFilter  />
                     </div>
                 </DialogBody>
             </Dialog>

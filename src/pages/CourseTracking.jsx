@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import FilterPlanProgress from "../components/Filter/FilterPlanProgress";
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from 'react-redux';
 import AnimatedButton from '../components/Button/AnimatedButton';
 import SidebarFilter from "../components/Filter/SidebarFilter";
@@ -32,15 +32,16 @@ const CourseTracking = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [openFilter, setOpenFilter] = useState(false);
     const token = getCookieValue("token")
+    const sideFilterTrackRef = useRef()
 
     const handleOpen = () => setOpenFilter(!openFilter)
 
     useEffect(() => {
         getCurrentUserAPI();
         getCourseByOrder();
-        sideFilterFunction();
+        sideFilterValidationDOM()
     })
-
+    
     const handleLogin = () => {
         if (token === null) {
             navigate("/login")
@@ -74,25 +75,33 @@ const CourseTracking = () => {
         }
     }
 
+
+const sideFilterValidationDOM = () => {
+    console.log()
+    if(sideFilterTrackRef.current != null){
+        sideFilterFunction()
+    }
+}
+
 const sideFilterFunction = () => {
 
     const filterList = [];
-    const delFilter = document.getElementById('deleteFilter');
-    const checkList = ['uiux' , 'pm', 'webdev' , 'android' , 'ios', 'datasc' , 'network', 'ai', 'cloud', 'iot', 'gamedev', 'cyber', 'semua', 'beginner', 'intermediate', 'advanced'];
+    const delFilter = sideFilterTrackRef.current.querySelector('#deleteFilter');
+    const checkList = ['uiux', 'pm', 'webdev', 'android', 'ios', 'datasc', 'network', 'ai', 'cloud', 'iot', 'gamedev', 'cyber', 'semua', 'beginner', 'intermediate', 'advanced'];
     const fieldClass = document.getElementById('fieldClass');
-    const filterButton = document.getElementById('filterButton');
+    const filterButton = sideFilterTrackRef.current.querySelector(`#filterButton`);
 
     checkList.map((data) => {
-        const checkBoxValue = document.getElementById(data).value;
+        const checkBoxValue = sideFilterTrackRef.current.querySelector(`#${data}`).value;
 
-        if (document.getElementById(data).checked) {
+        if (sideFilterTrackRef.current.querySelector(`#${data}`).checked) {
             if (filterList.indexOf(checkBoxValue) <= -1) {
                 filterList.push(checkBoxValue)
             }
         }
 
-        document.getElementById(data).onclick = () => {
-            if (document.getElementById(data).checked) {
+        sideFilterTrackRef.current.querySelector(`#${data}`).onclick = () => {
+            if (sideFilterTrackRef.current.querySelector(`#${data}`).checked) {
                 if (filterList.indexOf(checkBoxValue) <= -1) {
                     filterList.push(checkBoxValue)
                 }
@@ -106,10 +115,10 @@ const sideFilterFunction = () => {
 
     delFilter.onclick = () => {
         checkList.map((data) => {
-            if (document.getElementById(data).checked) {
-                document.getElementById(data).addEventListener('click', function () {
+            if (sideFilterTrackRef.current.querySelector(`#${data}`).checked) {
+                sideFilterTrackRef.current.querySelector(`#${data}`).addEventListener('click', function () {
                 })
-                document.getElementById(data).click();
+                sideFilterTrackRef.current.querySelector(`#${data}`).click();
             }
             filterList.length = 0
             setCourseTrack(currentCourseTrack)
@@ -117,18 +126,16 @@ const sideFilterFunction = () => {
     }
 
     filterButton.onclick = () => {
-
         if (fieldClass.value != '') {
             filterList.push(fieldClass.value)
         }
 
         const filteredDone = currentCourseTrack.filter((data) => {
-            const initiateData = `${data.course.category.title + ' ' + data.course.level.toLowerCase() + ' ' + data.course.title + ' ' + data.course.description}`
+            const initiateData = `${data.course.category.title + ' ' + data.course.level.toLowerCase() + ' ' + data.title + ' ' + data.description}`
             const filterChecked = filterList.map((value) => {
                 return initiateData.includes(value);
             })
 
-        
             if (filterChecked.includes(true)) {
                 return data;
             }
@@ -200,9 +207,9 @@ return (
 
             <div className="lg:grid lg:place-content-center px-4 lg:px-0">
                 <div className="w-full lg:w-[1024px] pb-20">
-                    <div className="flex gap-20">
-                        <div className='w-full lg:w-1/4 hidden lg:inline'>
-                            <SidebarFilter/>
+                    <div  className="flex gap-20">
+                        <div ref={sideFilterTrackRef} className='w-full lg:w-1/4 hidden lg:inline'>
+                            <SidebarFilter />
                         </div>
 
                         <div className="w-full lg:w-3/4">
@@ -311,18 +318,19 @@ return (
             </div>
         </div>
         <Footer />
-        <Dialog open={openFilter} handler={handleOpen}>
+        <Dialog  open={openFilter} handler={handleOpen}>
                 <div className="flex justify-end">
                     <button className="px-2 py-2" onClick={handleOpen}>
                         <Icon icon="material-symbols:close" className="text-3xl" />
                     </button>
                 </div>
-                <DialogBody className="grid place-items-center text-black">
+                <DialogBody  ref={sideFilterTrackRef} className="grid place-items-center text-black">
                     <div className='h-[480px] overflow-y-scroll scrollbar scrollbar-thumb-gray-100 scrollbar-w-2 scrollbar-thumb-rounded-2xl mb-10'>
                         <SidebarFilter/>
                     </div>
                 </DialogBody>
-            </Dialog>
+        </Dialog>
+        
     </section>
     )
 }
