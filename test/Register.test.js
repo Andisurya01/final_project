@@ -29,7 +29,7 @@ describe("Register Component", () => {
     jest.clearAllMocks();
   });
 
-  it("renders logos", async () => {
+  it("renders RegisterForm component", async () => {
     await act(async () => {
       render(
         <BrowserRouter>
@@ -41,22 +41,23 @@ describe("Register Component", () => {
     await waitFor(() => {
       expect(screen.getByTestId("logo-1")).toBeInTheDocument();
       expect(screen.getByTestId("logo-2")).toBeInTheDocument();
-    });
-  });
-
-  it("renders RegisterForm component", async () => {
-    await act(async () => {
-      render(
-        <BrowserRouter>
-          <Register />
-        </BrowserRouter>
-      );
-    });
-
-    await waitFor(() => {
       expect(screen.getByTestId("register-form")).toBeInTheDocument();
     });
   });
+
+  // it("renders logos", async () => {
+  //   await act(async () => {
+  //     render(
+  //       <BrowserRouter>
+  //         <Register />
+  //       </BrowserRouter>
+  //     );
+  //   });
+
+  //   await waitFor(() => {
+  //     expect(screen.getByTestId("register-form")).toBeInTheDocument();
+  //   });
+  // });
 
   it("logs an error message on registration failure", async () => {
     axios.post.mockRejectedValue({ response: { status: 500 } });
@@ -83,7 +84,7 @@ describe("Register Component", () => {
         target: { value: "securepassword" },
       });
 
-      fireEvent.click(screen.getByTestId("buttonRegister"));
+      fireEvent.click(screen.getByTestId("button-register"));
     });
 
     await waitFor(() => {
@@ -116,7 +117,7 @@ describe("Register Component", () => {
         target: { value: "securepassword" },
       });
 
-      fireEvent.click(screen.getByTestId("buttonRegister"));
+      fireEvent.click(screen.getByTestId("button-register"));
     });
 
     expect(axios.post).toHaveBeenCalledWith(
