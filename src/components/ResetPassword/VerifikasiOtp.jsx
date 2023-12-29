@@ -20,8 +20,11 @@ const VerifikasiOtp = () => {
   const [successGreen, setSuccessGreen] = useState("hidden");
   const navigate = useNavigate();
   const location = useLocation();
+  const emailUser = localStorage.getItem('email')
 
   useEffect(() => {
+
+
     const handleInput = (ref, nextRef) => {
       if (ref.current.value.length >= 1) {
         nextRef.current.focus();
@@ -132,9 +135,12 @@ const VerifikasiOtp = () => {
           },
         }
       );
-
+      
       setSuccessGreen("block");
       setWarningRed("hidden");
+
+      setTimeout(navigate('/login'), 5000);
+
     } else {
       navigate("/Register");
       setWarningRed("block");
@@ -147,7 +153,7 @@ const VerifikasiOtp = () => {
       <TitleReset titleMessage={"Masukan OTP"} />
       <div className="pt-8 ml-4">
         <p className="text-MINI">
-          ketik 6 digit kode yang dikirimkan ke <b>{email}</b>
+          ketik 6 digit kode yang dikirimkan ke <b>{emailUser}</b>
         </p>
       </div>
       <div className="ml-10 mt-6">
