@@ -1,5 +1,5 @@
-const BASH_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
-//const BASH_URL = "https://binar-project-production.up.railway.app";
+import { getBaseUrl } from "./utils";
+const BASH_URL = getBaseUrl();
 import axios from "axios";
 import getCookieValue from "./getCookie";
 const tokenCookie = getCookieValue("token");
