@@ -281,7 +281,7 @@ const CourseDetailUnlock = () => {
                         <div className="pt-2 pb-4">
                             <div className="flex justify-between mb-2">
                                 <p className="text-DARKBLUE05 font-bold text-sm">Chapter 1 - Pendahuluan</p>
-                                <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh1 / 60} Menit</p>
+                                <p className="text-DARKBLUE03 font-bold text-sm">{(totalTimeCh1 / 60).toFixed(1)} Menit</p>
                             </div>
                             { isLoading ? 
                             <div key={''} className="flex justify-between items-center my-2 cursor-pointer">
@@ -331,7 +331,7 @@ const CourseDetailUnlock = () => {
                         <div className="pt-2">
                             <div className="flex justify-between mb-2">
                                 <p className="text-DARKBLUE05 font-bold text-sm">Chapter 2 - Memulai Module</p>
-                                <p className="text-DARKBLUE03 font-bold text-sm">{totalTimeCh2 / 60} Menit</p>
+                                <p className="text-DARKBLUE03 font-bold text-sm">{(totalTimeCh2 / 60).toFixed(1)} Menit</p>
                             </div>
                             { isLoading ? 
                             <div key={''} className="flex justify-between items-center my-2 cursor-pointer">
