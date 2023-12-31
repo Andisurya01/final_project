@@ -288,7 +288,7 @@ return (
 
                                         return (
                                             <button key={data.id} onClick={() => {
-                                                navigate("/courses/detail/unlock")
+                                                navigate(`/courses/detail/unlock/${data.course.title.split(' ').join('-').toLowerCase()}`)
                                                 dispatch(updateId(data.course.id))
                                             }}>
                                                 <AnimatedButton>

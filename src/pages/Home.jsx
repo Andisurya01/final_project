@@ -270,7 +270,7 @@ const Home = () => {
                               dispatch(updateId(data.id));
                             }
                           } else {
-                            navigate("/courses/detail");
+                            navigate(`/courses/detail/${data.title.split(' ').join('-').toLowerCase()}`);
                             dispatch(updateId(data.id));
                           }
                         }}
@@ -326,7 +326,7 @@ const Home = () => {
                             dispatch(updateId(data.id));
                           }
                         } else {
-                          navigate("/courses/detail");
+                          navigate(`/courses/detail/${data.title.split(' ').join('-').toLowerCase()}`)
                           handleOpen();
                           dispatch(updateId(data.id));
                         }

@@ -274,7 +274,7 @@ const Courses = () => {
                                                         <div
                                                             key={item.id}
                                                             onClick={() => {
-                                                                navigate("/courses/detail")
+                                                                navigate(`/courses/detail/${item.title.split(' ').join('-').toLowerCase()}`)
                                                                 dispatch(updateId(item.id))
                                                             }}>
                                                             <AnimatedButton>

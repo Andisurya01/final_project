@@ -262,7 +262,7 @@ const Navbar = () => {
                                                             dispatch(updateId(data.id))
                                                         }
                                                     }else{
-                                                        navigate("/courses/detail")
+                                                        navigate(`/courses/detail/${data.title.split(' ').join('-')}`)
                                                         handleOpen()
                                                         dispatch(updateId(data.id))
                                                     }

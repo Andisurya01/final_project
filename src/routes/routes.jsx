@@ -39,11 +39,11 @@ const router = createBrowserRouter(
       <Route element={<Navbar />}>
         <Route path="/" element={<Home />} />
         <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/detail" element={<CourseDetail />} />
+        <Route path="/courses/detail/:courseTitle" element={<CourseDetail />} />
         <Route path="/courseTrackings" element={<CourseTracking />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment/success" element={<PaymentSuccess />} />
-        <Route path="/courses/detail/unlock" element={<CourseDetailUnlock />} />
+        <Route path="/courses/detail/unlock/:courseTitle" element={<CourseDetailUnlock />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/user" element={<Account />} />
       </Route>

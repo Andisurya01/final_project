@@ -1,10 +1,33 @@
 import Footer from "../components/Footer/Footer"
 import illustration from "../assets/img/illustration.png"
-
-import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getCourses } from "../api/servicesApi";
 
 const PaymentSuccess = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [course] = useState([])
+    const [courses , setCourses ] = useState([])
+    const id = useSelector((state) => state.module.id)
+
+    useEffect(()=>{
+        getCoursesApi();
+    })   
+
+    const getCoursesApi = () => {
+
+        if(course.length == 0){
+            getCourses().then((res) => {
+                if(res.data.status == 'OK'){
+                    const courseFiltered = res.data.data.filter( data => { return data.id === id})
+                    setCourses(courseFiltered)
+                }
+            })
+        }else{
+            return course;
+        }
+    }
 
     return (
         <section>
@@ -24,7 +47,7 @@ const PaymentSuccess = () => {
                         <p className="text-center">E-receipt telah dikirimkan ke email.</p>
                     </div>
                     <div className="text-center flex flex-col">
-                        <button onClick={() => navigate("/courses/detail/unlock")} className="bg-DARKBLUE05 rounded-full py-4 w-80 mb-4">
+                        <button onClick={() => navigate(`/courses/detail/unlock/${courses[0].title.split(' ').join('-').toLowerCase()}`)} className="bg-DARKBLUE05 rounded-full py-4 w-80 mb-4">
                             <p className="text-white font-medium text-center">Mulai Belajar</p>
                         </button>
                         <button onClick={() => navigate("/")}>
