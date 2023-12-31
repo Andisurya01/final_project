@@ -147,9 +147,6 @@ const Courses = () => {
         }
     }
 
-
-    
-
     const searchCourse = (event) => {
         event.target.value;
         const fieldClass = document.getElementById('fieldClass').value
@@ -274,7 +271,7 @@ const Courses = () => {
                                                         <div
                                                             key={item.id}
                                                             onClick={() => {
-                                                                navigate(`/courses/detail/${item.title.split(' ').join('-').toLowerCase()}`)
+                                                                navigate(`/courses/${item.title.split(' ').join('-').toLowerCase()}`)
                                                                 dispatch(updateId(item.id))
                                                             }}>
                                                             <AnimatedButton>

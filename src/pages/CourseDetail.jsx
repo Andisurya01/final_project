@@ -40,9 +40,9 @@ const CourseDetail = () => {
     const navigate = useNavigate()
     const token = getCookieValue("token")
 
-    useEffect(() => {
-        console.log('Module ID:', id);
-    }, [id]);
+    // useEffect(() => {
+    //     console.log('Module ID:', id);
+    // }, [id]);
 
     const handleLogin = () => {
         if (token === null) {
