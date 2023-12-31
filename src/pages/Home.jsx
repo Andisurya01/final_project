@@ -270,7 +270,7 @@ const Home = () => {
                               dispatch(updateId(data.id));
                             }
                           } else {
-                            navigate(`/courses/detail/${data.title.split(' ').join('-').toLowerCase()}`);
+                            navigate(`/courses/${data.title.split(' ').join('-').toLowerCase()}`);
                             dispatch(updateId(data.id));
                           }
                         }}
@@ -296,19 +296,19 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Dialog open={openModal} handler={handleOpen}>
+      <Dialog open={openModal} handler={handleOpen} className="min-w-[370px]">
         <div className="flex justify-end">
           <button className="px-2 py-2" onClick={handleOpen}>
             <Icon icon="material-symbols:close" className="text-3xl" />
           </button>
         </div>
-        <DialogBody className="grid place-items-center gap-4">
           <DialogHeader className="grid place-content-center">
             <Typography variant="h3" className="text-center text-black">
               Kelas {titleCategory}
             </Typography>
           </DialogHeader>
-          <div className=" h-[500px] w-[526px] overflow-y-scroll  flex flex-col items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2 scrollbar-thumb-rounded-2xl">
+          <DialogBody className="grid place-content-center gap-4" >
+          <div className="h-[400px] w-[360px] md:w-full gap-x-0 md:gap-x-6 overflow-y-scroll flex flex-wrap justify-center items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2 scrollbar-thumb-rounded-2xl">
             {courseCategory.map((data) => {
               return (
                 <div key={data.id} className="my-[20px]">
@@ -326,7 +326,7 @@ const Home = () => {
                             dispatch(updateId(data.id));
                           }
                         } else {
-                          navigate(`/courses/detail/${data.title.split(' ').join('-').toLowerCase()}`)
+                          navigate(`/courses/${data.title.split(' ').join('-').toLowerCase()}`)
                           handleOpen();
                           dispatch(updateId(data.id));
                         }
@@ -352,7 +352,7 @@ const Home = () => {
           </div>
         </DialogBody>
       </Dialog>
-      <Dialog
+      <Dialog className="min-w-[370px]"
         open={openModalPremium}
         handler={() => setOpenModalPremium(!openModalPremium)}
       >
@@ -372,7 +372,7 @@ const Home = () => {
             Kelas Premium
           </Typography>
         </DialogHeader>
-        <DialogBody className="grid place-items-center gap-4 text-black">
+        <DialogBody className="grid place-content-center gap-4 text-black">
           <Card
             picture={courseSelection.category?.image}
             course={courseSelection.category?.title}

@@ -123,7 +123,7 @@ const Navbar = () => {
             const courseFiltered = currentCourse.filter(( data) => {
                 return `${data.title + '' + data.category.title}`.toLowerCase().indexOf(fieldClass.toLowerCase()) > -1;
             })
-
+            
             setCourse(courseFiltered)
     }
 
@@ -174,7 +174,7 @@ const Navbar = () => {
                         }
                     </div>
                 </div>
-                <Drawer open={open} onClose={closeDrawer} placement="right" className='lg:hidden'>
+                <Drawer open={open} onClose={closeDrawer} placement="right" className='lg:hidden min-w-[200px]'>
                     <div className="mb-2 flex items-center justify-between p-4">
                         <h1 className='text-xl font-medium'>Menu</h1>
                         <Icon icon="ion:close" className='text-3xl cursor-pointer' onClick={closeDrawer} />
@@ -182,8 +182,8 @@ const Navbar = () => {
                     <div className="my-auto p-4">
                         <div className="bg-white border-2 w-full h-[62px] rounded-2xl">
                             <div className="py-2.5 px-3 flex gap-3">
-                                <input type="text" className="w-[190px] outline-none border-none" placeholder="Cari Kursus Terbaik.." />
-                                <button className="bg-DARKBLUE05 flex items-center justify-center w-[38px] h-[38px] rounded-lg">
+                                <input type="text" onClick={()=>{{handleOpen(); closeDrawer()}}} className="w-full outline-none border-none" placeholder="Cari Kursus Terbaik.." />
+                                <button className="bg-DARKBLUE05 flex items-center justify-center py-[8px] px-[8px] rounded-lg">
                                     <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
                                 </button>
                             </div>
@@ -224,17 +224,17 @@ const Navbar = () => {
             </nav>
             <main>
 
-            <Dialog open={openModal} handler={handleOpen}>
+            <Dialog open={openModal} handler={handleOpen} className="min-w-[370px]">
                 <div className="flex justify-end">
                     <button className="px-2 py-2" onClick={handleOpen}>
                         <Icon icon="material-symbols:close" className="text-3xl" />
                     </button>
                 </div>
                 <DialogBody className="grid place-items-center gap-4">
-                    <div className="bg-white ml-10 w-[526px] h-[62px] rounded-2xl shadow-lg">
-                        <div className="py-3 px-6 flex gap-8 ">
-                            <input id='searchClass' onChange={(event)=> {searchCourse(event)}} type="text" className="w-[424px] outline-none border-none " placeholder="Cari Kursus Terbaik.." />
-                            <button className="bg-DARKBLUE05 flex items-center justify-center w-[38px] h-[38px] rounded-lg">
+                    <div className="bg-white w-full xl:w-[670px] h-[62px] rounded-2xl shadow-lg">
+                        <div className="py-3 px-6 flex">
+                            <input id='searchClass' onChange={(event)=> {searchCourse(event)}} type="text" className="w-full outline-none border-none pr-5" placeholder="Cari Kursus Terbaik.." />
+                            <button className="bg-DARKBLUE05 flex items-center justify-center py-[8px] px-[8px] rounded-lg ms-auto">
                                 <Icon icon="bx:search-alt" color="white" className="w-6 h-6" />
                             </button>
                         </div>
@@ -242,7 +242,7 @@ const Navbar = () => {
                     
                     {/*  */}
 
-                    <div className=' h-[500px] w-[526px] overflow-y-scroll  flex flex-col items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2 scrollbar-thumb-rounded-2xl'>
+                    <div className='h-[480px] overflow-y-scroll flex flex-wrap gap-x-6 items-center justify-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2 scrollbar-thumb-rounded-2xl'>
                         {
                             course.map((data)=>{
                                 return(
@@ -262,7 +262,7 @@ const Navbar = () => {
                                                             dispatch(updateId(data.id))
                                                         }
                                                     }else{
-                                                        navigate(`/courses/detail/${data.title.split(' ').join('-')}`)
+                                                        navigate(`/courses/${item.title.split(' ').join('-').toLowerCase()}`)
                                                         handleOpen()
                                                         dispatch(updateId(data.id))
                                                     }
