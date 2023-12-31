@@ -107,7 +107,7 @@ const CourseDetail = () => {
                                 author={course.authorBy}
                                 level={course.level}
                                 module={totalModule + " Module"}
-                                time={totalTime / 60 + " Minute"}
+                                time={(totalTime / 60).toFixed(1) + " Minute"}
                                 tele={course.telegram}/>
                         </div>
                     </div>
