@@ -224,7 +224,7 @@ const Navbar = () => {
             </nav>
             <main>
 
-            <Dialog open={openModal} handler={handleOpen} className="min-w-[370px]">
+            <Dialog open={openModal} handler={handleOpen} className="min-w-[380px]">
                 <div className="flex justify-end">
                     <button className="px-2 py-2" onClick={handleOpen}>
                         <Icon icon="material-symbols:close" className="text-3xl" />

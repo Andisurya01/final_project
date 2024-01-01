@@ -6,18 +6,7 @@ import Frame from "../components/PhotoFrame/Frame";
 import FilterCourseHome from "../components/Filter/FilterCourseHome";
 import Card from "../components/CourseCard/Card";
 import Footer from "../components/Footer/Footer";
-
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { consumeCategoriesApi } from "../api/category";
-import { getCourses } from "../api/servicesApi";
-import { formatRupiah } from "../lib/rupiahFormat";
 import AnimatedButton from "../components/Button/AnimatedButton";
-import Skeleton from "react-loading-skeleton";
-import getCookieValue from "../api/getCookie";
-import { useDispatch } from "react-redux";
-import { updateId } from "../store/moduleCourses";
-
 import {
   Dialog,
   DialogHeader,
@@ -25,12 +14,21 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { consumeCategoriesApi } from "../api/category";
+import { getCourses } from "../api/servicesApi";
+import { formatRupiah } from "../lib/rupiahFormat";
+import Skeleton from "react-loading-skeleton";
+import getCookieValue from "../api/getCookie";
+import { useDispatch } from "react-redux";
+import { updateId } from "../store/moduleCourses";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const token = getCookieValue("token");
+
   const [categories, setCategories] = useState([]);
   const [course, setCourse] = useState([]);
   const [currentCourse, setCurrentCourse] = useState([]);
@@ -55,6 +53,7 @@ const Home = () => {
     setOpenCategory(!openCategory);
   };
 
+  // y scroll
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollX, setScrollX] = useState(0);
@@ -148,34 +147,27 @@ const Home = () => {
               <p className="text-xl font-bold">Kategori Belajar</p>
               <div className="flex justify-center items-center gap-1">
                 <button
-                  onClick={handleToggleCategory}
-                  className="text-DARKBLUE05 text-sm font-bold"
-                >
+                onClick={handleToggleCategory}
+                className="text-DARKBLUE05 text-sm font-bold">
                   Lihat Semua
                 </button>
                 <Icon
                   icon="mingcute:down-line"
-                  className="text-DARKBLUE05 text-xl"
-                />
+                  className="text-DARKBLUE05 text-xl"/>
               </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-5 justify-between">
-              {isLoading
-                ? Array.from({ length: 6 }, (_, index) => (
+              {isLoading ? Array.from({ length: 6 }, (_, index) => (
                     <Skeleton key={index + 1} height={"100px"} width={140} />
-                  ))
-                : categories
-                    .map((data) => (
-                      <button
-                        key={data.id}
-                        onClick={() => categoryFilterCourse(data.title)}
-                      >
-                        <AnimatedButton>
-                          <Frame picture={data.image} title={data.title} />
-                        </AnimatedButton>
-                      </button>
-                    ))
-                    .slice(0, openCategory ? categories.length : 6)}
+                  )) : categories.map((data) => (
+                    <button
+                    key={data.id}
+                    onClick={() => categoryFilterCourse(data.title)}>
+                      <AnimatedButton>
+                        <Frame picture={data.image} title={data.title} />
+                      </AnimatedButton>
+                    </button>
+                  )).slice(0, openCategory ? categories.length : 6)}
             </div>
           </div>
         </div>
@@ -186,21 +178,17 @@ const Home = () => {
             <div className="pb-4 flex justify-between">
               <p className="text-xl font-bold">Kursus Populer</p>
               <button
-                onClick={() => navigate("/courses")}
-                className="text-DARKBLUE05 text-sm font-bold"
-              >
+              onClick={() => navigate("/courses")}
+              className="text-DARKBLUE05 text-sm font-bold">
                 Lihat Semua
               </button>
             </div>
-
-            <div
-              id="scrollContainer"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              className="w-[340px] md:w-[700px] lg:w-full mb-5 gap-2 flex justify-between overflow-x-auto scrollbar-hide"
-            >
+            <div id="scrollContainer"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            className="w-[340px] md:w-[700px] lg:w-full mb-5 gap-2 flex justify-between overflow-x-auto scrollbar-hide">
               <button
                 onClick={() => {
                   const popularCourse = currentCourse.filter((data) => {
@@ -212,13 +200,11 @@ const Home = () => {
                   );
                   setCourse(popularCourses);
                   handleButtonClick("All");
-                }}
-              >
+                }}>
                 <FilterCourseHome
                   title={"All"}
                   activeButton={activeButton}
-                  setActiveButton={handleButtonClick}
-                />
+                  setActiveButton={handleButtonClick}/>
               </button>
               {categories.map((data) => {
                 return (
@@ -227,34 +213,33 @@ const Home = () => {
                       filterCategories(data.title),
                         handleButtonClick(data.title);
                     }}
-                    key={data.id}
-                  >
+                    key={data.id}>
                     <FilterCourseHome
                       title={data.title}
                       activeButton={activeButton}
-                      setActiveButton={handleButtonClick}
-                    />
+                      setActiveButton={handleButtonClick}/>
                   </button>
                 );
-              })}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-between mb-10">
-              {isLoading ? (
-                <>
-                  <div>
-                    <Skeleton height={"100px"} width={"323px"} />
-                    <Skeleton count={3} />
-                  </div>
-                  <div>
-                    <Skeleton height={"100px"} width={"323px"} />
-                    <Skeleton count={3} />
-                  </div>
-                  <div>
-                    <Skeleton height={"100px"} width={"323px"} />
-                    <Skeleton count={3} />
-                  </div>
-                </>
+              }
+            )
+          }
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-between mb-10">
+            {isLoading ? (
+              <>
+                <div>
+                  <Skeleton height={"100px"} width={"323px"} />
+                  <Skeleton count={3} />
+                </div>
+                <div>
+                  <Skeleton height={"100px"} width={"323px"} />
+                  <Skeleton count={3} />
+                </div>
+                <div>
+                  <Skeleton height={"100px"} width={"323px"} />
+                  <Skeleton count={3} />
+                </div>
+              </>
               ) : (
                 course.map((data) => {
                   return (
@@ -296,7 +281,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Dialog open={openModal} handler={handleOpen} className="min-w-[370px]">
+      <Dialog open={openModal} handler={handleOpen} className="min-w-[380px]">
         <div className="flex justify-end">
           <button className="px-2 py-2" onClick={handleOpen}>
             <Icon icon="material-symbols:close" className="text-3xl" />
@@ -330,29 +315,30 @@ const Home = () => {
                           handleOpen();
                           dispatch(updateId(data.id));
                         }
-                      }}
-                      picture={data.image}
-                      course={data.category.title}
-                      rating={data.rating}
-                      topic={data.title}
-                      author={data.authorBy}
-                      level={data.level}
-                      module={`${data.module.length} Module`}
-                      time={`${
-                        data.module.reduce((accumulator, currentValue) => {
-                          return accumulator + currentValue.time;
-                        }, 0) / 60
-                      } Menit`}
-                      price={formatRupiah(data.price)}
-                    />
+                      }
+                    }
+                    picture={data.image}
+                    course={data.category.title}
+                    rating={data.rating}
+                    topic={data.title}
+                    author={data.authorBy}
+                    level={data.level}
+                    module={`${data.module.length} Module`}
+                    time={`${
+                      data.module.reduce((accumulator, currentValue) => {
+                        return accumulator + currentValue.time;
+                      }, 0) / 60
+                    } Menit`}
+                    price={formatRupiah(data.price)}/>
                   </AnimatedButton>
                 </div>
               );
-            })}
+            })
+          }
           </div>
         </DialogBody>
       </Dialog>
-      <Dialog className="min-w-[370px]"
+      <Dialog className="min-w-[380px]"
         open={openModalPremium}
         handler={() => setOpenModalPremium(!openModalPremium)}
       >
