@@ -47,7 +47,7 @@ const PaymentSuccess = () => {
                         <p className="text-center">E-receipt telah dikirimkan ke email.</p>
                     </div>
                     <div className="text-center flex flex-col">
-                        <button onClick={() => navigate(`/courses/${courses[0].title.split(' ').join('-').toLowerCase()}`)} className="bg-DARKBLUE05 rounded-full py-4 w-80 mb-4">
+                        <button onClick={() => navigate(`/courses/unlock/${courses[0].title.split(' ').join('-').toLowerCase()}`)} className="bg-DARKBLUE05 rounded-full py-4 w-80 mb-4">
                             <p className="text-white font-medium text-center">Mulai Belajar</p>
                         </button>
                         <button onClick={() => navigate("/")}>

@@ -43,7 +43,7 @@ const router = createBrowserRouter(
         <Route path="/courseTrackings" element={<CourseTracking />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/payment/success" element={<PaymentSuccess />} />
-        <Route path="/courses/:courseTitle" element={<CourseDetailUnlock />} />
+        <Route path="/courses/unlock/:courseTitle" element={<CourseDetailUnlock />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/user" element={<Account />} />
       </Route>
