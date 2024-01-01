@@ -7,6 +7,7 @@ import { consumeUserApi } from '../api/user';
 const Notification = () => {
     const [notification, setNotification] = useState([])
     const [user, setUser] = useState("")
+    
     useEffect(() => {
         getNotifications()
             .then((res) => {
@@ -64,9 +65,6 @@ const Notification = () => {
                                     <Icon icon="ph:arrow-left-bold" className="text-xl text-DARKBLUE05" />
                                     <p className="font-bold text-DARKBLUE05">Kembali ke Beranda</p>
                                 </button>
-                                <button onClick={()=>handleViewed()}>
-                                    <p className='font-bold text-DARKBLUE05'>See All</p>
-                                </button>
                             </div>
                             <div className='flex justify-center'>
                                 <div className='w-full md:w-[900px] bg-DARKBLUE05 flex justify-center py-4 rounded-t-2xl'>
@@ -80,8 +78,13 @@ const Notification = () => {
                     <div className="w-full lg:w-[1024px]">
                         <div>
                             <div className='flex justify-center'>
-                                <div className='w-full md:w-[900px] border border-DARKBLUE05 rounded-b-2xl flex justify-center'>
-                                    <div className='w-full px-2 lg:px-0 md:w-[700px]'>
+                                <div className='w-full px-3 md:w-[900px] border border-DARKBLUE05 rounded-b-2xl flex flex-col justify-center'>
+                                    <div className='ms-auto'>
+                                        <button className='pt-6' onClick={()=>handleViewed()}>
+                                            <p className='text-sm text-DARKGREY'>Tandai Sudah Dibaca</p>
+                                        </button>
+                                    </div>
+                                    <div>
                                         {notification.map((item) => {
                                             return (
                                                 <div key={item.id} className='py-4 cursor-pointer' 
