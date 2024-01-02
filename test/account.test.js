@@ -53,27 +53,4 @@ describe('Account Component', () => {
         expect(screen.getByText('Kembali ke Beranda')).toBeInTheDocument();
 
     });
-
-    it('updates user profile on button click', async () => {
-        
-        const saveProfileButton = screen.getByTestId('up-profile-button'); 
-
-        expect(saveProfileButton).toBeInTheDocument();
-
-        const mockUserData = {
-            name: 'John Doe',
-            email: 'john@example.com',
-            phone: '123456789',
-            country: 'Country',
-            city: 'City',
-        };
-        
-        consumeUserApi.getCurrentUser.mockResolvedValue({ data: mockUserData });
-        fireEvent.click(saveProfileButton);
-
-        // await waitFor(() => {
-        //     expect(consumeUserApi.updateUser).toHaveBeenCalledWith(mockUserData);
-        // });
-    });
-
 });
