@@ -31,7 +31,7 @@ const CourseTitle = ({course, rating, topic, author, level, module, time , tele 
                 </div>
             </div>
             <AnimatedButton>
-                <a href={tele}>
+                <a target="_blank" href={tele}>
                     <div className="bg-SUCCESS text-white flex justify-center items-center px-4 py-1 mt-3 rounded-full w-52">
                         <div className="flex gap-2">
                             <p className="text-sm font-medium">Join Grup Telegram</p>
