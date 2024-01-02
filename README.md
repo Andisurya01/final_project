@@ -48,5 +48,6 @@ or create your own account by registering.
 - [Mia Sri Susanti](https://github.com/miasrisusanti)
 - [Muhammad Aliffandy](https://github.com/MuhammadAliffandy)
 
-## API Services
+## API Services & Admin
 [Check API Services here.](https://github.com/MuhammadAliffandy/Binar-Project)
+[Check Admin Repository here.](https://github.com/Andisurya01/Final-Project-Admin)
