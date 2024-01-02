@@ -92,9 +92,9 @@ const CourseDetail = () => {
 
     return (
         <section>
-            <div className="bg-LIGHTBLUE h-[250px]">
+            <div className="bg-LIGHTBLUE h-[280px] md:h-[250px]">
                 <div className="lg:grid lg:place-content-center px-10 lg:px-0">
-                    <div className="h-[250px]">
+                    <div className="h-[280px] md:h-[250px]">
                         <div className="w-full lg:w-[1024px] pt-10">
                             <button className="flex justify-center items-center gap-4">
                                 <Icon icon="ph:arrow-left-bold" className="text-2xl" onClick={() => history.back()} />
