@@ -1,8 +1,5 @@
-# React + Vite
+# Final Project C2: CraftIQ (MOOC Website)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+https://github.com/Andisurya01/final_project/blob/0560026a105bfcdbeebddbcf30be49dbbabe3acf/src/assets/img/color_craftiq.png
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**CraftIQ is an online platform for digital tech courses**, available on web and mobile. Users can explore a diverse range of classes, including Product Management, UI/UX, Android/iOS/Web Development, and more. Whether opting for free or paid classes, users can learn step-by-step through engaging video modules.
