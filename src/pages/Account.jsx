@@ -11,6 +11,7 @@ import AllertReset from '../components/Allert/AllertReset';
 import fire from '../lib/firebaseInit'
 import setCookieValue from '../api/setCookie';
 import { getStorage, ref, uploadBytes ,getDownloadURL , } from "firebase/storage";
+import { consumeNotificationApi } from '../api/notification';
 
 const Account = () => {
     const navigate = useNavigate()
@@ -60,6 +61,36 @@ const Account = () => {
         }
     }
 
+
+    const createNotificationPassword = () => {
+        const payload = {
+            title : 'Edit Password',
+            subtitle : `Passwordnya telah dirubah`,
+            description :`Passowrd telah di update oleh user`
+        }
+
+        consumeNotificationApi.postNotification(payload).then(res => {
+            if(res.status != 'OK'){
+                return false;
+            }
+        })
+    }
+
+    const createNotificationAccount = () => {
+        const payload = {
+            title : 'Edit Akun',
+            subtitle : `Profil Akun Telah Dirubah`,
+            description :`Akun telah dirubah oleh user`
+        }
+
+        consumeNotificationApi.postNotification(payload).then(res => {
+            if(res.status != 'OK'){
+                return false;
+            }
+        })
+    }
+
+
     const updateUserProfile = async () => {
         const name = document.getElementById('field-name').value;
         const email = document.getElementById('field-email').value;
@@ -76,9 +107,10 @@ const Account = () => {
                     country: country,
                     city: city
                 }).then((res) => {
-                    setCookieValue('token',res.data.accessToken)
-                    window.location.reload()
                     if (res.status == 'OK') {
+                        createNotificationAccount()
+                        setCookieValue('token',res.data.accessToken)
+                        window.location.reload()
                         setAlertAction(true)
                         setAlertStatus(true)
                     } else {
@@ -100,6 +132,7 @@ const Account = () => {
                         city: city
                     }).then((res) => {
                         if (res.status == 'OK') {
+                            createNotificationAccount()
                             setCookieValue('token',res.data.accessToken)
                             window.location.reload()
                             setAlertAction(true)
@@ -149,6 +182,7 @@ const Account = () => {
                 newPassword: newPassAgain
             }).then((res) => {
                 if (res.status == 'OK') {
+                    createNotificationPassword()
                     setAlertAction(true)
                     setAlertStatus(true)
                 } else {
