@@ -73,6 +73,7 @@ const Account = () => {
             if(res.status != 'OK'){
                 return false;
             }
+            window.location.reload()
         })
     }
 
@@ -87,6 +88,7 @@ const Account = () => {
             if(res.status != 'OK'){
                 return false;
             }
+            window.location.reload()
         })
     }
 
@@ -108,9 +110,8 @@ const Account = () => {
                     city: city
                 }).then((res) => {
                     if (res.status == 'OK') {
-                        createNotificationAccount()
                         setCookieValue('token',res.data.accessToken)
-                        window.location.reload()
+                        createNotificationAccount()
                         setAlertAction(true)
                         setAlertStatus(true)
                     } else {
@@ -132,9 +133,8 @@ const Account = () => {
                         city: city
                     }).then((res) => {
                         if (res.status == 'OK') {
-                            createNotificationAccount()
                             setCookieValue('token',res.data.accessToken)
-                            window.location.reload()
+                            createNotificationAccount()
                             setAlertAction(true)
                             setAlertStatus(true)
                         } else {
@@ -182,6 +182,7 @@ const Account = () => {
                 newPassword: newPassAgain
             }).then((res) => {
                 if (res.status == 'OK') {
+            
                     createNotificationPassword()
                     setAlertAction(true)
                     setAlertStatus(true)
