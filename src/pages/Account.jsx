@@ -65,7 +65,7 @@ const Account = () => {
     const createNotificationPassword = () => {
         const payload = {
             title : 'Edit Password',
-            subtitle : `Passwordnya telah dirubah`,
+            subtitle : `Password telah dirubah`,
             description :`Passowrd telah di update oleh user`
         }
 
