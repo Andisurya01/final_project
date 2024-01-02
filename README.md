@@ -49,5 +49,5 @@ or create your own account by registering.
 - [Muhammad Aliffandy](https://github.com/MuhammadAliffandy)
 
 ## API Services & Admin
-[Check API Services here.](https://github.com/MuhammadAliffandy/Binar-Project)
-[Check Admin Repository here.](https://github.com/Andisurya01/Final-Project-Admin)
+- [Check API Services here.](https://github.com/MuhammadAliffandy/Binar-Project)
+- [Check Admin Repository here.](https://github.com/Andisurya01/Final-Project-Admin)
