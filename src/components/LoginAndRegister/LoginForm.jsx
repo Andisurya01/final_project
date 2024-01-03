@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { postLogin } from "../../api/servicesApi";
 import AllertReset from "../Allert/AllertReset";
+import setCookieValue from "../../api/setCookie";
 
 const LoginForm = () => {
   const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -63,6 +64,7 @@ const LoginForm = () => {
         }
       } else {
         document.cookie = `token=${data.data.data.accessToken}`;
+        setCookieValue('token',data.data.data.accessToken)
         setEmailOrPhone("");
         setPassword("");
         navigate("/");
