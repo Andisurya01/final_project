@@ -95,16 +95,13 @@ const CourseDetailUnlock = () => {
     const getModuleTrackingsByUserTrack = () => {
         if (moduleTrack.length <= 0) {
             consumeUserApi.getCurrentUser().then(user => {
-                const filteredModule = course.module.filter(data => {
-                    if (data.moduleTracking.length > 0) {
-                        return data.moduleTracking.filter(item => {
-                            if (item.userId == user.data.id) {
-                                return item
-                            }
-                        })
-
+                const filteredModule = course.module.filter(moduleData => {
+                    if (moduleData.moduleTracking && moduleData.moduleTracking.length > 0) {
+                        return moduleData.moduleTracking.some(item => item.userId === user.data.id);
                     }
-                })
+                    return false; 
+                });
+                
                 setModuleTrack(filteredModule)
             })
         } else {

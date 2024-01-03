@@ -260,18 +260,16 @@ return (
 
                                         const totalModule = data.course.module.length
                                         var moduleTrack = []
-                                        const filteredData = data.course.module.filter(data => {
-                                            if (data.moduleTracking.length > 0) {
-                                                return data.moduleTracking.filter(item => {
-                                                    if (item.userId == user.id) {
-                                                        return item;
-                                                    }
-                                                })
-
+                                        const filteredData = data.course.module.filter(moduleData => {
+                                            if (moduleData.moduleTracking.length > 0) {
+                                                return moduleData.moduleTracking.some(item => item.userId === user.id);
                                             }
-                                        })
-
+                                            return false; 
+                                        });
+                                        
+                                        
                                         moduleTrack = filteredData
+                                    
 
                                         let indicator = 0;
                                         const doneValue = 100 / totalModule;
