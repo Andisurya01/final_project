@@ -315,7 +315,7 @@ const Account = () => {
                                             </div>
                                             <div className='flex justify-center'>
                                                 <div className='bg-DARKBLUE05 w-24 h-24 rounded-full flex justify-center items-center mb-6'>
-                                                    <img  className='w-24 h-24 rounded-full border-[4px] border-DARKBLUE05 ' src={ imageProfile != '' ? imageProfile : user.image != '' ? user.image : user.image } alt='profile-photos' ></img>
+                                                    <img  className='w-24 h-24 object-cover rounded-full border-[4px] border-DARKBLUE05 ' src={ imageProfile != '' ? imageProfile : user.image != '' ? user.image : user.image } alt='profile-photos' ></img>
                                                 </div>
                                                 <div className='self-end absolute ml-[50px] mb-[20px] bg-white p-[4px] rounded-lg' >
                                                     <input id='fileInput' type="file" hidden/>
@@ -326,31 +326,31 @@ const Account = () => {
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Nama</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input  id='field-name' type="text" placeholder={user.name} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input  id='field-name' type="text" placeholder={user.name} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Email</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input id='field-email' type="email" placeholder={user.email} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input id='field-email' type="email" placeholder={user.email} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Nomor Telepon</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input type="tel" id="nomorTelepon" name="nomorTelepon" pattern="[+]\d{2}\d{9,12}" placeholder={user.phone} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input type="tel" id="nomorTelepon" name="nomorTelepon" pattern="[+]\d{2}\d{9,12}" placeholder={user.phone} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Negara</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input id='field-country' type="text" placeholder={user.country} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input id='field-country' type="text" placeholder={user.country} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Kota</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input id='field-city' type="text" placeholder={user.city} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input id='field-city' type="text" placeholder={user.city} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -360,7 +360,7 @@ const Account = () => {
                                                 </div>
                                             </button>
                                         </div>
-                                    <div className={`w-full md:w-[405px] grid place-content-center py-8 ${isSetPasswordVisible ? '' : 'hidden'}`}>
+                                    <div className={`w-full md:w-[405px] grid place-content-center lg:w-[505px] py-8 ${isSetPasswordVisible ? '' : 'hidden'}`}>
                                         <div className='flex justify-center mb-6'>
                                             <h1 className='font-bold text-2xl'>Ubah Password</h1>
                                         </div>
@@ -368,21 +368,21 @@ const Account = () => {
                                             <div className='mb-4'>
                                                 <p className='mb-2'>Masukkan Password Lama</p>
                                                 <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                    <input id='old-pass' type={showPass ? 'text' : "password"} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <input id='old-pass' type={showPass ? 'text' : "password"} className="w-full mr-2 focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     <Icon onClick={()=>{setShowPass(!showPass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
                                                 </div>
                                             </div>
                                             <div className='mb-4'>
                                                 <p className='mb-2'>Masukkan Password Baru</p>
                                                 <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                    <input id='new-pass' type={showNewPass ? 'text' : "password"} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <input id='new-pass' type={showNewPass ? 'text' : "password"} className="w-full mr-2 focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     <Icon onClick={()=>{setShowNewPass(!showNewPass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
                                                 </div>
                                             </div>
                                             <div className='mb-4'>
                                                 <p className='mb-2'>Ulangi Password Baru</p>
                                                 <div className='w-80 rounded 2-xl border border-DARKGREY p-2 flex justify-between'>
-                                                    <input id='new-pass-again'  type={showNew1Pass ? 'text' : "password"} className="focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                    <input id='new-pass-again'  type={showNew1Pass ? 'text' : "password"} className="w-full mr-2 focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     <Icon onClick={()=>{setShowNew1Pass(!showNew1Pass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
                                                 </div>
                                             </div>
@@ -393,15 +393,15 @@ const Account = () => {
                                             </div>
                                         </button>
                                     </div>
-                                    <div className={`w-full md:w-[405px] grid place-content-center py-8 ${isHistoryVisible ? '' : 'hidden'}`}>
+                                    <div className={`w-full md:w-[405px] grid place-content-center lg:w-[505px] py-8 ${isHistoryVisible ? '' : 'hidden'}`}>
                                         <div className='flex justify-center mb-6'>
                                             <h1 className='font-bold text-2xl'>Riwayat Pembayaran</h1>
                                         </div>
-                                        <div className='mb-6'>
+                                        <div className=''>
                                             {
                                                 orderHistory.map((data)=>{
                                                     return (
-                                                        <div key={data.id} className='mb-4'>
+                                                        <div key={data.id} className='mb-10'>
                                                             <CardPaid picture={data.course.image}
                                                                 course={data.course.category.title} 
                                                                 rating={data.course.rating}
