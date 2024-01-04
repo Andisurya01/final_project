@@ -48,7 +48,9 @@ const router = createBrowserRouter(
         <Route path="/user" element={<Account />} />
       </Route>
 
-      <Route path="*" element={<NotFound />} />
+      <Route element={<Navbar />}>
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Route>
   )
 );
