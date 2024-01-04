@@ -182,8 +182,8 @@ const Payment = () => {
             <div className="bg-white px-10 lg:px-20 py-10 h-full" style={{ boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.15" }}>
                 <div className="lg:grid lg:place-content-center">
                     <div className="w-full lg:w-[1024px]">
-                        <button onClick={() => navigate("/courses")} className="flex justify-center items-center gap-4">
-                            <Icon icon="ph:arrow-left-bold" className="text-xl" onClick={() => history.back()} />
+                        <button onClick={() => history.back()} className="flex justify-center items-center gap-4">
+                            <Icon icon="ph:arrow-left-bold" className="text-xl" />
                             <p className="font-bold">Kembali</p>
                         </button>
                         <div className="flex items-center justify-center">
@@ -245,7 +245,7 @@ const Payment = () => {
                                                 <p className="font-medium text-black mb-1">Card number</p>
                                                 <input onChange={(event) => {
                                                     setCardNumber(event.target.value)
-                                                }} type="text" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
+                                                }} type="text" maxlength="16" placeholder="4480 0000 0000 0000" className="focus:outline-none focus:ring-0 mb-1" />
                                                 <hr className="w-60 md:w-80 h-0.5 bg-LIGHTGREY" />
                                             </div>
                                             <div className="mb-6">
@@ -256,7 +256,7 @@ const Payment = () => {
                                             <div className="md:flex md:gap-3 mb-6">
                                                 <div className="mb-6">
                                                     <p className="font-medium text-black mb-1">CVV</p>
-                                                    <input id="cvvField" onChange={(event) => { setCvv(event.target.value) }} type="text" placeholder="000" className="focus:outline-none focus:ring-0 mb-1" />
+                                                    <input id="cvvField" maxlength="3" onChange={(event) => { setCvv(event.target.value) }} type="text" placeholder="000" className="focus:outline-none focus:ring-0 mb-1" />
                                                     <hr className="w-60 md:w-28 h-0.5 bg-LIGHTGREY" />
                                                 </div>
                                                 <div className="">
