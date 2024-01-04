@@ -87,7 +87,7 @@ const sideFilterFunction = () => {
 
     const filterList = [];
     const delFilter = sideFilterTrackRef.current.querySelector('#deleteFilter');
-    const checkList = ['uiux', 'pm', 'webdev', 'android', 'ios', 'datasc', 'network', 'ai', 'cloud', 'iot', 'gamedev', 'cyber', 'semua', 'beginner', 'intermediate', 'advanced'];
+    const checkList = ['uiux', 'pm', 'webdev', 'android', 'ios', 'datasc', 'network', 'ai', 'cloud', 'iot', 'gamedev', 'cyber', 'beginner', 'intermediate', 'advanced'];
     const fieldClass = document.getElementById('fieldClass');
     const filterButton = sideFilterTrackRef.current.querySelector(`#filterButton`);
 
