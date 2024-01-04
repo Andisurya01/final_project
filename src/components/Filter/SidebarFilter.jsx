@@ -5,11 +5,6 @@ const SidebarFilter = () => {
     return (
         <div className="bg-white rounded-xl px-6 py-8">
             <div className="mb-10">
-                <h1 className="text-2xl font-bold mb-5">Filter</h1>
-                <Checkbox title={'Paling Baru'} id={'baru'} value = {'Paling Baru'} />
-                <Checkbox title={'Paling Populer'} id={'populer'} value = {'Paling Populer'} />
-            </div>
-            <div className="mb-10">
                 <h1 className="text-2xl font-bold mb-5">Kategori</h1>
                 <Checkbox title={'UI/UX Design'} id={'uiux'} value = {'UI/UX Design'} />
                 <Checkbox title={'Product Management'} id={'pm'} value = {'Product Management'} />

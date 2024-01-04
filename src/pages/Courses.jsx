@@ -89,7 +89,7 @@ const Courses = () => {
     const sideFilterFunction = () => {
         const filterList = [];
         const delFilter = sideFilterRef.current.querySelector('#deleteFilter');
-        const checkList = ['baru', 'populer', 'uiux', 'pm', 'webdev', 'android', 'ios', 'datasc', 'network', 'ai', 'cloud', 'iot', 'gamedev', 'cyber', 'semua', 'beginner', 'intermediate', 'advanced'];
+        const checkList = ['uiux', 'pm', 'webdev', 'android', 'ios', 'datasc', 'network', 'ai', 'cloud', 'iot', 'gamedev', 'cyber', 'semua', 'beginner', 'intermediate', 'advanced'];
         const fieldClass = document.getElementById('fieldClass');
         const filterButton = sideFilterRef.current.querySelector(`#filterButton`);
 
