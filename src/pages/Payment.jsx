@@ -261,7 +261,7 @@ const Payment = () => {
                                                 </div>
                                                 <div className="">
                                                     <p className="font-medium text-black mb-1">Expired date</p>
-                                                    <input onChange={(event) => { setExpiredDate(event.target.value) }} type="text" placeholder="07/24" className="focus:outline-none focus:ring-0 mb-1" />
+                                                    <input maxlength="5" onChange={(event) => { setExpiredDate(event.target.value) }} type="text" placeholder="07/24" className="focus:outline-none focus:ring-0 mb-1" />
                                                     <hr className="w-60 md:w-28 h-0.5 bg-LIGHTGREY" />
                                                 </div>
                                             </div>
