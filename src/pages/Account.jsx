@@ -25,6 +25,11 @@ const Account = () => {
     const [showNew1Pass, setShowNew1Pass] = useState(false);
     const [imageProfile, setImageProfile] = useState('');
     const [imageUp, setImageUp] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [city, setCity] = useState('');
+    const [country, setCountry] = useState('');
 
     const [isProfileVisible, setProfileVisibility] = useState(false);
     const [isSetPasswordVisible, SetPasswordVisibility] = useState(false);
@@ -42,6 +47,11 @@ const Account = () => {
         if (user.length <= 0) {
             consumeUserApi.getCurrentUser().then((res) => {
                 setUser(res.data)
+                setName(res.data.name)
+                setEmail(res.data.email)
+                setPhone(res.data.phone)
+                setCity(res.data.city)
+                setCountry(res.data.country)
             })
         } else {
             return user;
@@ -92,6 +102,8 @@ const Account = () => {
         })
     }
 
+
+  
 
     const updateUserProfile = async () => {
         const name = document.getElementById('field-name').value;
@@ -326,31 +338,31 @@ const Account = () => {
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Nama</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input  id='field-name' type="text" placeholder={user.name} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input  id='field-name' type="text" placeholder={user.name} value={name} onChange={(event)=>{setName(event.target.value)}} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Email</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input id='field-email' type="email" placeholder={user.email} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input id='field-email' type="email" placeholder={user.email} value={email} onChange={(event)=>{setEmail(event.target.value)}} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Nomor Telepon</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input type="tel" id="nomorTelepon" name="nomorTelepon" pattern="[+]\d{2}\d{9,12}" placeholder={user.phone} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input type="tel" id="nomorTelepon" name="nomorTelepon" value={phone}  pattern="[+]\d{2}\d{9,12}" placeholder={user.phone} onChange={(event)=>{setPhone(event.target.value)}} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Negara</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input id='field-country' type="text" placeholder={user.country} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input id='field-country' type="text" placeholder={user.country}  value={country} onChange={(event)=>{setCountry(event.target.value)}} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                                 <div className='mb-4'>
                                                     <p className='mb-2'>Kota</p>
                                                     <div className='w-80 rounded 2-xl border border-DARKGREY p-2'>
-                                                        <input id='field-city' type="text" placeholder={user.city} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
+                                                        <input id='field-city' type="text" placeholder={user.city} value={city} onChange={(event)=>{setCity(event.target.value)}} className="w-full focus:outline-none focus:ring-0 text-sm bg-transparent" />
                                                     </div>
                                                 </div>
                                             </div>
