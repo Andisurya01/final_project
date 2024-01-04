@@ -293,7 +293,7 @@ const Home = () => {
             </Typography>
           </DialogHeader>
           <DialogBody className="grid place-content-center gap-4" >
-          <div className="h-[400px] w-[360px] md:w-full gap-x-0 md:gap-x-6 overflow-y-scroll flex flex-wrap justify-center items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2 scrollbar-thumb-rounded-2xl">
+          <div className="h-[400px] w-[360px] gap-x-0 md:gap-x-6 overflow-y-scroll flex flex-wrap justify-center items-center scrollbar scrollbar-thumb-gray-100 scrollbar-track-white scrollbar-w-2 scrollbar-thumb-rounded-2xl">
             {courseCategory.map((data) => {
               return (
                 <div key={data.id} className="my-[20px]">
