@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { postLogin } from "../../api/servicesApi";
 import AllertReset from "../Allert/AllertReset";
 import setCookieValue from "../../api/setCookie";
+import { Icon } from '@iconify/react';
 
 const LoginForm = () => {
   const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -15,6 +16,7 @@ const LoginForm = () => {
   const [alertStatus, setAlertStatus] = useState(false);
   const [alertAction, setAlertAction] = useState(false);
   const [alertMsg, setAlertMsg] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -107,19 +109,23 @@ const LoginForm = () => {
               Lupa Kata Sandi
             </label>
           </div>
+          <div
+          className={` ${
+            failPass
+              ? "border-2 border-WARNING "
+              : "border-2 border-neutral-200"
+          } flex border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full`}>
           <input
-            type="password"
+            type={showPass ? 'text' : "password"}
             name="password"
             placeholder="Masukkan Password"
-            className={` ${
-              failPass
-                ? "border-2 border-WARNING "
-                : "border-2 border-neutral-200"
-            } border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full`}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             data-testid="input-password"
+            className="w-full mr-2 focus:outline-none focus:ring-0 text-sm bg-transparent"
           />
+          <Icon onClick={()=>{setShowPass(!showPass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+          </div>
         </div>
         <button type="button" className="w-full" onClick={onSubmit}>
           <Button

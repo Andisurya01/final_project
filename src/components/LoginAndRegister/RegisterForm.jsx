@@ -3,6 +3,7 @@ import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SERVER_URL } from "../../lib/constants";
+import { Icon } from '@iconify/react';
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
   
   const register = async () => {
     try {
@@ -79,15 +81,18 @@ const RegisterForm = () => {
         </div>
         <div className="pb-4">
           <label className="block pb-2 text-xs">Buat Password</label>
+          <div className="flex border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full">
           <input
-            type="password"
+            type={showPass ? 'text' : "password"}
             name="password"
             placeholder="Buat Password"
-            className=" border-2 border-neutral-200 text-sm rounded-2xl px-4 py-3 w-full"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             data-testid="password"
+            className="w-full mr-2 focus:outline-none focus:ring-0 text-sm bg-transparent"
           />
+          <Icon onClick={()=>{setShowPass(!showPass)}} icon="lucide:eye" className='text-DARKGREY text-2xl'/>
+          </div>
         </div>
         <Button
           warna={"bg-DARKBLUE05"}
