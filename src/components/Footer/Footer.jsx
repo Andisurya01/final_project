@@ -14,7 +14,7 @@ const Footer = () => {
                         </div>
                         <div className=''>
                             <p className="mb-2 text-sm">The Breeze, Jl. BSD Grand Boulevard, BSD City, Kec. Cisauk, Kab. Tangerang, Banten 15345</p>
-                            <p className="mb-2 text-sm">belajar@binar.com</p>
+                            <p className="mb-2 text-sm">customerservice@craftiq.com</p>
                             <p className='text-sm'>081-233-334-808</p>
                         </div>
                         <div className=''>
