@@ -376,7 +376,7 @@ const CourseDetailUnlock = () => {
                             })}
                         </div>
                     </div>
-                    <div className="w-full lg:w-[600px]">
+                    <div className="mt-5 w-full lg:w-[600px]">
                         <div className="mt-5 lg:mt-0 mb-10">
                             <h1 className="font-bold text-2xl mb-2">Tentang Kelas</h1>
                             <div>
